@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">toulouse-0218-java-wildquizz</string>
+    <string name="app_name">Wildquizz</string>
+    <string name="login">Identifiant</string>
+    <string name="password">Mot De Passe</string>
+    <string name="identifiant">Identifiant</string>
+    <string name="mot_de_passe">Mot De Passe</string>
+    <string name="confirmer_mot_de_passe">Confirmer Mot de Passe</string>
+    <string name="checkbox">CheckBox</string>
 </resources>
