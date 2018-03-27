@@ -18,15 +18,15 @@ public class RegistrationActivity extends AppCompatActivity {
 
         final Button registerValue = findViewById(R.id.button_create);
 
-        CheckBox checkboxCGU= findViewById(R.id.check_cgu);
+        CheckBox checkboxCGU = findViewById(R.id.check_cgu);
         checkboxCGU.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                EditText userNameValue= findViewById(R.id.edit_username);
-                EditText password=findViewById(R.id.edit_password);
-                EditText passwordConfirm=findViewById(R.id.edit_pass_confirm);
+                EditText userNameValue = findViewById(R.id.edit_username);
+                EditText password = findViewById(R.id.edit_password);
+                EditText passwordConfirm = findViewById(R.id.edit_pass_confirm);
 
-                if(isChecked){
+                 if(isChecked) {
                     registerValue.setEnabled(!isChecked);
                 }
 
