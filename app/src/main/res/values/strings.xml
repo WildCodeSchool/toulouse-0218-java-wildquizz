@@ -5,5 +5,9 @@
     <string name="identifiant">Identifiant</string>
     <string name="mot_de_passe">Mot De Passe</string>
     <string name="confirmer_mot_de_passe">Confirmer Mot de Passe</string>
-    <string name="checkbox">CheckBox</string>
+    <string name="checkbox">CGU</string>
+    <string name="cr_er_un_compte">Créer un compte</string>
+    <string name="connexion">Connexion</string>
+    <string name="inscription">Inscription</string>
+
 </resources>
