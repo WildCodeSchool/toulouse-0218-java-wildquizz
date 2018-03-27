@@ -27,7 +27,7 @@ public class MenuActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Buttons and Intents :
-        Button buttonGoToJoin = findViewById(R.id.button_joinQuizz);
+        Button buttonGoToJoin = findViewById(R.id.button_join_quiz);
         buttonGoToJoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

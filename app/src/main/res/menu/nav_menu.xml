@@ -2,27 +2,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/home"
-        android:title="Accueil">
+        android:title="@string/accueil">
     </item>
 
     <item android:id="@+id/join"
-        android:title="Participer à un Quizz">
+        android:title="@string/join_quiz">
     </item>
 
     <item android:id="@+id/create"
-        android:title="Créer un Quizz">
+        android:title="@string/create_quiz">
     </item>
 
     <item android:id="@+id/profile"
-        android:title="Mon profil">
+        android:title="@string/my_profile">
     </item>
 
     <item android:id="@+id/displayquizz"
-        android:title="Afficher mes Quizz">
+        android:title="@string/display_quiz">
     </item>
 
     <item android:id="@+id/logout"
-        android:title="Se déconnecter">
+        android:title="@string/logout">
     </item>
 
 

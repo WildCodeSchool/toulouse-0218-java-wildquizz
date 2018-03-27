@@ -22,14 +22,14 @@ public class JoinQuizzActivity extends AppCompatActivity {
         //Recuperation of intent
         Intent intent = getIntent();
 
-        setTitle("Join a Quizz");
+        setTitle(getString(R.string.text_join_quiz));
 
-        Button buttonGoToQuizz  = findViewById(R.id.button_gotoQuizz);
-        buttonGoToQuizz.setOnClickListener(new View.OnClickListener() {
+        Button buttonGoToQuiz  = findViewById(R.id.button_go_quiz);
+        buttonGoToQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intentGoToQuizz = new Intent(JoinQuizzActivity.this, .class);
-                //JoinQuizzActivity.this.startActivity(intentGoToQuizz);
+                //Intent intentGoToQuiz = new Intent(JoinQuizActivity.this, .class);
+                //JoinQuizActivity.this.startActivity(intentGoToQuiz);
             }
         });
 
