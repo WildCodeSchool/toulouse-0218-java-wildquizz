@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">toulouse-0218-java-wildquizz</string>
+    <string name="name_text_join_quizz">Veuillez entrer l\'identifiant d\'un Quizz</string>
+    <string name="text_button_joinquizz">Participer à un Quizz</string>
+    <string name="text_button_createquizz">Créer un Quizz</string>
+
+    <string name="open">Open</string>
+    <string name="close">Close</string>
 </resources>
