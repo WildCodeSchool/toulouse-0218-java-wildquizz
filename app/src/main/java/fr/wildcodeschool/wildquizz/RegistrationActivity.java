@@ -26,7 +26,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 EditText password = findViewById(R.id.edit_password);
                 EditText passwordConfirm = findViewById(R.id.edit_pass_confirm);
 
-                 if(isChecked) {
+                 if (isChecked) {
                     registerValue.setEnabled(!isChecked);
                 }
 
