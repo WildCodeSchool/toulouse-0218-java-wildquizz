@@ -22,10 +22,6 @@ public class RegistrationActivity extends AppCompatActivity {
         checkboxCGU.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                EditText userNameValue = findViewById(R.id.edit_username);
-                EditText password = findViewById(R.id.edit_password);
-                EditText passwordConfirm = findViewById(R.id.edit_pass_confirm);
-
                  if (isChecked) {
                     registerValue.setEnabled(!isChecked);
                 }
