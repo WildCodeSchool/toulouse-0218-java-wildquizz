@@ -20,10 +20,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".JoinQuizzActivity">
-
-        </activity>
+        <activity android:name=".RegistrationActivity"></activity>
+        <activity android:name=".JoinQuizzActivity"></activity>
     </application>
 
 </manifest>
