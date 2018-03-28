@@ -34,7 +34,7 @@ public class RegistrationActivity extends AppCompatActivity {
         buttonCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent gotoMenu = new Intent(RegistrationActivity.this,MenuActivity.class);
+                Intent gotoMenu = new Intent(RegistrationActivity.this, MenuActivity.class);
                 RegistrationActivity.this.startActivity(gotoMenu);
             }
         });
