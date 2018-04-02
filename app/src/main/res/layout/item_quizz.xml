@@ -12,7 +12,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:hint="@string/id_quizz"
-        android:inputType="textPersonName"
+        android:inputType="number"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,9 +20,9 @@
         android:id="@+id/text_score_quizz"
         android:layout_width="43dp"
         android:layout_height="20dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="32dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="44dp"
         android:hint="@string/score"
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -32,13 +32,27 @@
     <TextView
         android:id="@+id/text_note_quizz"
         android:layout_width="wrap_content"
-        android:layout_height="22dp"
-        android:layout_marginBottom="41dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginTop="32dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="80dp"
+        android:layout_marginTop="16dp"
         android:hint="@string/note_quizz"
         android:inputType="numberDecimal"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <RatingBar
+        android:id="@+id/rating_bar"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="16dp"
+        android:numStars="5"
+        android:stepSize="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_note_quizz"
+        app:layout_constraintVertical_bias="0.32" />
 </android.support.constraint.ConstraintLayout>

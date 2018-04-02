@@ -9,11 +9,13 @@ public class DisplayQuizzModel {
     private int  idQuizz;
     private int score;
     private double note;
+    private Object ratingStar;
 
-    public DisplayQuizzModel(int idQuizz,int score, double note) {
+    public DisplayQuizzModel(int idQuizz,int score, double note, Object ratingStar ) {
         this.idQuizz = idQuizz;
         this.score = score;
         this.note = note;
+        this.ratingStar = ratingStar;
     }
 
     public int getIdQuizz() {
@@ -38,5 +40,13 @@ public class DisplayQuizzModel {
 
     public void setNote(double note) {
         this.note = note;
+    }
+
+    public void setRatingStar(Object ratingStar) {
+        this.ratingStar = ratingStar;
+    }
+
+    public Object getRatingStar() {
+        return ratingStar;
     }
 }

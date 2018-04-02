@@ -23,12 +23,18 @@ public class DisplayQuizzActivity extends AppCompatActivity {
         ListView lvDisplay = findViewById(R.id.list_quizz);
         ArrayList<DisplayQuizzModel> results = new ArrayList<>();
         try{
-            results.add(new DisplayQuizzModel(000,100,3.8));
-            results.add(new DisplayQuizzModel(001,200,5.8));
-
+            results.add(new DisplayQuizzModel(0,100,4.0, 4));
+            results.add(new DisplayQuizzModel(1,200,5.0,5));
+            results.add(new DisplayQuizzModel(3,600,2.0, 2.0));
+            results.add(new DisplayQuizzModel(4,600,2.0, 2.0));
+            results.add(new DisplayQuizzModel(5,600,2.0, 2.0));
         } catch (Exception e) {
 
         }
+
+        DisplayQuizzAdapter adapter = new DisplayQuizzAdapter(this, results);
+        lvDisplay.setAdapter(adapter);
+
 
     }
 
