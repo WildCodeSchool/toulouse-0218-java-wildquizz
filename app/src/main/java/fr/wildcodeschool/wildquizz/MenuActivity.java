@@ -36,7 +36,14 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-
+        Button GoToCreateQcm = findViewById(R.id.button_create_quiz);
+        GoToCreateQcm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent create = new Intent(MenuActivity.this,CreateQcmActivity.class);
+                MenuActivity.this.startActivity(create);
+            }
+        });
 
 
     }
@@ -47,5 +54,6 @@ public class MenuActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+
     }
 }

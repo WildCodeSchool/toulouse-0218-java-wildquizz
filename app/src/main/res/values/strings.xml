@@ -10,7 +10,7 @@
     <string name="cr_er_un_compte">Créer un compte</string>
     <string name="connexion">Connexion</string>
     <string name="inscription">Inscription</string>
-  
+
     <string name="name_text_join_quiz">Veuillez entrer l\'identifiant d\'un Quizz</string>
     <string name="text_button_join">Participer à un Quizz</string>
     <string name="text_button_create">Créer un Quizz</string>
@@ -29,5 +29,18 @@
     <string name="my_profile">Mon profil</string>
     <string name="display_quiz">Afficher mes Quizz</string>
     <string name="logout">Se déconnecter</string>
+    <string name="ex_fur2">Ex: #FUR2</string>
+    <string name="question">Question ?</string>
+    <string name="r_ponse_2">Réponse#2</string>
+    <string name="r_ponse_3">Réponse#3</string>
+    <string name="r_ponse_1">Réponse#1</string>
+    <string name="r_ponse_4">Réponse#4</string>
+    <string name="valider">Valider</string>
+    <string name="nom_du_qcm">Nom du QCM :</string>
+    <string name="cr_er_son_quizz">Créer son Quizz</string>
+    <string name="id">Identifiant :</string>
+    <string name="ex_128">Ex : #128</string>
+    <string name="ex_140">ex : #140</string>
+
 
 </resources>
