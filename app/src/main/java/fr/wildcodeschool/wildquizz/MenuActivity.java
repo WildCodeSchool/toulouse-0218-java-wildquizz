@@ -40,7 +40,7 @@ public class MenuActivity extends AppCompatActivity {
         GoToCreateQcm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent create = new Intent(MenuActivity.this,CreateQcmActivity.class);
+                Intent create = new Intent(MenuActivity.this,CreateQuizzActivity.class);
                 MenuActivity.this.startActivity(create);
             }
         });
