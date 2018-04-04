@@ -15,9 +15,9 @@ public class ProfileActivity extends AppCompatActivity implements Tab1.OnFragmen
         setContentView(R.layout.activity_profile);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tablayout);
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 1"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 2"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 3"));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.name_tab1));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.name_tab2));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.name_tab3));
         tabLayout.setTabGravity(tabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);

@@ -32,8 +32,11 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="tab1">Tab 1</string>
-    <string name="tab2">Tab 2</string>
-    <string name="tab3">Tab 3</string>
+    <string name="tab1">Mes informations</string>
+    <string name="tab2">Rechercher des amis</string>
+    <string name="tab3">Notifications</string>
+    <string name="name_tab1">Mes informations</string>
+    <string name="name_tab2">Chercher des amis</string>
+    <string name="name_tab3">Notifications</string>
 
 </resources>
