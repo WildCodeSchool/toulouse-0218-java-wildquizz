@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="fr.wildcodeschool.wildquizz.UserProfileActivity">
+
+    <ImageView
+        android:id="@+id/imageViewProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textViewLevel"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/textViewLevel"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_launcher_round" />
+
+    <EditText
+        android:id="@+id/editTextUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageViewProfile"
+        android:layout_alignEnd="@+id/textViewPts4"
+        android:layout_alignRight="@+id/textViewPts4"
+        android:layout_marginEnd="36dp"
+        android:layout_marginTop="52dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="john_doe"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="John Doe" />
+
+    <TextView
+        android:id="@+id/textViewLevel"
+        android:layout_width="82dp"
+        android:layout_height="24dp"
+        android:layout_below="@+id/editTextUser"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="48dp"
+        android:layout_toLeftOf="@+id/textViewPts2"
+        android:layout_toStartOf="@+id/textViewPts2"
+        android:text="level"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewProfile" />
+
+    <ImageView
+        android:id="@+id/imageViewMedal1"
+        android:layout_width="42dp"
+        android:layout_height="39dp"
+        android:layout_above="@+id/textViewPts2"
+        android:layout_alignEnd="@+id/textViewPts1"
+        android:layout_alignRight="@+id/textViewPts1"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@mipmap/ic_launcher_round"
+        tools:layout_editor_absoluteY="206dp" />
+
+    <ImageView
+        android:id="@+id/imageViewMedal2"
+        android:layout_width="42dp"
+        android:layout_height="39dp"
+        android:layout_below="@+id/textViewLevel"
+        android:layout_toLeftOf="@+id/editTextUser"
+        android:layout_toStartOf="@+id/editTextUser"
+        app:srcCompat="@mipmap/ic_launcher_round"
+        tools:layout_editor_absoluteX="114dp"
+        tools:layout_editor_absoluteY="206dp" />
+
+    <ImageView
+        android:id="@+id/imageViewMedal3"
+        android:layout_width="42dp"
+        android:layout_height="39dp"
+        android:layout_alignLeft="@+id/textViewPts3"
+        android:layout_alignStart="@+id/textViewPts3"
+        android:layout_alignTop="@+id/imageViewMedal2"
+        app:srcCompat="@mipmap/ic_launcher_round"
+        tools:layout_editor_absoluteX="212dp"
+        tools:layout_editor_absoluteY="206dp" />
+
+    <TextView
+        android:id="@+id/textViewPts3"
+        android:layout_width="94dp"
+        android:layout_height="23dp"
+        android:layout_above="@+id/textViewScore"
+        android:layout_alignLeft="@+id/textViewScore"
+        android:layout_alignStart="@+id/textViewScore"
+        android:text="150_pts"
+        tools:layout_editor_absoluteX="191dp"
+        tools:layout_editor_absoluteY="263dp" />
+
+    <ImageView
+        android:id="@+id/imageViewMedal4"
+        android:layout_width="42dp"
+        android:layout_height="39dp"
+        android:layout_alignTop="@+id/imageViewMedal1"
+        android:layout_marginEnd="16dp"
+        android:layout_toEndOf="@+id/textViewPts3"
+        android:layout_toRightOf="@+id/textViewPts3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@mipmap/ic_launcher_round"
+        tools:layout_editor_absoluteY="206dp" />
+
+    <TextView
+        android:id="@+id/textViewPts1"
+        android:layout_width="69dp"
+        android:layout_height="23dp"
+        android:layout_alignBaseline="@+id/textViewPts3"
+        android:layout_alignBottom="@+id/textViewPts3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="50pts"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="263dp" />
+
+    <TextView
+        android:id="@+id/textViewPts2"
+        android:layout_width="85dp"
+        android:layout_height="22dp"
+        android:layout_below="@+id/imageViewMedal3"
+        android:layout_toLeftOf="@+id/textViewPts3"
+        android:layout_toStartOf="@+id/textViewPts3"
+        android:text="100_pts"
+        tools:layout_editor_absoluteX="92dp"
+        tools:layout_editor_absoluteY="263dp" />
+
+    <TextView
+        android:id="@+id/textViewPts4"
+        android:layout_width="81dp"
+        android:layout_height="23dp"
+        android:layout_alignLeft="@+id/imageViewMedal4"
+        android:layout_alignStart="@+id/imageViewMedal4"
+        android:layout_below="@+id/textViewPts2"
+        android:text="200_pts"
+        tools:layout_editor_absoluteX="304dp"
+        tools:layout_editor_absoluteY="263dp" />
+
+    <TextView
+        android:id="@+id/textViewScore"
+        android:layout_width="wrap_content"
+        android:layout_height="19dp"
+        android:layout_below="@+id/textViewPts4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="160dp"
+        android:text="score"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="344dp" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_below="@+id/textViewScore"
+        android:layout_marginEnd="72dp"
+        android:layout_toEndOf="@+id/textViewPts1"
+        android:layout_toRightOf="@+id/textViewPts1"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="403dp" />
+
+</android.support.constraint.ConstraintLayout>
