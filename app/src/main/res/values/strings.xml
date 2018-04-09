@@ -38,5 +38,7 @@
     <string name="name_tab1">Mes informations</string>
     <string name="name_tab2">Chercher des amis</string>
     <string name="name_tab3">Notifications</string>
+    <string name="score">Score</string>
+    <string name="john_doe">john_doe</string>
 
 </resources>

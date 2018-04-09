@@ -16,19 +16,19 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         super(fm);
         this.mNoOfTabs = NumberOfTabs;
     }
-
+    public final static int TAB_INFOS = 0;
     @Override
     public Fragment getItem(int position) {
         switch (position) {
 
-            case 0 :
-                Tab1 tab1 = new Tab1();
+            case TAB_INFOS :
+                TabInfosFragment tab1 = new TabInfosFragment();
                 return tab1;
-            case 1 :
-                Tab2 tab2 = new Tab2();
+            case TAB_INFOS + 1 :
+                TabAmisFragment tab2 = new TabAmisFragment();
                 return tab2;
-            case 2 :
-                Tab3 tab3 = new Tab3();
+            case TAB_INFOS + 2 :
+                TabNotificationFragment tab3 = new TabNotificationFragment();
                 return tab3;
 
             default :
