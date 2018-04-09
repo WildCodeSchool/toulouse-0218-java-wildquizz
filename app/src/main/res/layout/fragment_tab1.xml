@@ -1,0 +1,202 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="fr.wildcodeschool.wildquizz.Tab1">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageViewProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/imageViewMedal1"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/imageViewMedal1"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/ic_launcher_round" />
+
+        <EditText
+            android:id="@+id/editTextUser"
+            android:layout_width="215dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textViewPts2"
+            android:layout_alignStart="@+id/textViewPts2"
+            android:layout_alignTop="@+id/imageViewProfile"
+            android:layout_marginEnd="32dp"
+            android:layout_marginTop="32dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="john_doe"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="John Doe" />
+
+        <TextView
+            android:id="@+id/textViewLevel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editTextUser"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="24dp"
+            android:layout_toLeftOf="@+id/textViewPts2"
+            android:layout_toStartOf="@+id/textViewPts2"
+            android:text="level"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewProfile" />
+
+        <ImageView
+            android:id="@+id/imageViewMedal1"
+            android:layout_width="42dp"
+            android:layout_height="39dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="55dp"
+            android:layout_marginTop="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewLevel"
+            app:srcCompat="@mipmap/ic_launcher_round" />
+
+        <ImageView
+            android:id="@+id/imageViewMedal2"
+            android:layout_width="42dp"
+            android:layout_height="39dp"
+            android:layout_alignTop="@+id/imageViewMedal1"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="50dp"
+            android:layout_toLeftOf="@+id/imageViewMedal3"
+            android:layout_toStartOf="@+id/imageViewMedal3"
+            app:layout_constraintStart_toEndOf="@+id/imageViewMedal1"
+            app:layout_constraintTop_toBottomOf="@+id/textViewLevel"
+            app:srcCompat="@mipmap/ic_launcher_round" />
+
+        <ImageView
+            android:id="@+id/imageViewMedal3"
+            android:layout_width="42dp"
+            android:layout_height="39dp"
+            android:layout_above="@+id/textViewPts2"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="50dp"
+            android:layout_toEndOf="@+id/textViewScore"
+            android:layout_toRightOf="@+id/textViewScore"
+            app:layout_constraintStart_toEndOf="@+id/imageViewMedal2"
+            app:layout_constraintTop_toBottomOf="@+id/textViewLevel"
+            app:srcCompat="@mipmap/ic_launcher_round" />
+
+        <TextView
+            android:id="@+id/textViewPts3"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textViewPts2"
+            android:layout_alignBottom="@+id/textViewPts2"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_toLeftOf="@+id/imageViewMedal4"
+            android:layout_toStartOf="@+id/imageViewMedal4"
+            android:gravity="center_horizontal"
+            android:text="150 pts"
+            app:layout_constraintStart_toEndOf="@+id/textViewPts2"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewMedal3" />
+
+        <ImageView
+            android:id="@+id/imageViewMedal4"
+            android:layout_width="42dp"
+            android:layout_height="39dp"
+            android:layout_alignTop="@+id/imageViewMedal3"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="50dp"
+            android:layout_toEndOf="@+id/ratingBar"
+            android:layout_toRightOf="@+id/ratingBar"
+            app:layout_constraintStart_toEndOf="@+id/imageViewMedal3"
+            app:layout_constraintTop_toBottomOf="@+id/textViewLevel"
+            app:srcCompat="@mipmap/ic_launcher_round" />
+
+        <TextView
+            android:id="@+id/textViewPts1"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textViewPts2"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="32dp"
+            android:gravity="center_horizontal"
+            android:text="50 pts"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewMedal1" />
+
+        <TextView
+            android:id="@+id/textViewPts2"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/imageViewMedal2"
+            android:layout_alignStart="@+id/imageViewMedal2"
+            android:layout_below="@+id/imageViewMedal2"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:gravity="center_horizontal"
+            android:text="100 pts"
+            app:layout_constraintStart_toEndOf="@+id/textViewPts1"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewMedal2" />
+
+        <TextView
+            android:id="@+id/textViewPts4"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textViewPts3"
+            android:layout_alignBottom="@+id/textViewPts3"
+            android:layout_alignLeft="@+id/imageViewMedal4"
+            android:layout_alignStart="@+id/imageViewMedal4"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:gravity="center_horizontal"
+            android:text="200 pts"
+            app:layout_constraintStart_toEndOf="@+id/textViewPts3"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewMedal4" />
+
+        <TextView
+            android:id="@+id/textViewScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewPts3"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="36dp"
+            android:text="Score"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPts1" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:layout_below="@+id/textViewScore"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_toEndOf="@+id/textViewPts1"
+            android:layout_toRightOf="@+id/textViewPts1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewScore"
+            app:layout_constraintVertical_bias="1.0" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

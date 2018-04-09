@@ -13,21 +13,21 @@
         android:layout_alignEnd="@+id/textViewLevel"
         android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/textViewLevel"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_launcher_round" />
 
     <EditText
         android:id="@+id/editTextUser"
-        android:layout_width="wrap_content"
+        android:layout_width="215dp"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/imageViewProfile"
         android:layout_alignEnd="@+id/textViewPts4"
         android:layout_alignRight="@+id/textViewPts4"
         android:layout_marginEnd="36dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="44dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="john_doe"
@@ -56,20 +56,23 @@
         android:layout_alignEnd="@+id/textViewPts1"
         android:layout_alignRight="@+id/textViewPts1"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@mipmap/ic_launcher_round"
-        tools:layout_editor_absoluteY="206dp" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewLevel"
+        app:srcCompat="@mipmap/ic_launcher_round" />
 
     <ImageView
         android:id="@+id/imageViewMedal2"
         android:layout_width="42dp"
         android:layout_height="39dp"
         android:layout_below="@+id/textViewLevel"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="32dp"
         android:layout_toLeftOf="@+id/editTextUser"
         android:layout_toStartOf="@+id/editTextUser"
-        app:srcCompat="@mipmap/ic_launcher_round"
-        tools:layout_editor_absoluteX="114dp"
-        tools:layout_editor_absoluteY="206dp" />
+        app:layout_constraintStart_toEndOf="@+id/imageViewMedal1"
+        app:layout_constraintTop_toBottomOf="@+id/textViewLevel"
+        app:srcCompat="@mipmap/ic_launcher_round" />
 
     <ImageView
         android:id="@+id/imageViewMedal3"
@@ -78,9 +81,11 @@
         android:layout_alignLeft="@+id/textViewPts3"
         android:layout_alignStart="@+id/textViewPts3"
         android:layout_alignTop="@+id/imageViewMedal2"
-        app:srcCompat="@mipmap/ic_launcher_round"
-        tools:layout_editor_absoluteX="212dp"
-        tools:layout_editor_absoluteY="206dp" />
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="112dp"
+        app:layout_constraintStart_toEndOf="@+id/imageViewMedal2"
+        app:layout_constraintTop_toBottomOf="@+id/editTextUser"
+        app:srcCompat="@mipmap/ic_launcher_round" />
 
     <TextView
         android:id="@+id/textViewPts3"
@@ -89,9 +94,11 @@
         android:layout_above="@+id/textViewScore"
         android:layout_alignLeft="@+id/textViewScore"
         android:layout_alignStart="@+id/textViewScore"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:text="150_pts"
-        tools:layout_editor_absoluteX="191dp"
-        tools:layout_editor_absoluteY="263dp" />
+        app:layout_constraintStart_toEndOf="@+id/textViewPts2"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewMedal3" />
 
     <ImageView
         android:id="@+id/imageViewMedal4"
@@ -99,11 +106,15 @@
         android:layout_height="39dp"
         android:layout_alignTop="@+id/imageViewMedal1"
         android:layout_marginEnd="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="108dp"
         android:layout_toEndOf="@+id/textViewPts3"
         android:layout_toRightOf="@+id/textViewPts3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@mipmap/ic_launcher_round"
-        tools:layout_editor_absoluteY="206dp" />
+        app:layout_constraintHorizontal_bias="0.796"
+        app:layout_constraintStart_toEndOf="@+id/imageViewMedal3"
+        app:layout_constraintTop_toBottomOf="@+id/editTextUser"
+        app:srcCompat="@mipmap/ic_launcher_round" />
 
     <TextView
         android:id="@+id/textViewPts1"
@@ -113,20 +124,24 @@
         android:layout_alignBottom="@+id/textViewPts3"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
         android:text="50pts"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="263dp" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewMedal1" />
 
     <TextView
         android:id="@+id/textViewPts2"
         android:layout_width="85dp"
         android:layout_height="22dp"
         android:layout_below="@+id/imageViewMedal3"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
         android:layout_toLeftOf="@+id/textViewPts3"
         android:layout_toStartOf="@+id/textViewPts3"
         android:text="100_pts"
-        tools:layout_editor_absoluteX="92dp"
-        tools:layout_editor_absoluteY="263dp" />
+        app:layout_constraintStart_toEndOf="@+id/textViewPts1"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewMedal2" />
 
     <TextView
         android:id="@+id/textViewPts4"
@@ -135,9 +150,13 @@
         android:layout_alignLeft="@+id/imageViewMedal4"
         android:layout_alignStart="@+id/imageViewMedal4"
         android:layout_below="@+id/textViewPts2"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
         android:text="200_pts"
-        tools:layout_editor_absoluteX="304dp"
-        tools:layout_editor_absoluteY="263dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewPts3"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewMedal4" />
 
     <TextView
         android:id="@+id/textViewScore"
@@ -145,20 +164,26 @@
         android:layout_height="19dp"
         android:layout_below="@+id/textViewPts4"
         android:layout_centerHorizontal="true"
-        android:layout_marginEnd="160dp"
+        android:layout_marginEnd="172dp"
+        android:layout_marginTop="40dp"
         android:text="score"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="344dp" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewPts3" />
 
     <RatingBar
         android:id="@+id/ratingBar"
         android:layout_width="wrap_content"
         android:layout_height="42dp"
         android:layout_below="@+id/textViewScore"
-        android:layout_marginEnd="72dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="56dp"
         android:layout_toEndOf="@+id/textViewPts1"
         android:layout_toRightOf="@+id/textViewPts1"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="403dp" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewScore"
+        app:layout_constraintVertical_bias="0.189" />
 
 </android.support.constraint.ConstraintLayout>
