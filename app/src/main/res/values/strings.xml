@@ -10,7 +10,7 @@
     <string name="cr_er_un_compte">Créer un compte</string>
     <string name="connexion">Connexion</string>
     <string name="inscription">Inscription</string>
-  
+
     <string name="name_text_join_quiz">Veuillez entrer l\'identifiant d\'un Quizz</string>
     <string name="text_button_join">Participer à un Quizz</string>
     <string name="text_button_create">Créer un Quizz</string>
@@ -29,5 +29,10 @@
     <string name="my_profile">Mon profil</string>
     <string name="display_quiz">Afficher mes Quizz</string>
     <string name="logout">Se déconnecter</string>
+    <string name="title_resultats">Résultats</string>
+    <string name="text_QCM_resultats">QCM</string>
+    <string name="text_reponse_resultats">Réponse</string>
+    <string name="text_reponseok_resultats">Réponse correcte :</string>
+    <string name="text_reponse2_resultats">Réponse 2</string>
 
 </resources>
