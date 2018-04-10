@@ -40,5 +40,10 @@
     <string name="name_tab3">Notifications</string>
     <string name="score">Score</string>
     <string name="john_doe">john_doe</string>
+    <string name="level">level</string>
+    <string name="nb_points_150">150 pts</string>
+    <string name="nb_points_50">50 pts</string>
+    <string name="nb_points_100">100 pts</string>
+    <string name="nb_points_200">200 pts</string>
 
 </resources>

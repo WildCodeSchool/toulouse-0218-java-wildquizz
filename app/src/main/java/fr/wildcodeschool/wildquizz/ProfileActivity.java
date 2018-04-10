@@ -6,7 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class ProfileActivity extends AppCompatActivity implements TabInfosFragment.OnFragmentInteractionListener, TabAmisFragment.OnFragmentInteractionListener, TabNotificationFragment.OnFragmentInteractionListener{
+public class ProfileActivity extends AppCompatActivity implements TabInfosFragment.OnFragmentInteractionListener, TabFriendFragment.OnFragmentInteractionListener, TabNotificationFragment.OnFragmentInteractionListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

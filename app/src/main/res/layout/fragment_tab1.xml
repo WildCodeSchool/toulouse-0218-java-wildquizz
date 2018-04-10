@@ -32,8 +32,8 @@
             android:id="@+id/et_user"
             android:layout_width="215dp"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textViewPts2"
-            android:layout_alignStart="@+id/textViewPts2"
+            android:layout_alignLeft="@+id/tv_pts2"
+            android:layout_alignStart="@+id/tv_pts2"
             android:layout_alignTop="@+id/iv_profile"
             android:layout_marginEnd="32dp"
             android:layout_marginTop="32dp"
@@ -53,7 +53,7 @@
             android:layout_marginTop="24dp"
             android:layout_toLeftOf="@+id/tv_pts2"
             android:layout_toStartOf="@+id/tv_pts2"
-            android:text="level"
+            android:text="@string/level"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_profile" />
 
@@ -100,15 +100,15 @@
             android:id="@+id/tv_pts3"
             android:layout_width="55dp"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/textViewPts2"
-            android:layout_alignBottom="@+id/textViewPts2"
+            android:layout_alignBaseline="@+id/tv_pts2"
+            android:layout_alignBottom="@+id/tv_pts2"
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
             android:layout_toLeftOf="@+id/iv_medal4"
             android:layout_toStartOf="@+id/iv_medal4"
             android:gravity="center_horizontal"
-            android:text="150 pts"
-            app:layout_constraintStart_toEndOf="@+id/textViewPts2"
+            android:text="@string/nb_points_150"
+            app:layout_constraintStart_toEndOf="@+id/tv_pts2"
             app:layout_constraintTop_toBottomOf="@+id/iv_medal3" />
 
         <ImageView
@@ -134,12 +134,12 @@
             android:layout_marginStart="48dp"
             android:layout_marginTop="32dp"
             android:gravity="center_horizontal"
-            android:text="50 pts"
+            android:text="@string/nb_points_50"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_medal1" />
 
         <TextView
-            android:id="@+id/textViewPts2"
+            android:id="@+id/tv_pts2"
             android:layout_width="55dp"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/iv_medal2"
@@ -148,7 +148,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
             android:gravity="center_horizontal"
-            android:text="100 pts"
+            android:text="@string/nb_points_100"
             app:layout_constraintStart_toEndOf="@+id/tv_pts1"
             app:layout_constraintTop_toBottomOf="@+id/iv_medal2" />
 
@@ -163,7 +163,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
             android:gravity="center_horizontal"
-            android:text="200 pts"
+            android:text="@string/nb_points_200"
             app:layout_constraintStart_toEndOf="@+id/tv_pts3"
             app:layout_constraintTop_toBottomOf="@+id/iv_medal4" />
 
@@ -181,7 +181,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_pts1" />
 
         <RatingBar
-            android:id="@+id/ratingBar"
+            android:id="@+id/rating_bar"
             android:layout_width="wrap_content"
             android:layout_height="42dp"
             android:layout_below="@+id/tv_score"

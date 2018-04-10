@@ -12,12 +12,12 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link TabAmisFragment.OnFragmentInteractionListener} interface
+ * {@link TabFriendFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link TabAmisFragment#newInstance} factory method to
+ * Use the {@link TabFriendFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TabAmisFragment extends Fragment {
+public class TabFriendFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -29,7 +29,7 @@ public class TabAmisFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public TabAmisFragment() {
+    public TabFriendFragment() {
         // Required empty public constructor
     }
 
@@ -39,11 +39,11 @@ public class TabAmisFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment TabAmisFragment.
+     * @return A new instance of fragment TabFriendFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static TabAmisFragment newInstance(String param1, String param2) {
-        TabAmisFragment fragment = new TabAmisFragment();
+    public static TabFriendFragment newInstance(String param1, String param2) {
+        TabFriendFragment fragment = new TabFriendFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
