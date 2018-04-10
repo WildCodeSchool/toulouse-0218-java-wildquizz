@@ -19,10 +19,10 @@ public class ReultatsActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             switch (view.getId()){
-                case R.id.btn:
+                case R.id.btn_start:
                     start();
                     break;
-                case R.id.btnstop:
+                case R.id.btn_stop:
                     cancel();
                     break;
             }
@@ -34,9 +34,9 @@ public class ReultatsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reultats);
-        start = (Button) findViewById(R.id.btn);
+        start = (Button) findViewById(R.id.btn_start);
         start.setOnClickListener(btnclickonlistener);
-        cancel = (Button) findViewById(R.id.btnstop);
+        cancel = (Button) findViewById(R.id.btn_stop);
         cancel.setOnClickListener(btnclickonlistener);
         time = (TextView) findViewById(R.id.count);
 
