@@ -29,6 +29,12 @@
     <string name="my_profile">Mon profil</string>
     <string name="display_quiz">Afficher mes Quizz</string>
     <string name="logout">Se déconnecter</string>
+    <string name="title_resultats">Résultats</string>
+    <string name="text_qcm_results">QCM</string>
+    <string name="text_answer_results">Réponse</string>
+    <string name="check_text">Réponse correcte :</string>
+    <string name="text_good_answer">Réponse 2</string>
+    <string name="text_score_results">Score</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
