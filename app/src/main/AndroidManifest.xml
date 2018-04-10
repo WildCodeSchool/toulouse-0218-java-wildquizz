@@ -15,7 +15,7 @@
         <activity android:name=".MenuActivity" />
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".JoinQuizzActivity" />
-        <activity android:name=".ResultatsActivity">
+        <activity android:name=".ResultsActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

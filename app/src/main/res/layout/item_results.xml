@@ -6,31 +6,31 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/text_nom_QCM"
+        android:id="@+id/text_name_QCM"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:layout_marginStart="32dp"
-        android:text="@string/text_QCM_resultats"
+        android:text="@string/text_qcm_results"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/text_reponse"
+        android:id="@+id/text_answer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:layout_marginStart="76dp"
-        android:text="@string/text_reponse_resultats"
+        android:text="@string/text_answer_results"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/text_nom_QCM"
+        app:layout_constraintStart_toEndOf="@+id/text_name_QCM"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/imgbtn_logo_validation"
+        android:id="@+id/imgbtn_validate_logo"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_marginBottom="32dp"
@@ -38,12 +38,12 @@
         android:layout_marginStart="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/text_reponse"
+        app:layout_constraintStart_toEndOf="@+id/text_answer"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_launcher" />
 
     <ImageView
-        android:id="@+id/iv_chevron"
+        android:id="@+id/iv_arrow"
         android:layout_width="31dp"
         android:layout_height="27dp"
         android:layout_marginBottom="16dp"
@@ -51,30 +51,30 @@
         android:layout_marginTop="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_reponse"
+        app:layout_constraintTop_toBottomOf="@+id/text_answer"
         app:srcCompat="@mipmap/ic_launcher" />
 
     <TextView
-        android:id="@+id/text_correction"
+        android:id="@+id/check_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="22dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="34dp"
-        android:text="@string/text_reponseok_resultats"
+        android:text="@string/check_text"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iv_chevron"
-        app:layout_constraintTop_toBottomOf="@+id/text_reponse" />
+        app:layout_constraintStart_toEndOf="@+id/iv_arrow"
+        app:layout_constraintTop_toBottomOf="@+id/text_answer" />
 
     <TextView
-        android:id="@+id/text_reponse_correcte"
+        android:id="@+id/text_good_answer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="22dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="34dp"
-        android:text="@string/text_reponse2_resultats"
+        android:text="@string/text_good_answer"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/text_correction"
-        app:layout_constraintTop_toBottomOf="@+id/text_reponse" />
+        app:layout_constraintStart_toEndOf="@+id/check_text"
+        app:layout_constraintTop_toBottomOf="@+id/text_answer" />
 </android.support.constraint.ConstraintLayout>
