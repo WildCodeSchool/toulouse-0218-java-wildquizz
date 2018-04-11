@@ -6,7 +6,7 @@ package fr.wildcodeschool.wildquizz;
 
 public class DisplayQuizzModel {
 
-    private int  idQuizz;
+    private int idQuizz;
     private int score;
     private double note;
     private Object ratingStar;
