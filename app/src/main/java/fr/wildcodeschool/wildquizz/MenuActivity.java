@@ -31,10 +31,22 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         buttonGoToJoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent join = new Intent(MenuActivity.this,JoinQuizzActivity.class);
+                Intent join = new Intent(MenuActivity.this, JoinQuizzActivity.class);
                 MenuActivity.this.startActivity(join);
             }
         });
+
+
+        Button goToCreateQcm = findViewById(R.id.button_create_quiz);
+        goToCreateQcm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent create = new Intent(MenuActivity.this, CreateQuizzActivity.class);
+                MenuActivity.this.startActivity(create);
+            }
+        });
+
+
 
         //Navigation View :
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -66,6 +78,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
             this.startActivity(logOut);
         }
         return true;
+
     }
 
     @Override
@@ -74,5 +87,6 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
             return true;
         }
         return super.onOptionsItemSelected(item);
+
     }
 }
