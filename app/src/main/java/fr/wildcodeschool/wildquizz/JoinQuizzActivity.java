@@ -58,11 +58,11 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
             Intent goToJoin = new Intent(this, JoinQuizzActivity.class);
             this.startActivity(goToJoin);
         } else if (id == R.id.create) {
-            //Intent goToCreate = new Intent(this, .class);
-            //this.startActivity(goToCreate);
+            Intent goToCreate = new Intent(this, CreateQuizzActivity.class);
+            this.startActivity(goToCreate);
         } else if (id == R.id.profile) {
-            //Intent goToProfile = new Intent(this, .class);
-            //this.startActivity(goToProfile);
+            Intent goToProfile = new Intent(this, ProfileActivity.class);
+            this.startActivity(goToProfile);
         } else if (id == R.id.displayquizz) {
             //Intent goToDisplayQuizz = new Intent(this, .class);
             //this.startActivity(goToDisplayQuizz);

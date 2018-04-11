@@ -21,7 +21,7 @@ public class ResultsActivity extends AppCompatActivity {
         ResultsAdapter resultsAdapter = new ResultsAdapter(this, resultsModelArrayList);
 
         ListView studentsListView
-                = (ListView) findViewById(R.id.list_resultats);
+                = (ListView) findViewById(R.id.list_results);
 
         studentsListView.setAdapter(resultsAdapter);
 
