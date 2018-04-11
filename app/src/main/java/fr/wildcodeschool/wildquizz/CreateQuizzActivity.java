@@ -109,8 +109,8 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
             Intent goToProfile = new Intent(this, ProfileActivity.class);
             this.startActivity(goToProfile);
         } else if (id == R.id.displayquizz) {
-            //Intent goToDisplayQuizz = new Intent(this, .class);
-            //this.startActivity(goToDisplayQuizz);
+            Intent goToDisplayQuizz = new Intent(this, DisplayQuizzActivity.class);
+            this.startActivity(goToDisplayQuizz);
         } else if (id == R.id.logout) {
             Intent logOut = new Intent(this, MainActivity.class);
             this.startActivity(logOut);
