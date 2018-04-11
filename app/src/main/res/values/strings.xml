@@ -29,6 +29,7 @@
     <string name="my_profile">Mon profil</string>
     <string name="display_quiz">Afficher mes Quizz</string>
     <string name="logout">Se déconnecter</string>
+
     <string name="start">START</string>
     <string name="stop">STOP</string>
     <string name="question">Question?</string>
@@ -36,5 +37,28 @@
     <string name="answer3">Answer3</string>
     <string name="answer2">Answer2</string>
     <string name="answer1">Answer1</string>
+
+    <string name="title_resultats">Résultats</string>
+    <string name="text_qcm_results">QCM</string>
+    <string name="text_answer_results">Réponse</string>
+    <string name="check_text">Réponse correcte :</string>
+    <string name="text_good_answer">Réponse 2</string>
+    <string name="text_score_results">Score</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tab1">Mes informations</string>
+    <string name="tab2">Rechercher des amis</string>
+    <string name="tab3">Notifications</string>
+    <string name="name_tab1">Mes informations</string>
+    <string name="name_tab2">Chercher des amis</string>
+    <string name="name_tab3">Notifications</string>
+    <string name="score">Score</string>
+    <string name="john_doe">john_doe</string>
+    <string name="level">level</string>
+    <string name="nb_points_150">150 pts</string>
+    <string name="nb_points_50">50 pts</string>
+    <string name="nb_points_100">100 pts</string>
+    <string name="nb_points_200">200 pts</string>
 
 </resources>
