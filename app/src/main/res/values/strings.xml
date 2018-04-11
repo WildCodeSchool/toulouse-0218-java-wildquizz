@@ -29,6 +29,15 @@
     <string name="my_profile">Mon profil</string>
     <string name="display_quiz">Afficher mes Quizz</string>
     <string name="logout">Se déconnecter</string>
+
+    <string name="start">START</string>
+    <string name="stop">STOP</string>
+    <string name="question">Question?</string>
+    <string name="answer4">Answer4</string>
+    <string name="answer3">Answer3</string>
+    <string name="answer2">Answer2</string>
+    <string name="answer1">Answer1</string>
+
     <string name="title_resultats">Résultats</string>
     <string name="text_qcm_results">QCM</string>
     <string name="text_answer_results">Réponse</string>
