@@ -44,7 +44,6 @@
     <string name="note_quizz">Note Quizz</string>
 
     <string name="ex_fur2">Ex: #FUR2</string>
-    <string name="question">Question ?</string>
     <string name="r_ponse_2">Réponse#2</string>
     <string name="r_ponse_3">Réponse#3</string>
     <string name="r_ponse_1">Réponse#1</string>
@@ -72,7 +71,7 @@
     <string name="name_tab2">Chercher des amis</string>
     <string name="name_tab3">Notifications</string>
     <string name="john_doe">john_doe</string>
-    <string name="level">level</string>
+    <string name="level">Niveau</string>
     <string name="nb_points_150">150 pts</string>
     <string name="nb_points_50">50 pts</string>
     <string name="nb_points_100">100 pts</string>
