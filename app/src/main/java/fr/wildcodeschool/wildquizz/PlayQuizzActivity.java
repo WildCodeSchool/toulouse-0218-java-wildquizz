@@ -47,7 +47,7 @@ public class PlayQuizzActivity extends AppCompatActivity {
         mCountDownTimer = new CountDownTimer(20 * 1000, 1000){
             @Override
             public void onTick(long millisUntilFinished) {
-                mTime.setText("" + millisUntilFinished / 1000);
+                mTime.setText(String.valueOf(millisUntilFinished / 1000));
 
 
             }
