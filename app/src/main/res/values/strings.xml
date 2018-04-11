@@ -29,6 +29,10 @@
     <string name="my_profile">Mon profil</string>
     <string name="display_quiz">Afficher mes Quizz</string>
     <string name="logout">Se déconnecter</string>
+    <string name="text_mesquizz">Mes Quizz</string>
+    <string name="id_quizz">#id Quizz</string>
+    <string name="score">Score</string>
+    <string name="note_quizz">Note Quizz</string>
 
     <string name="ex_fur2">Ex: #FUR2</string>
     <string name="question">Question ?</string>
