@@ -18,7 +18,7 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintTop_toBottomOf="@+id/et_name_qcm2" />
 
     <EditText
         android:id="@+id/edit_answer_2"
@@ -69,7 +69,7 @@
         app:layout_constraintTop_toBottomOf="@+id/edit_answer_3" />
 
     <RadioButton
-        android:id="@+id/radioB_1"
+        android:id="@+id/radiobtn_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
@@ -78,31 +78,31 @@
         app:layout_constraintTop_toBottomOf="@+id/edit_question" />
 
     <RadioButton
-        android:id="@+id/radioB_2"
+        android:id="@+id/radiobtn_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:layout_marginTop="44dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioB_1" />
+        app:layout_constraintTop_toBottomOf="@+id/radiobtn_1" />
 
     <RadioButton
-        android:id="@+id/radioB_3"
+        android:id="@+id/radiobtn_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:layout_marginTop="44dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioB_2" />
+        app:layout_constraintTop_toBottomOf="@+id/radiobtn_2" />
 
     <RadioButton
-        android:id="@+id/radioB_4"
+        android:id="@+id/radiobtn_4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:layout_marginTop="48dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioB_3" />
+        app:layout_constraintTop_toBottomOf="@+id/radiobtn_3" />
 
     <Button
         android:id="@+id/button_val"
@@ -116,7 +116,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/et_name_qcm2"
         android:layout_width="168dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -140,7 +140,7 @@
         android:hint="@string/ex_140"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editText2"
+        app:layout_constraintStart_toEndOf="@+id/et_name_qcm2"
         app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

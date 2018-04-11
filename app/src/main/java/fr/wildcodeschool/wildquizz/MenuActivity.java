@@ -31,16 +31,16 @@ public class MenuActivity extends AppCompatActivity {
         buttonGoToJoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent join = new Intent(MenuActivity.this,JoinQuizzActivity.class);
+                Intent join = new Intent(MenuActivity.this, JoinQuizzActivity.class);
                 MenuActivity.this.startActivity(join);
             }
         });
 
-        Button GoToCreateQcm = findViewById(R.id.button_create_quiz);
-        GoToCreateQcm.setOnClickListener(new View.OnClickListener() {
+        Button goToCreateQcm = findViewById(R.id.button_create_quiz);
+        goToCreateQcm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent create = new Intent(MenuActivity.this,CreateQuizzActivity.class);
+                Intent create = new Intent(MenuActivity.this, CreateQuizzActivity.class);
                 MenuActivity.this.startActivity(create);
             }
         });

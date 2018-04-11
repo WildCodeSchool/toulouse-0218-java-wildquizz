@@ -41,7 +41,7 @@ public class CreateQcmActivity extends AppCompatActivity {
 
         ContentValues qcm = new ContentValues();
 
-        qcm.put(DbContract.QcmEntry.COLUMN_NAME_QCM,name);
+        qcm.put(DbContract.QcmEntry.COLUMN_NAME_QCM, name);
         long newPersonId = db.insert(DbContract.QcmEntry.TABLE_NAME, null, qcm);
 
     }
