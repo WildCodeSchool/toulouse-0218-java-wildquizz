@@ -1,0 +1,202 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="fr.wildcodeschool.wildquizz.TabInfosFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/iv_medal1"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/iv_medal1"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/ic_launcher_round" />
+
+        <EditText
+            android:id="@+id/et_user"
+            android:layout_width="215dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_pts2"
+            android:layout_alignStart="@+id/tv_pts2"
+            android:layout_alignTop="@+id/iv_profile"
+            android:layout_marginEnd="32dp"
+            android:layout_marginTop="32dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="@string/john_doe"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="John Doe" />
+
+        <TextView
+            android:id="@+id/tv_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/et_user"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="24dp"
+            android:layout_toLeftOf="@+id/tv_pts2"
+            android:layout_toStartOf="@+id/tv_pts2"
+            android:text="@string/level"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_profile" />
+
+        <ImageView
+            android:id="@+id/iv_medal1"
+            android:layout_width="42dp"
+            android:layout_height="39dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="55dp"
+            android:layout_marginTop="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_level"
+            app:srcCompat="@mipmap/ic_launcher_round" />
+
+        <ImageView
+            android:id="@+id/iv_medal2"
+            android:layout_width="42dp"
+            android:layout_height="39dp"
+            android:layout_alignTop="@+id/iv_medal1"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="50dp"
+            android:layout_toLeftOf="@+id/iv_medal3"
+            android:layout_toStartOf="@+id/iv_medal3"
+            app:layout_constraintStart_toEndOf="@+id/iv_medal1"
+            app:layout_constraintTop_toBottomOf="@+id/tv_level"
+            app:srcCompat="@mipmap/ic_launcher_round" />
+
+        <ImageView
+            android:id="@+id/iv_medal3"
+            android:layout_width="42dp"
+            android:layout_height="39dp"
+            android:layout_above="@+id/tv_pts2"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="50dp"
+            android:layout_toEndOf="@+id/tv_score"
+            android:layout_toRightOf="@+id/tv_score"
+            app:layout_constraintStart_toEndOf="@+id/iv_medal2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_level"
+            app:srcCompat="@mipmap/ic_launcher_round" />
+
+        <TextView
+            android:id="@+id/tv_pts3"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_pts2"
+            android:layout_alignBottom="@+id/tv_pts2"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_toLeftOf="@+id/iv_medal4"
+            android:layout_toStartOf="@+id/iv_medal4"
+            android:gravity="center_horizontal"
+            android:text="@string/nb_points_150"
+            app:layout_constraintStart_toEndOf="@+id/tv_pts2"
+            app:layout_constraintTop_toBottomOf="@+id/iv_medal3" />
+
+        <ImageView
+            android:id="@+id/iv_medal4"
+            android:layout_width="42dp"
+            android:layout_height="39dp"
+            android:layout_alignTop="@+id/iv_medal3"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="50dp"
+            android:layout_toEndOf="@+id/ratingBar"
+            android:layout_toRightOf="@+id/ratingBar"
+            app:layout_constraintStart_toEndOf="@+id/iv_medal3"
+            app:layout_constraintTop_toBottomOf="@+id/tv_level"
+            app:srcCompat="@mipmap/ic_launcher_round" />
+
+        <TextView
+            android:id="@+id/tv_pts1"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tv_pts2"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="32dp"
+            android:gravity="center_horizontal"
+            android:text="@string/nb_points_50"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_medal1" />
+
+        <TextView
+            android:id="@+id/tv_pts2"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/iv_medal2"
+            android:layout_alignStart="@+id/iv_medal2"
+            android:layout_below="@+id/iv_medal2"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:gravity="center_horizontal"
+            android:text="@string/nb_points_100"
+            app:layout_constraintStart_toEndOf="@+id/tv_pts1"
+            app:layout_constraintTop_toBottomOf="@+id/iv_medal2" />
+
+        <TextView
+            android:id="@+id/tv_pts4"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_pts3"
+            android:layout_alignBottom="@+id/tv_pts3"
+            android:layout_alignLeft="@+id/iv_medal4"
+            android:layout_alignStart="@+id/iv_medal4"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:gravity="center_horizontal"
+            android:text="@string/nb_points_200"
+            app:layout_constraintStart_toEndOf="@+id/tv_pts3"
+            app:layout_constraintTop_toBottomOf="@+id/iv_medal4" />
+
+        <TextView
+            android:id="@+id/tv_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_pts3"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="36dp"
+            android:text="@string/score"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_pts1" />
+
+        <RatingBar
+            android:id="@+id/rating_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:layout_below="@+id/tv_score"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_toEndOf="@+id/tv_pts1"
+            android:layout_toRightOf="@+id/tv_pts1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_score"
+            app:layout_constraintVertical_bias="1.0" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

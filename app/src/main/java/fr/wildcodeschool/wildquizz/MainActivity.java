@@ -13,6 +13,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Button buttonConnexion = findViewById(R.id.button_connexion);
+        buttonConnexion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent gotoMenu = new Intent(MainActivity.this, MenuActivity.class);
+                MainActivity.this.startActivity(gotoMenu);
+            }
+        });
+
         Button buttonRegister = findViewById(R.id.button_registration);
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
