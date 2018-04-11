@@ -30,8 +30,8 @@ public class ResultsAdapter extends ArrayAdapter<ResultsModel> {
         }
         ResultsModel resultsModel = (ResultsModel) getItem(position);
 
-        TextView nameQcm =  convertView.findViewById(R.id.text_nom_QCM);
-        TextView answer =  convertView.findViewById(R.id.text_reponse);
+        TextView nameQcm =  convertView.findViewById(R.id.text_name_QCM);
+        TextView answer =  convertView.findViewById(R.id.text_answer);
         ImageButton logoValidate = convertView.findViewById(R.id.imgbtn_validate_logo);
         ImageView arrow = convertView.findViewById(R.id.iv_arrow);
         TextView checkText = convertView.findViewById(R.id.check_text);
