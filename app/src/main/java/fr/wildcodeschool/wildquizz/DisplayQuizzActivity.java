@@ -21,7 +21,6 @@ public class DisplayQuizzActivity extends AppCompatActivity {
             results.add(new DisplayQuizzModel(1,200,5.0,5));
             results.add(new DisplayQuizzModel(3,600,2.0, 2.0));
             results.add(new DisplayQuizzModel(4,600,2.0, 2.0));
-            results.add(new DisplayQuizzModel(5,600,2.0, 2.0));
         } catch (Exception e) {
 
         }
