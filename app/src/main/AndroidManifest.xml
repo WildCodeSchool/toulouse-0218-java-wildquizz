@@ -9,17 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-       
-       
         <activity android:name=".SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-      
         <activity android:name=".PlayQuizzActivity" />
         <activity android:name=".DisplayQuizzActivity" />
         <activity android:name=".MainActivity" />
@@ -27,10 +19,19 @@
         <activity android:name=".RegistrationActivity" />
         <activity android:name=".JoinQuizzActivity" />
         <activity android:name=".ResultsActivity" />
-        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".ProfileActivity" />
         <activity android:name=".CreateQcmActivity" />
-        <activity android:name=".CreateQuizzActivity"></activity>
+        <activity android:name=".CreateQuizzActivity" />
 
+        <activity android:name=".TestUuidActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
     </application>
 
 </manifest>
