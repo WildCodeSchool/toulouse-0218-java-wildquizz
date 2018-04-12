@@ -7,6 +7,15 @@
     tools:context="fr.wildcodeschool.wildquizz.MainActivity">
 
     <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/backwild"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="3dp" />
+
+    <ImageView
         android:id="@+id/image_first"
         android:layout_width="268dp"
         android:layout_height="266dp"
@@ -16,7 +25,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/wild_quizz_logo" />
+        app:srcCompat="@drawable/logowq12" />
 
     <EditText
         android:id="@+id/edit_login"
@@ -73,4 +82,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 </android.support.constraint.ConstraintLayout>
