@@ -7,7 +7,7 @@
     tools:context="fr.wildcodeschool.wildquizz.SplashActivity">
 
     <ImageView
-        android:id="@+id/imageView9"
+        android:id="@+id/iv_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
@@ -16,7 +16,7 @@
         tools:layout_editor_absoluteY="145dp" />
 
     <ImageView
-        android:id="@+id/imageView11"
+        android:id="@+id/iv_logo"
         android:layout_width="356dp"
         android:layout_height="411dp"
         android:layout_marginBottom="8dp"
@@ -26,7 +26,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView9"
+        app:layout_constraintTop_toTopOf="@+id/iv_background"
         app:srcCompat="@drawable/logowq12" />
 
 </android.support.constraint.ConstraintLayout>

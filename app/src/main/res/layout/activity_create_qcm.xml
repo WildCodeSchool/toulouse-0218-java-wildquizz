@@ -7,7 +7,7 @@
     tools:context="fr.wildcodeschool.wildquizz.CreateQcmActivity">
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/iv_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
