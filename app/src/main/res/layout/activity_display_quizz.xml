@@ -56,7 +56,9 @@
         android:layout_height="match_parent"
         app:menu="@menu/nav_menu"
         android:layout_gravity="start"
-        android:id="@+id/nav_view_display_quizz">
+        android:id="@+id/nav_view_display_quizz"
+        android:background="@drawable/backwild"
+        app:itemTextColor="#000">
     </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>

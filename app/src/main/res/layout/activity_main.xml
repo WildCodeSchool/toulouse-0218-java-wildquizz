@@ -75,14 +75,14 @@
 
     <Button
         android:id="@+id/button_registration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="126dp"
+        android:layout_height="46dp"
         android:layout_marginBottom="60dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:background="@android:color/transparent"
+        android:background="@drawable/papyru11"
         android:text="@string/inscription"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

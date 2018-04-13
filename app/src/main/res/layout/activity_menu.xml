@@ -39,7 +39,7 @@
             app:layout_constraintTop_toBottomOf="@+id/button_join_quiz" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/iv_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/papyru11"
@@ -56,7 +56,9 @@
         android:layout_height="match_parent"
         app:menu="@menu/nav_menu"
         android:layout_gravity="start"
-        android:id="@+id/nav_view" >
+        android:id="@+id/nav_view"
+        android:background="@drawable/backwild"
+        app:itemTextColor="#000">
     </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>

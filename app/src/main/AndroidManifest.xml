@@ -22,7 +22,7 @@
 
         </activity>
       
-        <activity android:name=".PlayQuizzActivity"/>
+        <activity android:name=".PlayQuizzActivity" android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity android:name=".DisplayQuizzActivity" />
         <activity android:name=".MainActivity"
