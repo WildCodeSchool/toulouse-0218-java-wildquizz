@@ -7,6 +7,15 @@
     android:visibility="visible"
     tools:context="fr.wildcodeschool.wildquizz.PlayQuizzActivity">
 
+    <ImageView
+        android:id="@+id/iv_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/backwild"
+        tools:layout_editor_absoluteX="96dp"
+        tools:layout_editor_absoluteY="70dp" />
+
     <Button
         android:id="@+id/btn_start"
         android:layout_width="wrap_content"
@@ -50,6 +59,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="56dp"
         android:text="@string/question"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,6 +90,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/answer4"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/radio_button1"
         app:layout_constraintHorizontal_bias="0.205"
         app:layout_constraintStart_toStartOf="parent"
@@ -101,6 +114,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/answer3"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/radio_button2"
         app:layout_constraintHorizontal_bias="0.205"
         app:layout_constraintStart_toStartOf="parent"
@@ -132,6 +147,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/answer2"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/radio_button3"
         app:layout_constraintHorizontal_bias="0.204"
         app:layout_constraintStart_toStartOf="parent"
@@ -145,6 +162,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="48dp"
         android:text="@string/answer1"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/radio_button4"
         app:layout_constraintHorizontal_bias="0.205"
         app:layout_constraintStart_toStartOf="parent"

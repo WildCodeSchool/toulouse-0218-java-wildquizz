@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context="fr.wildcodeschool.wildquizz.CreateQcmActivity">
 
+    <ImageView
+        android:id="@+id/iv_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/backwild"
+        tools:layout_editor_absoluteX="38dp"
+        tools:layout_editor_absoluteY="136dp" />
+
     <EditText
         android:id="@+id/edit_question"
         android:layout_width="362dp"
@@ -108,7 +117,7 @@
         android:id="@+id/button_val"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:background="@android:color/holo_green_light"
+        android:background="@drawable/papyru11"
         android:text="@string/valider"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -125,6 +134,7 @@
         android:gravity="center"
         android:inputType="textPersonName"
         android:text="@string/nom_du_qcm"
+        android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -20,15 +20,15 @@
 
 
         <android.support.design.widget.TabLayout
+            android:id="@+id/tablayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tablayout"
-            android:background="@color/colorPrimaryDark"
-            android:minHeight="?attr/actionBarSize"
-            app:tabTextColor="#000"
             android:alpha="0.7"
+            android:background="@android:color/holo_purple"
+            android:minHeight="?attr/actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            >
+            app:tabTextColor="#ffdf80">
+
         </android.support.design.widget.TabLayout>
 
         <android.support.v4.view.ViewPager
@@ -49,7 +49,9 @@
         android:layout_height="match_parent"
         app:menu="@menu/nav_menu"
         android:layout_gravity="start"
-        android:id="@+id/nav_view_profile">
+        android:id="@+id/nav_view_profile"
+        android:background="@drawable/backwild"
+        app:itemTextColor="#000">
     </android.support.design.widget.NavigationView>
 
 

@@ -11,6 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/iv_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/backwild"
+            tools:layout_editor_absoluteX="137dp"
+            tools:layout_editor_absoluteY="63dp" />
+
         <TextView
             android:id="@+id/text_quizz"
             android:layout_width="wrap_content"
@@ -19,6 +28,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:text="@string/cr_er_son_quizz"
+            android:textColor="@android:color/white"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,6 +42,7 @@
             android:layout_marginTop="28dp"
             android:gravity="center_horizontal|center"
             android:text="@string/id"
+            android:textColor="@android:color/white"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_quizz" />
@@ -42,8 +53,8 @@
             android:layout_height="68dp"
             android:layout_marginBottom="16dp"
             android:layout_marginEnd="16dp"
+            android:background="@drawable/papyru11"
             android:clickable="true"
-            app:backgroundTint="@color/colorPrimaryDark"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@android:drawable/ic_input_add" />
@@ -58,18 +69,19 @@
             android:gravity="center"
             android:hint="@string/ex_128"
             android:inputType="textPersonName"
+            android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_quizz" />
 
         <Button
             android:id="@+id/button_check"
-            android:layout_width="142dp"
-            android:layout_height="57dp"
+            android:layout_width="135dp"
+            android:layout_height="46dp"
             android:layout_marginBottom="16dp"
             android:layout_marginStart="16dp"
-            android:backgroundTint="@color/colorPrimary"
+            android:background="@drawable/papyru11"
             android:text="@string/valider"
-            android:textColor="@android:color/background_light"
+            android:textColor="@android:color/black"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -92,7 +104,9 @@
         android:layout_height="match_parent"
         app:menu="@menu/nav_menu"
         android:layout_gravity="start"
-        android:id="@+id/nav_view_create">
+        android:id="@+id/nav_view_create"
+        android:background="@drawable/backwild"
+        app:itemTextColor="#000">
     </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>

@@ -18,17 +18,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         final Button registerValue = findViewById(R.id.button_create);
 
-        CheckBox checkboxCGU = findViewById(R.id.check_cgu);
-        checkboxCGU.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                 if (isChecked) {
-                    registerValue.setEnabled(!isChecked);
-                }
 
-                registerValue.setEnabled(isChecked);
-            }
-        });
 
         Button buttonCreate = findViewById(R.id.button_create);
         buttonCreate.setOnClickListener(new View.OnClickListener() {

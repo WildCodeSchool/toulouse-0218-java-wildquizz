@@ -7,6 +7,15 @@
 
     <!-- TODO: Update blank fragment layout -->
 
+    <ImageView
+        android:id="@+id/iv_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/backwild"
+        tools:layout_editor_absoluteX="45dp"
+        tools:layout_editor_absoluteY="99dp" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -22,7 +31,7 @@
                 android:layout_alignLeft="@+id/iv_medal1"
                 android:layout_alignParentTop="true"
                 android:layout_alignStart="@+id/iv_medal1"
-                android:layout_marginStart="80dp"
+                android:layout_marginStart="52dp"
                 android:layout_marginTop="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -35,10 +44,12 @@
                 android:layout_alignLeft="@+id/tv_pts2"
                 android:layout_alignStart="@+id/tv_pts2"
                 android:layout_alignTop="@+id/iv_profile"
-                android:layout_marginEnd="112dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginEnd="84dp"
+                android:layout_marginTop="44dp"
                 android:inputType="textPersonName"
                 android:text="@string/john_doe"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -51,6 +62,8 @@
                 android:layout_toLeftOf="@+id/tv_pts2"
                 android:layout_toStartOf="@+id/tv_pts2"
                 android:text="@string/level"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -174,6 +187,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="32dp"
                 android:text="@string/score"
+                android:textColor="@android:color/white"
                 android:textSize="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -198,12 +212,13 @@
                 android:id="@+id/iv_change_avatar"
                 android:layout_width="23dp"
                 android:layout_height="28dp"
-                android:layout_marginEnd="28dp"
-                android:layout_marginStart="29dp"
-                android:layout_marginTop="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:src="@mipmap/ic_launcher"
-                app:layout_constraintEnd_toStartOf="@+id/iv_profile"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/iv_profile"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </android.support.constraint.ConstraintLayout>
