@@ -12,12 +12,14 @@
 
        
        
-        <activity android:name=".SplashActivity">
+        <activity android:name=".SplashActivity" android:theme="@style/AppTheme.NoActionBar">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
       
         <activity android:name=".PlayQuizzActivity"/>
@@ -26,7 +28,8 @@
         <activity android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".MenuActivity" />
-        <activity android:name=".RegistrationActivity" />
+        <activity android:name=".RegistrationActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".JoinQuizzActivity" />
         <activity android:name=".ResultsActivity" >
         </activity>
