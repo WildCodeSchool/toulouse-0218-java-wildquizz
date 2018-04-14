@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -25,21 +26,23 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_quizz);
 
-        Intent recupMenu = getIntent();
+        //récupérer les données du menu pour la génération de quizz
+        Intent recupId = getIntent();
+        TextView idGenerate = findViewById(R.id.tv_id_generate);
 
+
+
+        Intent recupMenu = getIntent();
         FloatingActionButton addQcm = findViewById(R.id.floating_add_qcm);
         addQcm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent goToCreateQcm = new Intent(CreateQuizzActivity.this, CreateQcmActivity.class);
                 CreateQuizzActivity.this.startActivity(goToCreateQcm);;
-
-
             }
         });
 
         ArrayList<QcmModel> qcmModels = loadQcmsFromDB();
-
         QcmAdapter adapter = new QcmAdapter(this, 0, qcmModels);
         ListView lvListRoom = findViewById(R.id.list_qcm);
         lvListRoom.setAdapter(adapter);
@@ -58,18 +61,12 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
 
     private ArrayList<QcmModel> loadQcmsFromDB() {
         ArrayList<QcmModel> qcmModels = new ArrayList<>();
-
-
-
         DbHelper mDbHelper = new DbHelper(CreateQuizzActivity.this);
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
-
         String[] projection = {
                 DbContract.QcmEntry._ID,
                 DbContract.QcmEntry.COLUMN_NAME_QCM,
-
         };
-
         Cursor cursor = db.query(
                 DbContract.QcmEntry.TABLE_NAME,
                 projection,
@@ -79,17 +76,13 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         while (cursor.moveToNext()) {
             long id = cursor.getLong(cursor.getColumnIndexOrThrow(DbContract.QcmEntry._ID));
             String name = cursor.getString(cursor.getColumnIndexOrThrow(DbContract.QcmEntry.COLUMN_NAME_QCM));
-
-
             QcmModel qcmModel = new QcmModel(id,name);
             qcmModels.add(qcmModel);
         }
         cursor.close();
 
         return qcmModels;
-
     }
-
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override

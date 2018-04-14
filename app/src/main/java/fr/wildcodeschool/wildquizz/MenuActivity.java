@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
+import java.util.Random;
 
 public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -37,8 +40,8 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         });
 
 
-        Button goToCreateQcm = findViewById(R.id.button_create_quiz);
-        goToCreateQcm.setOnClickListener(new View.OnClickListener() {
+        Button goToCreateQuizz = findViewById(R.id.button_create_quiz);
+        goToCreateQuizz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent create = new Intent(MenuActivity.this, CreateQuizzActivity.class);
@@ -47,11 +50,44 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         });
 
 
-
         //Navigation View :
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
+
+    //Importation de la fonctionnalité de génération de l'id
+    private String generateString1(int length) {
+        //char[] chars = "abcdefghijklmnopqrstuvwxyz123456789".toCharArray();
+        char[] char1 = "123456789".toCharArray();
+        StringBuilder stringBuilder1 = new StringBuilder();
+        Random random = new Random();
+        for(int i = 0; i < length; i++) {
+            char c = char1[random.nextInt(char1.length)];
+            stringBuilder1.append(c);
+        }
+        return stringBuilder1.toString();
+    }
+    private String generateString2(int length) {
+        char[] char2 = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        StringBuilder stringBuilder2 = new StringBuilder();
+        Random random = new Random();
+        for(int i = 0; i < length; i++) {
+            char c = char2[random.nextInt(char2.length)];
+            stringBuilder2.append(c);
+        }
+        return stringBuilder2.toString();
+    }
+    private String generateString3(int length) {
+        char[] char3 = "123456789".toCharArray();
+        StringBuilder stringBuilder3 = new StringBuilder();
+        Random random = new Random();
+        for(int i = 0; i < length; i++) {
+            char c = char3[random.nextInt(char3.length)];
+            stringBuilder3.append(c);
+        }
+        return stringBuilder3.toString();
+    }
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
