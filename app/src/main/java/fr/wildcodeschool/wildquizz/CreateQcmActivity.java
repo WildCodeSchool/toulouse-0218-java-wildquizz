@@ -44,7 +44,11 @@ public class CreateQcmActivity extends AppCompatActivity {
                 Intent goToCreateQuizz = new Intent(CreateQcmActivity.this, CreateQuizzActivity.class);
                 CreateQcmActivity.this.startActivity(goToCreateQuizz);
 
+                QcmModel qcmModel = new QcmModel(quizzId,nameQcm,question,answer1,answer2,answer3,answer4);
                 myRef = database.getReference("Quizz");
+                database = FirebaseDatabase.getInstance();
+                myRef.push().setValue(qcmModel);
+
                 myRef.child("Qcm").push().setValue(nameQcm.getText().toString());
                 myRef.child("Question").push().setValue(question.getText().toString());
                 myRef.child("Answer1").push().setValue(answer1.getText().toString());
