@@ -31,18 +31,18 @@ import java.io.IOException;
 
 public class RegistrationActivity extends AppCompatActivity {
 
-    private static final int PICK_IMAGE_RESULTS = 1;
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
 
     private ImageView mImg;
+    private EditText mUsername;
+    private EditText mPassword;
+    private EditText mConfirmPassword;
 
     private Button buttonCreate;
-    private Bitmap bitmap;
-
-    private Uri filePath;
 
     private StorageReference mStorageRef;
+    private Uri filePath;
 
 
     @Override
@@ -51,39 +51,34 @@ public class RegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registration);
 
         database = FirebaseDatabase.getInstance();
-        mStorageRef = FirebaseStorage.getInstance().getReference("images");
+        mStorageRef = FirebaseStorage.getInstance().getReference();
 
         Intent register = getIntent();
-
-
 
         mImg = findViewById(R.id.image_first);
         mImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //choisir une image :
-                afficherImage();
-                //Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                //startActivityForResult(intent, 0);
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 0);
+
             }
         });
+
+        mUsername = findViewById(R.id.edit_username);
+        mPassword= findViewById(R.id.edit_pass);
+        mConfirmPassword = findViewById(R.id.edit_pass_confirm);
 
         buttonCreate = findViewById(R.id.button_create);
         buttonCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText username = findViewById(R.id.edit_username);
-                EditText passord= findViewById(R.id.edit_pass);
-                EditText confirmPassword = findViewById(R.id.edit_pass_confirm);
-                String child = username.getText().toString();
+                String child = mUsername.getText().toString();
 
                 databaseReference = database.getReference("Users").child(child);
-                databaseReference.child("Name").setValue(username.getText().toString());
-                databaseReference.child("Password").setValue(passord.getText().toString());
-                databaseReference.child("ConfirmPassword").setValue(confirmPassword.getText().toString());
-
-                //upload l'image selectionnée :
-                uploadFile();
+                databaseReference.child("Name").setValue(mUsername.getText().toString());
+                databaseReference.child("Password").setValue(mPassword.getText().toString());
+                databaseReference.child("ConfirmPassword").setValue(mConfirmPassword.getText().toString());
 
                 Intent gotoMenu = new Intent(RegistrationActivity.this, MenuActivity.class);
                 RegistrationActivity.this.startActivity(gotoMenu);
@@ -95,56 +90,10 @@ public class RegistrationActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == PICK_IMAGE_RESULTS && resultCode == RESULT_OK) {
-            filePath = data.getData();
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                mImg.setImageBitmap(bitmap);
-                bitmap = (Bitmap) data.getExtras().get("data");
-                Glide.with(this)
-                        .load(bitmap)
-                        .apply(RequestOptions.circleCropTransform())
-                        .into(mImg);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    //choisir un fichier dans l'appareil :
-    private void afficherImage(){
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent,"Select an image"), PICK_IMAGE_RESULTS);
+        Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+        Glide.with(this).load(bitmap).apply(RequestOptions.circleCropTransform()).into(mImg);
     }
 
-    //upload l'image dans firebase :
-    private void uploadFile(){
-        if (filePath != null) {
-            StorageReference riversRef = mStorageRef.child("image_profile.jpg").child(filePath.getLastPathSegment());
-            riversRef.putFile(filePath)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            // Get a URL to the uploaded content
-                            Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                            //TODO : voir cours
-                            //databaseReference.child(name).child("image").setValue(downloadUrl.toString());
-                            Toast.makeText(RegistrationActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            Toast.makeText(RegistrationActivity.this, exception.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        } else {
-            //affiche un toast d'erreur :
-
-        }
-    }
 
 
 }
