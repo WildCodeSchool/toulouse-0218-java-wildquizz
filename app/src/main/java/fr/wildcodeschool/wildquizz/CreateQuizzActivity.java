@@ -31,9 +31,9 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         //récupérer les données du menu pour la génération de quizz
         mIdQuizz = findViewById(R.id.tv_id_generate);
         Intent recupCreationQuizz = getIntent();
-        mIdQuizz.setText(generateString1(3)+generateString2(2)+generateString3(3));
-
-
+        String key1 = "123456789";
+        String key2 = "abcdefghijklmnopqrstuvwxyz";
+        mIdQuizz.setText(String.format("%s%s%s", generateString(3, key1), generateString(2, key2), generateString(3, key1)));
 
         Intent recupMenu = getIntent();
         FloatingActionButton addQcm = findViewById(R.id.floating_add_qcm);
@@ -63,9 +63,9 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
     }
 
     //String 1 composé de 3 chiffres
-    private String generateString1(int length) {
+    private String generateString(int length, String key) {
         //char[] chars = "abcdefghijklmnopqrstuvwxyz123456789".toCharArray();
-        char[] char1 = "123456789".toCharArray();
+        char[] char1 = key.toCharArray();
         StringBuilder stringBuilder1 = new StringBuilder();
         Random random = new Random();
         for (int i = 0; i < length; i++) {
@@ -73,28 +73,6 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
             stringBuilder1.append(c);
         }
         return stringBuilder1.toString();
-    }
-    //String 2 composé de 2 lettres
-    private String generateString2(int length) {
-        char[] char2 = "abcdefghijklmnopqrstuvwxyz".toCharArray();
-        StringBuilder stringBuilder2 = new StringBuilder();
-        Random random = new Random();
-        for (int i = 0; i < length; i++) {
-            char c = char2[random.nextInt(char2.length)];
-            stringBuilder2.append(c);
-        }
-        return stringBuilder2.toString();
-    }
-    //String 3 composé de 3 chiffres
-    private String generateString3(int length) {
-        char[] char3 = "123456789".toCharArray();
-        StringBuilder stringBuilder3 = new StringBuilder();
-        Random random = new Random();
-        for (int i = 0; i < length; i++) {
-            char c = char3[random.nextInt(char3.length)];
-            stringBuilder3.append(c);
-        }
-        return stringBuilder3.toString();
     }
 
     private ArrayList<QcmModel> loadQcmsFromDB() {
