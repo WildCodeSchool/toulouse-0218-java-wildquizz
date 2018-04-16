@@ -15,7 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 public class RegistrationActivity extends AppCompatActivity {
-    private ImageView img ;
+    private ImageView mImg;
 
 
     @Override
@@ -36,8 +36,8 @@ public class RegistrationActivity extends AppCompatActivity {
                 RegistrationActivity.this.startActivity(gotoMenu);
             }
         });
-        img = findViewById(R.id.image_first);
-        img.setOnClickListener(new View.OnClickListener() {
+        mImg = findViewById(R.id.image_first);
+        mImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -54,7 +54,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
         Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-        Glide.with(this).load(bitmap).apply(RequestOptions.circleCropTransform()).into(img);
+        Glide.with(this).load(bitmap).apply(RequestOptions.circleCropTransform()).into(mImg);
     }
 
 }
