@@ -66,6 +66,4 @@ public class TestUuidActivity extends AppCompatActivity {
     }
 
 
-
-
 }

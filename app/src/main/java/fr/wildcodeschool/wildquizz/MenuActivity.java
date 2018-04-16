@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
+import java.util.Random;
 
 public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -36,17 +39,14 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-
-        Button goToCreateQcm = findViewById(R.id.button_create_quiz);
-        goToCreateQcm.setOnClickListener(new View.OnClickListener() {
+        Button goToCreateQuizz = findViewById(R.id.button_create_quiz);
+        goToCreateQuizz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent create = new Intent(MenuActivity.this, CreateQuizzActivity.class);
                 MenuActivity.this.startActivity(create);
             }
         });
-
-
 
         //Navigation View :
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);

@@ -37,9 +37,9 @@
         <TextView
             android:id="@+id/text_id"
             android:layout_width="wrap_content"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="28dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="24dp"
             android:gravity="center_horizontal|center"
             android:text="@string/id"
             android:textColor="@android:color/white"
@@ -59,15 +59,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@android:drawable/ic_input_add" />
 
-        <EditText
-            android:id="@+id/et_id_quizz"
+        <TextView
+            android:id="@+id/tv_id_generate"
             android:layout_width="168dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="28dp"
-            android:layout_marginTop="20dp"
-            android:ems="10"
+            android:layout_marginTop="28dp"
             android:gravity="center"
-            android:hint="@string/ex_128"
             android:inputType="textPersonName"
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
@@ -94,7 +92,7 @@
             app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_id_quizz" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_id_generate" />
 
     </android.support.constraint.ConstraintLayout>
 

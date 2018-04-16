@@ -12,34 +12,40 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class CreateQuizzActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
+    public TextView mIdQuizz;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_quizz);
 
-        Intent recupMenu = getIntent();
+        //récupérer les données du menu pour la génération de quizz
+        mIdQuizz = findViewById(R.id.tv_id_generate);
+        Intent recupCreationQuizz = getIntent();
+        String key1 = "123456789";
+        String key2 = "abcdefghijklmnopqrstuvwxyz";
+        mIdQuizz.setText(String.format("%s%s%s", generateString(3, key1), generateString(2, key2), generateString(3, key1)));
 
+        Intent recupMenu = getIntent();
         FloatingActionButton addQcm = findViewById(R.id.floating_add_qcm);
         addQcm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent goToCreateQcm = new Intent(CreateQuizzActivity.this, CreateQcmActivity.class);
                 CreateQuizzActivity.this.startActivity(goToCreateQcm);;
-
-
             }
         });
 
         ArrayList<QcmModel> qcmModels = loadQcmsFromDB();
-
         QcmAdapter adapter = new QcmAdapter(this, 0, qcmModels);
         ListView lvListRoom = findViewById(R.id.list_qcm);
         lvListRoom.setAdapter(adapter);
@@ -56,20 +62,27 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    //String 1 composé de 3 chiffres
+    private String generateString(int length, String key) {
+        //char[] chars = "abcdefghijklmnopqrstuvwxyz123456789".toCharArray();
+        char[] char1 = key.toCharArray();
+        StringBuilder stringBuilder1 = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < length; i++) {
+            char c = char1[random.nextInt(char1.length)];
+            stringBuilder1.append(c);
+        }
+        return stringBuilder1.toString();
+    }
+
     private ArrayList<QcmModel> loadQcmsFromDB() {
         ArrayList<QcmModel> qcmModels = new ArrayList<>();
-
-
-
         DbHelper mDbHelper = new DbHelper(CreateQuizzActivity.this);
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
-
         String[] projection = {
                 DbContract.QcmEntry._ID,
                 DbContract.QcmEntry.COLUMN_NAME_QCM,
-
         };
-
         Cursor cursor = db.query(
                 DbContract.QcmEntry.TABLE_NAME,
                 projection,
@@ -79,17 +92,13 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         while (cursor.moveToNext()) {
             long id = cursor.getLong(cursor.getColumnIndexOrThrow(DbContract.QcmEntry._ID));
             String name = cursor.getString(cursor.getColumnIndexOrThrow(DbContract.QcmEntry.COLUMN_NAME_QCM));
-
-
             QcmModel qcmModel = new QcmModel(id,name);
             qcmModels.add(qcmModel);
         }
         cursor.close();
 
         return qcmModels;
-
     }
-
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
