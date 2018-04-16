@@ -21,7 +21,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
-    public TextView idQuizz;
+    public TextView mIdQuizz;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +29,9 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         setContentView(R.layout.activity_create_quizz);
 
         //récupérer les données du menu pour la génération de quizz
-        idQuizz = findViewById(R.id.tv_id_generate);
+        mIdQuizz = findViewById(R.id.tv_id_generate);
         Intent recupCreationQuizz = getIntent();
-        idQuizz.setText(generateString1(3)+generateString2(2)+generateString3(3));
+        mIdQuizz.setText(generateString1(3)+generateString2(2)+generateString3(3));
 
 
 
@@ -68,7 +68,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         char[] char1 = "123456789".toCharArray();
         StringBuilder stringBuilder1 = new StringBuilder();
         Random random = new Random();
-        for(int i = 0; i < length; i++) {
+        for (int i = 0; i < length; i++) {
             char c = char1[random.nextInt(char1.length)];
             stringBuilder1.append(c);
         }
@@ -79,7 +79,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         char[] char2 = "abcdefghijklmnopqrstuvwxyz".toCharArray();
         StringBuilder stringBuilder2 = new StringBuilder();
         Random random = new Random();
-        for(int i = 0; i < length; i++) {
+        for (int i = 0; i < length; i++) {
             char c = char2[random.nextInt(char2.length)];
             stringBuilder2.append(c);
         }
@@ -90,7 +90,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         char[] char3 = "123456789".toCharArray();
         StringBuilder stringBuilder3 = new StringBuilder();
         Random random = new Random();
-        for(int i = 0; i < length; i++) {
+        for (int i = 0; i < length; i++) {
             char c = char3[random.nextInt(char3.length)];
             stringBuilder3.append(c);
         }
