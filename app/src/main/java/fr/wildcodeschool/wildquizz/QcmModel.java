@@ -6,12 +6,17 @@ package fr.wildcodeschool.wildquizz;
 
 public class QcmModel {
 
-    private long id;
+    private long quizzId;
     private String name;
+    private String nameQcm;
+    private String question;
+    private String answer1;
+    private String answer2;
+    private String answer3;
+    private String answer4;
 
-
-    public QcmModel(long id, String name) {
-        this.id = id;
+    public QcmModel(long quizzId, String name) {
+        this.quizzId = quizzId;
         this.name = name;
     }
 
@@ -19,12 +24,78 @@ public class QcmModel {
         this.name = name;
     }
 
-    public long getId() {
-        return id;
+    public QcmModel(){}
+
+    public QcmModel (String quizzId,String nameQcm,String question,String answer1,String answer2,String answer3,
+                     String answer4) {
+
+        this.nameQcm = nameQcm;
+        this.question = question;
+        this.answer1 = answer1;
+        this.answer2 = answer2;
+        this.answer3 = answer3;
+        this.answer4 = answer4;
     }
 
-    public void setId(long id) {
-        this.id = id;
+
+    public String getNameQcm() {
+        return nameQcm;
+    }
+
+    public void setNameQcm(String nameQcm) {
+        this.nameQcm = nameQcm;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public String getAnswer1() {
+        return answer1;
+    }
+
+    public void setAnswer1(String answer1) {
+        this.answer1 = answer1;
+    }
+
+    public String getAnswer2() {
+        return answer2;
+    }
+
+    public void setAnswer2(String answer2) {
+        this.answer2 = answer2;
+    }
+
+    public String getAnswer3() {
+        return answer3;
+    }
+
+    public void setAnswer3(String answer3) {
+        this.answer3 = answer3;
+    }
+
+    public String getAnswer4() {
+        return answer4;
+    }
+
+    public void setAnswer4(String answer4) {
+        this.answer4 = answer4;
+    }
+
+
+
+
+
+    public long getQuizzId() {
+        return quizzId;
+    }
+
+    public void setId(long quizzId) {
+        this.quizzId = quizzId;
     }
 
     public String getName() {
