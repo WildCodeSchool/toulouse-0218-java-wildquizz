@@ -13,17 +13,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 public class CreateQuizzActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
+    private DatabaseReference myRef;
+    private FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_quizz);
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("Qcm");
 
         Intent recupMenu = getIntent();
 
@@ -43,6 +50,9 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         QcmAdapter adapter = new QcmAdapter(this, 0, qcmModels);
         ListView lvListRoom = findViewById(R.id.list_qcm);
         lvListRoom.setAdapter(adapter);
+
+
+
 
         //Navigation Drawer :
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_create);
