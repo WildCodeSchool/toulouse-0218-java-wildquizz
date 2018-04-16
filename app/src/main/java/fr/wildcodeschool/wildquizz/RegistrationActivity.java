@@ -15,7 +15,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 public class RegistrationActivity extends AppCompatActivity {
+
     private ImageView mImg;
+
 
 
     @Override
@@ -36,6 +38,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 RegistrationActivity.this.startActivity(gotoMenu);
             }
         });
+
         mImg = findViewById(R.id.image_first);
         mImg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,6 +47,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 startActivityForResult(intent, 0);
 
             }
+
 
         });
     }
