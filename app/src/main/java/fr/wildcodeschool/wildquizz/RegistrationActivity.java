@@ -9,6 +9,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,11 +39,12 @@ public class RegistrationActivity extends AppCompatActivity {
     private EditText mUsername;
     private EditText mPassword;
     private EditText mConfirmPassword;
+    private EditText mEmail;
 
     private Button buttonCreate;
 
-    private StorageReference mStorageRef;
-    private Uri filePath;
+    //private StorageReference mStorageRef;
+    //private Uri filePath;
 
 
     @Override
@@ -51,7 +53,10 @@ public class RegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registration);
 
         database = FirebaseDatabase.getInstance();
-        mStorageRef = FirebaseStorage.getInstance().getReference();
+        //mStorageRef = FirebaseStorage.getInstance().getReference();
+
+        mEmail = findViewById(R.id.edit_email2);
+
 
         Intent register = getIntent();
 
@@ -61,29 +66,38 @@ public class RegistrationActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent, 0);
-
             }
         });
 
         mUsername = findViewById(R.id.edit_username);
-        mPassword= findViewById(R.id.edit_pass);
+        mPassword = findViewById(R.id.edit_pass);
         mConfirmPassword = findViewById(R.id.edit_pass_confirm);
 
         buttonCreate = findViewById(R.id.button_create);
         buttonCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String child = mUsername.getText().toString();
+                final String child = mUsername.getText().toString();
+                final String password = mPassword.getText().toString();
+                final String confirmPassword = mConfirmPassword.getText().toString();
+                final String email = mEmail.getText().toString();
+                if (email.isEmpty() || child.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+                    Toast.makeText(RegistrationActivity.this, "Veuillez renseigner les champs obligatoires", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    //DATABASE :
+                    databaseReference = database.getReference("Users").child(child);
+                    databaseReference.child("Name").setValue(mUsername.getText().toString());
+                    databaseReference.child("Password").setValue(mPassword.getText().toString());
+                    databaseReference.child("ConfirmPassword").setValue(mConfirmPassword.getText().toString());
 
-                databaseReference = database.getReference("Users").child(child);
-                databaseReference.child("Name").setValue(mUsername.getText().toString());
-                databaseReference.child("Password").setValue(mPassword.getText().toString());
-                databaseReference.child("ConfirmPassword").setValue(mConfirmPassword.getText().toString());
-
-                Intent gotoMenu = new Intent(RegistrationActivity.this, MenuActivity.class);
-                RegistrationActivity.this.startActivity(gotoMenu);
+                    Intent gotoMenu = new Intent(RegistrationActivity.this, MenuActivity.class);
+                    RegistrationActivity.this.startActivity(gotoMenu);
+                }
             }
         });
+
+
 
     }
 
