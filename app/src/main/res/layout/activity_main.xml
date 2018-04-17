@@ -36,7 +36,8 @@
         android:ems="10"
         android:gravity="center_vertical|center"
         android:hint="@string/login"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
+        android:textColor="@android:color/white"
         android:textColorHint="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
@@ -55,6 +56,7 @@
         android:gravity="center"
         android:hint="@string/password"
         android:inputType="textPersonName|textPassword"
+        android:textColor="@android:color/white"
         android:textColorHint="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,15 +66,11 @@
         android:id="@+id/button_connexion"
         android:layout_width="127dp"
         android:layout_height="46dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/papyru11"
         android:text="@string/connexion"
         android:textColor="@android:color/black"
-        app:layout_constraintBottom_toTopOf="@+id/button_registration"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_password" />
 
@@ -80,15 +78,13 @@
         android:id="@+id/button_registration"
         android:layout_width="126dp"
         android:layout_height="46dp"
-        android:layout_marginBottom="60dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/papyru11"
         android:text="@string/inscription"
         android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_password" />
 
     <Button
         android:id="@+id/btn_forget_password"
@@ -96,13 +92,14 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
         android:background="@android:color/transparent"
-        android:text="Mot de passe oulié ?"
+        android:text="@string/forgotten_password"
         android:textColor="@android:color/white"
         android:textSize="14dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_connexion" />
 
 </android.support.constraint.ConstraintLayout>

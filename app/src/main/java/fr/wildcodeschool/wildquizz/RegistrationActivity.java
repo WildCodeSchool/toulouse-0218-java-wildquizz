@@ -18,8 +18,14 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.common.hash.HashCode;
+import com.google.common.hash.Hashing;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FileDownloadTask;
@@ -29,11 +35,14 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 
 public class RegistrationActivity extends AppCompatActivity {
 
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
+
+    private FirebaseAuth mAuth;
 
     private ImageView mImg;
     private EditText mUsername;
@@ -54,6 +63,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
         //mStorageRef = FirebaseStorage.getInstance().getReference();
+
+        mAuth = FirebaseAuth.getInstance();
 
         mEmail = findViewById(R.id.edit_email2);
 
@@ -81,19 +92,36 @@ public class RegistrationActivity extends AppCompatActivity {
                 final String password = mPassword.getText().toString();
                 final String confirmPassword = mConfirmPassword.getText().toString();
                 final String email = mEmail.getText().toString();
+
+                // Hasher un mot de passe :
+                // HashCode hashCode = Hashing.sha256().hashString(password, Charset.defaultCharset());
+
                 if (email.isEmpty() || child.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
                     Toast.makeText(RegistrationActivity.this, "Veuillez renseigner les champs obligatoires", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    //DATABASE :
-                    databaseReference = database.getReference("Users").child(child);
-                    databaseReference.child("Name").setValue(mUsername.getText().toString());
-                    databaseReference.child("Password").setValue(mPassword.getText().toString());
-                    databaseReference.child("ConfirmPassword").setValue(mConfirmPassword.getText().toString());
-
-                    Intent gotoMenu = new Intent(RegistrationActivity.this, MenuActivity.class);
-                    RegistrationActivity.this.startActivity(gotoMenu);
+                    mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()){
+                                //user is successful registered and logged in
+                                //start the logout activity
+                                //DATABASE :
+                                databaseReference = database.getReference("Users").child(child);
+                                databaseReference.child("Name").setValue(mUsername.getText().toString());
+                                databaseReference.child("Password").setValue(mPassword.getText().toString());
+                                databaseReference.child("ConfirmPassword").setValue(mConfirmPassword.getText().toString());
+                                Toast.makeText(RegistrationActivity.this, "Registered succesfully", Toast.LENGTH_SHORT).show();
+                                Intent gotoMenu = new Intent(RegistrationActivity.this, MenuActivity.class);
+                                RegistrationActivity.this.startActivity(gotoMenu);
+                            }
+                            else {
+                                Toast.makeText(RegistrationActivity.this, "Could not register, please try again", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                 }
+
             }
         });
 

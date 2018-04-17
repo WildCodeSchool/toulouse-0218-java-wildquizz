@@ -13,6 +13,7 @@
         android:layout_marginTop="16dp"
         android:hint="@string/id_quizz"
         android:inputType="number"
+        android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,6 +26,7 @@
         android:layout_marginTop="44dp"
         android:hint="@string/score"
         android:inputType="number"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/id_quiz" />
@@ -37,6 +39,7 @@
         android:layout_marginTop="16dp"
         android:hint="@string/note_quizz"
         android:inputType="numberDecimal"
+        android:textColor="@android:color/white"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

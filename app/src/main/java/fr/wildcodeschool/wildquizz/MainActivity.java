@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -23,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     private EditText password;
 
     FirebaseDatabase database;
-    DatabaseReference myRef;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                     });
-
                 }
             }
         });
@@ -86,17 +85,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(authStateListener);
+
     }
-
-
-
-
-
 
 }
