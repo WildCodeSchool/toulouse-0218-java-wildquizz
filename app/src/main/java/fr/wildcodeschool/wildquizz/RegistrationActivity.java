@@ -62,7 +62,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private String child;
 
     private StorageReference mStorage;
-    private ProgressDialog mProgress;
+
     private String mCurrentPhotoPath;
     private Uri filePath;
 
@@ -78,9 +78,6 @@ public class RegistrationActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
 
         mAuth = FirebaseAuth.getInstance();
-
-        mProgress = new ProgressDialog(this);
-
 
         mEmail = findViewById(R.id.edit_email2);
 
@@ -129,6 +126,7 @@ public class RegistrationActivity extends AppCompatActivity {
                                 databaseReference.child("Name").setValue(mUsername.getText().toString());
                                 databaseReference.child("Password").setValue(mPassword.getText().toString());
                                 databaseReference.child("ConfirmPassword").setValue(mConfirmPassword.getText().toString());
+
                                 Toast.makeText(RegistrationActivity.this, "Registered succesfully", Toast.LENGTH_SHORT).show();
                                 Intent gotoMenu = new Intent(RegistrationActivity.this, MenuActivity.class);
                                 RegistrationActivity.this.startActivity(gotoMenu);
@@ -166,6 +164,7 @@ public class RegistrationActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+        mImg.setImageBitmap(bitmap);
         Glide.with(this).load(bitmap).apply(RequestOptions.circleCropTransform()).into(mImg);
 
 
@@ -202,8 +201,6 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         }
     }*/
-
-
 
 
 }
