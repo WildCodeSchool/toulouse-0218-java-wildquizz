@@ -166,7 +166,7 @@ public class RegistrationActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-        mImg.setImageBitmap(bitmap);
+        Glide.with(this).load(bitmap).apply(RequestOptions.circleCropTransform()).into(mImg);
 
 
         /*if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK  && data != null) {
