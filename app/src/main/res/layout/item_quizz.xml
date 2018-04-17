@@ -15,7 +15,8 @@
         android:inputType="number"
         android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:textColor="@android:color/black" />
 
     <TextView
         android:id="@+id/text_score_quizz"
@@ -29,7 +30,8 @@
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/id_quiz" />
+        app:layout_constraintTop_toBottomOf="@+id/id_quiz"
+        tools:textColor="@android:color/black" />
 
     <TextView
         android:id="@+id/text_note_quizz"
@@ -43,7 +45,8 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:textColor="@android:color/black" />
 
     <RatingBar
         android:id="@+id/rating_bar"
