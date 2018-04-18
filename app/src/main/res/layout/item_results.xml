@@ -12,10 +12,12 @@
         android:layout_marginBottom="32dp"
         android:layout_marginStart="32dp"
         android:text="@string/text_qcm_results"
+        android:textColor="@android:color/white"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:textColor="@android:color/black" />
 
     <TextView
         android:id="@+id/text_answer"
@@ -24,10 +26,12 @@
         android:layout_marginBottom="32dp"
         android:layout_marginStart="76dp"
         android:text="@string/text_answer_results"
+        android:textColor="@android:color/white"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/text_name_QCM"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:textColor="@android:color/black" />
 
     <ImageButton
         android:id="@+id/imgbtn_validate_logo"
@@ -62,9 +66,11 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="34dp"
         android:text="@string/check_text"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_arrow"
-        app:layout_constraintTop_toBottomOf="@+id/text_answer" />
+        app:layout_constraintTop_toBottomOf="@+id/text_answer"
+        tools:textColor="@android:color/black" />
 
     <TextView
         android:id="@+id/text_good_answer"
@@ -74,7 +80,9 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="34dp"
         android:text="@string/text_good_answer"
+        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/check_text"
-        app:layout_constraintTop_toBottomOf="@+id/text_answer" />
+        app:layout_constraintTop_toBottomOf="@+id/text_answer"
+        tools:textColor="@android:color/black" />
 </android.support.constraint.ConstraintLayout>

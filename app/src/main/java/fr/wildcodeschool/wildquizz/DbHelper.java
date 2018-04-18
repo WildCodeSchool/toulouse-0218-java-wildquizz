@@ -20,7 +20,7 @@ public class DbHelper extends SQLiteOpenHelper {
             "DROP TABLE IF EXISTS " + DbContract.QcmEntry.TABLE_NAME;
 
     public static final int DATABASE_VERSION = 2;
-    public static final String DATABASE_NAME = "database.db";
+    public static final String DATABASE_NAME = "mDatabase.db";
 
     public DbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
