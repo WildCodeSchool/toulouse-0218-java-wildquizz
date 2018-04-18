@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "372937963697",
+    "firebase_url": "https://toulouse-0218-java-wildquizz.firebaseio.com",
+    "project_id": "toulouse-0218-java-wildquizz",
+    "storage_bucket": "toulouse-0218-java-wildquizz.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:372937963697:android:0e35e0aa05a7842f",
+        "android_client_info": {
+          "package_name": "fr.wildcodeschool.wildquizz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "372937963697-e1k7ub82bu7nb2cifurdagv6i9ap5dd2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fr.wildcodeschool.wildquizz",
+            "certificate_hash": "018a7e8ab64c22382e6c351be3ef25ffeae343bf"
+          }
+        },
+        {
+          "client_id": "372937963697-56bqqid4mo1mb31j6jvpta1hctvdvrip.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fr.wildcodeschool.wildquizz",
+            "certificate_hash": "b11101447ae486a89dac01aeeceecb8714b38ca9"
+          }
+        },
+        {
+          "client_id": "372937963697-lv85m2ecsnrsctq16p978r2gohmvgriv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXofXYYgc_FCyVK1qmjsIz2PQOLuexGTo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "372937963697-lv85m2ecsnrsctq16p978r2gohmvgriv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
