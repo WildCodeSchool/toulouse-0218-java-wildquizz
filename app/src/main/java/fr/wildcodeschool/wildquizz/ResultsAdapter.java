@@ -1,6 +1,7 @@
 package fr.wildcodeschool.wildquizz;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,7 @@ public class ResultsAdapter extends ArrayAdapter<ResultsModel> {
         answer.setText(resultsModel.getAnswer());
         logoValidate.setImageResource(resultsModel.getValidateLogo());
         goodAnswer.setText(resultsModel.getGoodAnswer());
+
 
         if (resultsModel.isSuccess()){
             arrow.setVisibility(View.GONE);
