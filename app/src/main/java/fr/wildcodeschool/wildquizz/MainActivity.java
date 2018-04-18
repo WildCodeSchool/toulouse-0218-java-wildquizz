@@ -4,10 +4,8 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -15,15 +13,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText email;
-    private EditText password;
+    private EditText mEmail;
+    private EditText mPassword;
 
-    FirebaseDatabase database;
+    private FirebaseDatabase mDatabase;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
@@ -33,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        database = FirebaseDatabase.getInstance();
+        mDatabase = FirebaseDatabase.getInstance();
 
         mAuth = FirebaseAuth.getInstance();
         authStateListener = new FirebaseAuth.AuthStateListener() {
@@ -50,21 +47,21 @@ public class MainActivity extends AppCompatActivity {
         buttonConnexion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                email = findViewById(R.id.edit_email);
-                password = findViewById(R.id.edit_password);
+                mEmail = findViewById(R.id.edit_email);
+                mPassword = findViewById(R.id.edit_password);
 
-                String emailText = email.getText().toString();
-                String passwordText = password.getText().toString();
+                String emailText = mEmail.getText().toString();
+                String passwordText = mPassword.getText().toString();
 
                 if (emailText.isEmpty() || passwordText.isEmpty()) {
-                    Toast.makeText(MainActivity.this, "Veuillez entrer votre email et votre passe", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, R.string.enter_email_and_password, Toast.LENGTH_SHORT).show();
                 }
                 else {
                     mAuth.signInWithEmailAndPassword(emailText,passwordText).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (!task.isSuccessful()){
-                                Toast.makeText(MainActivity.this, "Incorrect email or password", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, R.string.incorrect_email_and_password, Toast.LENGTH_SHORT).show();
                             }
                             else {
                                 Intent gotoMenu = new Intent(MainActivity.this, MenuActivity.class);

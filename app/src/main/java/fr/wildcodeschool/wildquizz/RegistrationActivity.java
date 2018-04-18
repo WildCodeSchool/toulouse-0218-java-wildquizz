@@ -19,13 +19,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 public class RegistrationActivity extends AppCompatActivity {
 
-    private FirebaseDatabase database;
-    private DatabaseReference databaseReference;
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference mDatabaseReference;
 
     private FirebaseAuth mAuth;
 
@@ -41,7 +39,7 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        database = FirebaseDatabase.getInstance();
+        mDatabase = FirebaseDatabase.getInstance();
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -92,10 +90,10 @@ public class RegistrationActivity extends AppCompatActivity {
                                     //user is successful registered and logged in
 
                                     //DATABASE :
-                                    databaseReference = database.getReference("Users").child(child);
-                                    databaseReference.child("Name").setValue(mUsername.getText().toString());
-                                    databaseReference.child("Password").setValue(mPassword.getText().toString());
-                                    databaseReference.child("ConfirmPassword").setValue(mConfirmPassword.getText().toString());
+                                    mDatabaseReference = mDatabase.getReference("Users").child(child);
+                                    mDatabaseReference.child("Name").setValue(mUsername.getText().toString());
+                                    mDatabaseReference.child("Password").setValue(mPassword.getText().toString());
+                                    mDatabaseReference.child("ConfirmPassword").setValue(mConfirmPassword.getText().toString());
 
                                     Toast.makeText(RegistrationActivity.this, "Registered succesfully", Toast.LENGTH_SHORT).show();
                                     Intent gotoMenu = new Intent(RegistrationActivity.this, MenuActivity.class);
