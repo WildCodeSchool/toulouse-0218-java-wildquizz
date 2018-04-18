@@ -76,11 +76,11 @@ public class RegistrationActivity extends AppCompatActivity {
                 // HashCode hashCode = Hashing.sha256().hashString(password, Charset.defaultCharset());
 
                 if (email.matches("") || child.matches("") || password.matches("") || confirmPassword.matches("")) {
-                    Toast.makeText(RegistrationActivity.this, "Veuillez renseigner les champs obligatoires", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistrationActivity.this, R.string.fields_required, Toast.LENGTH_SHORT).show();
                 }
                 else {
                     if (!password.equals(confirmPassword)){
-                        Toast.makeText(RegistrationActivity.this, "Vous n'avez pas rennseigné le même mot de passe", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegistrationActivity.this, R.string.password_differents, Toast.LENGTH_SHORT).show();
                     }
                     else {
                         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
@@ -92,14 +92,14 @@ public class RegistrationActivity extends AppCompatActivity {
                                     //DATABASE :
                                     mDatabaseReference = mDatabase.getReference("Users").child(child);
                                     mDatabaseReference.child("Name").setValue(mUsername.getText().toString());
-                                    mDatabaseReference.child("Password").setValue(mPassword.getText().toString());
-                                    mDatabaseReference.child("ConfirmPassword").setValue(mConfirmPassword.getText().toString());
+                                    //mDatabaseReference.child("Password").setValue(mPassword.getText().toString());
+                                    //mDatabaseReference.child("ConfirmPassword").setValue(mConfirmPassword.getText().toString());
 
-                                    Toast.makeText(RegistrationActivity.this, "Registered succesfully", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(RegistrationActivity.this, R.string.registration_success, Toast.LENGTH_SHORT).show();
                                     Intent gotoMenu = new Intent(RegistrationActivity.this, MenuActivity.class);
                                     RegistrationActivity.this.startActivity(gotoMenu);
                                 } else {
-                                    Toast.makeText(RegistrationActivity.this, "Could not register, please try again", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(RegistrationActivity.this, R.string.registration_impossible, Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });

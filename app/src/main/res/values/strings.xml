@@ -81,5 +81,9 @@
     <string name="forgotten_password">Mot de passe oulié ?</string>
     <string name="enter_email_and_password">Veuillez entrer votre email et votre passe</string>
     <string name="incorrect_email_and_password">Email et/ou mot de passe incorrects</string>
+    <string name="registration_success">Insciption réussite</string>
+    <string name="registration_impossible">Impossible de s\'inscrire, veuillez réessayer ultérieurement</string>
+    <string name="fields_required">Veuillez renseigner les champs obligatoires</string>
+    <string name="password_differents">Vous n\'avez pas renseigné le même mot de passe</string>
 
 </resources>
