@@ -34,9 +34,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private EditText mPassword;
     private EditText mConfirmPassword;
     private EditText mEmail;
-
     private Button mButtonCreate;
-    private String child;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +45,9 @@ public class RegistrationActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        mEmail = findViewById(R.id.edit_email2);
-
         Intent register = getIntent();
 
-
+        //CLICK SUR L'IMAGE :
         mImg = findViewById(R.id.image_first);
         mImg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,44 +60,52 @@ public class RegistrationActivity extends AppCompatActivity {
         mUsername = findViewById(R.id.edit_username);
         mPassword = findViewById(R.id.edit_pass);
         mConfirmPassword = findViewById(R.id.edit_pass_confirm);
+        mEmail = findViewById(R.id.edit_email2);
 
+
+        //CLICK SUR LE BOUTON CREER SON COMPTE :
         mButtonCreate = findViewById(R.id.button_create);
         mButtonCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                child = mUsername.getText().toString();
-                final String password = mPassword.getText().toString();
-                final String confirmPassword = mConfirmPassword.getText().toString();
-                final String email = mEmail.getText().toString();
+                final String child = mUsername.getText().toString();
+                String password = mPassword.getText().toString();
+                String confirmPassword = mConfirmPassword.getText().toString();
+                String email = mEmail.getText().toString();
+
 
                 // Hasher un mot de passe :
                 // HashCode hashCode = Hashing.sha256().hashString(password, Charset.defaultCharset());
 
-                if (email.isEmpty() || child.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+                if (email.matches("") || child.matches("") || password.matches("") || confirmPassword.matches("")) {
                     Toast.makeText(RegistrationActivity.this, "Veuillez renseigner les champs obligatoires", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()){
-                                //user is successful registered and logged in
+                    if (!password.equals(confirmPassword)){
+                        Toast.makeText(RegistrationActivity.this, "Vous n'avez pas rennseigné le même mot de passe", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    //user is successful registered and logged in
 
-                                //DATABASE :
-                                databaseReference = database.getReference("Users").child(child);
-                                databaseReference.child("Name").setValue(mUsername.getText().toString());
-                                databaseReference.child("Password").setValue(mPassword.getText().toString());
-                                databaseReference.child("ConfirmPassword").setValue(mConfirmPassword.getText().toString());
+                                    //DATABASE :
+                                    databaseReference = database.getReference("Users").child(child);
+                                    databaseReference.child("Name").setValue(mUsername.getText().toString());
+                                    databaseReference.child("Password").setValue(mPassword.getText().toString());
+                                    databaseReference.child("ConfirmPassword").setValue(mConfirmPassword.getText().toString());
 
-                                Toast.makeText(RegistrationActivity.this, "Registered succesfully", Toast.LENGTH_SHORT).show();
-                                Intent gotoMenu = new Intent(RegistrationActivity.this, MenuActivity.class);
-                                RegistrationActivity.this.startActivity(gotoMenu);
+                                    Toast.makeText(RegistrationActivity.this, "Registered succesfully", Toast.LENGTH_SHORT).show();
+                                    Intent gotoMenu = new Intent(RegistrationActivity.this, MenuActivity.class);
+                                    RegistrationActivity.this.startActivity(gotoMenu);
+                                } else {
+                                    Toast.makeText(RegistrationActivity.this, "Could not register, please try again", Toast.LENGTH_SHORT).show();
+                                }
                             }
-                            else {
-                                Toast.makeText(RegistrationActivity.this, "Could not register, please try again", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+                        });
+                    }
                 }
             }
         });
