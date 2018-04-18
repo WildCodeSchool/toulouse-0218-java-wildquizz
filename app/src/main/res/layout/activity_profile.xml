@@ -16,7 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
 
-            android:src="@drawable/background1_informations"/>
+            android:scaleType="fitXY"
+            android:src="@drawable/walp_profile_header2" />
 
 
         <android.support.design.widget.TabLayout
@@ -24,10 +25,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:alpha="0.7"
-            android:background="@android:color/holo_purple"
+            android:background="#ffdbfa"
             android:minHeight="?attr/actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:tabTextColor="#ffdf80">
+            app:tabSelectedTextColor="@color/colorAccent"
+            app:tabTextColor="#000">
 
         </android.support.design.widget.TabLayout>
 
