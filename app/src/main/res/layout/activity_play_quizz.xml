@@ -13,18 +13,8 @@
         android:layout_height="match_parent"
         android:scaleType="fitXY"
         app:srcCompat="@drawable/backwild"
-        tools:layout_editor_absoluteX="96dp"
-        tools:layout_editor_absoluteY="70dp" />
-
-    <Button
-        android:id="@+id/btn_start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/start"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteX="63dp"
+        tools:layout_editor_absoluteY="0dp" />
 
     <Button
         android:id="@+id/btn_stop"
@@ -33,7 +23,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/stop"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,13 +32,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="85dp"
-        android:layout_marginStart="85dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="56dp"
         android:fontFamily="sans-serif-black"
         android:textSize="35sp"
         app:layout_constraintEnd_toStartOf="@+id/btn_stop"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toEndOf="@+id/btn_start"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -70,17 +59,15 @@
     <ProgressBar
         android:id="@+id/circ_progress"
         style="?android:attr/progressBarStyle"
-        android:layout_width="470dp"
+        android:layout_width="229dp"
         android:layout_height="154dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="85dp"
-        android:layout_marginStart="85dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="24dp"
         app:layout_constraintBottom_toTopOf="@+id/tv_question"
         app:layout_constraintEnd_toStartOf="@+id/btn_stop"
-        app:layout_constraintStart_toEndOf="@+id/btn_start"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.941"
+        app:layout_constraintHorizontal_bias="0.303"
+        app:layout_constraintStart_toStartOf="parent"
         tools:visibility="visible" />
 
     <TextView
@@ -208,5 +195,14 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_answer2"
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/logo_check1" />
+
+    <Button
+        android:id="@+id/btn_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/btn_stop"
+        tools:layout_editor_absoluteX="302dp" />
 
 </android.support.constraint.ConstraintLayout>

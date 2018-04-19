@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.VideoView;
 
+
 public class SplashActivity extends AppCompatActivity {
 
     private VideoView videoView;
@@ -34,8 +35,7 @@ startActivity(new Intent(SplashActivity.this, MainActivity.class));
         });
 videoView.start();
 
+
     }
-
-
 
 }
