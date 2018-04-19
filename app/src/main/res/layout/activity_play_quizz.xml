@@ -196,7 +196,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Button"
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/btn_stop"
         tools:layout_editor_absoluteX="302dp" />

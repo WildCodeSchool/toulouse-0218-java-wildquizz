@@ -16,7 +16,7 @@ public class SplashSecondActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_second_actiity);
+        setContentView(R.layout.activity_splash_second_activity);
         mZoom = (ImageView) findViewById(R.id.img_content);
         Animation zoomAnimation = AnimationUtils.loadAnimation(SplashSecondActivity.this, R.anim.zooming);
         mZoom.startAnimation(zoomAnimation);
