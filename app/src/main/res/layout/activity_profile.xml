@@ -12,22 +12,45 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-            android:src="@drawable/background1_informations"/>
+            <ImageView
+                android:id="@+id/header_profile"
+                android:layout_width="match_parent"
+
+                android:layout_height="100dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/walp_profile_header2" />
+
+            <ImageView
+                android:id="@+id/icon_change_tab"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_marginBottom="24dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:adjustViewBounds="false"
+                android:cropToPadding="true"
+                android:scaleType="fitXY"
+                app:layout_constraintBottom_toBottomOf="@+id/header_profile"
+                app:layout_constraintEnd_toEndOf="@+id/header_profile"
+                app:layout_constraintStart_toStartOf="@+id/header_profile"
+                app:srcCompat="@drawable/logo_info" />
+        </android.support.constraint.ConstraintLayout>
 
 
         <android.support.design.widget.TabLayout
-            android:id="@+id/tablayout"
+            android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:alpha="0.7"
-            android:background="@android:color/holo_purple"
+            android:background="#ffc2fc"
             android:minHeight="?attr/actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:tabTextColor="#ffdf80">
+            app:tabSelectedTextColor="@color/colorAccent"
+            app:tabTextColor="#000">
 
         </android.support.design.widget.TabLayout>
 

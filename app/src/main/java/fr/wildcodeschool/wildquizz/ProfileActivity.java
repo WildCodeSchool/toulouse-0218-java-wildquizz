@@ -11,17 +11,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class ProfileActivity extends AppCompatActivity implements TabInfosFragment.OnFragmentInteractionListener, TabFriendFragment.OnFragmentInteractionListener, TabNotificationFragment.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener{
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
+
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tablayout);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.name_tab1));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.name_tab2));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.name_tab3));
@@ -36,7 +40,6 @@ public class ProfileActivity extends AppCompatActivity implements TabInfosFragme
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
-
             }
 
             @Override
@@ -88,8 +91,10 @@ public class ProfileActivity extends AppCompatActivity implements TabInfosFragme
             Intent goToDisplayQuizz = new Intent(this, DisplayQuizzActivity.class);
             this.startActivity(goToDisplayQuizz);
         } else if (id == R.id.logout) {
-            Intent logOut = new Intent(this, MainActivity.class);
-            this.startActivity(logOut);
+            //Déconnexion
+            mAuth = FirebaseAuth.getInstance();
+            mAuth.signOut();
+            startActivity(new Intent(this, MainActivity.class));
         }
         return true;
     }

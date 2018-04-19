@@ -78,7 +78,7 @@
     <string name="nb_points_200">200 pts</string>
     <string name="quizz">Quizz  #%d</string>
     <string name="stay_connected">Rester connecté</string>
-    <string name="forgotten_password">Mot de passe oulié ?</string>
+    <string name="forgotten_password">Mot de passe oublié ?</string>
     <string name="enter_email_and_password">Veuillez entrer votre email et votre passe</string>
     <string name="incorrect_email_and_password">Email et/ou mot de passe incorrects</string>
     <string name="registration_success">Insciption réussite</string>
