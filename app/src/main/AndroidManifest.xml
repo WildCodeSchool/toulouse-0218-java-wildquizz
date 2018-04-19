@@ -37,7 +37,9 @@
 
         <activity android:name=".ResultsActivity" >
         </activity>
-        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".ProfileActivity">
+
+        </activity>
         <activity android:name=".CreateQcmActivity" />
         <activity android:name=".CreateQuizzActivity" />
 
