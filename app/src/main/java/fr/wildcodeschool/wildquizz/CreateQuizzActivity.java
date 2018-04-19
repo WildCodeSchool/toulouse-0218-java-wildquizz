@@ -61,13 +61,20 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         ListView lvListRoom = findViewById(R.id.list_qcm);
         lvListRoom.setAdapter(adapter);
 
+        lvListRoom.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                QcmModel qcmModel = qcmModels.get(i);
+                showUpdateDialog(qcmModel.getNameQcm(),qcmModel.getQuestion(),qcmModel.getAnswer1(),qcmModel.getAnswer2(),qcmModel.getAnswer3(),qcmModel.getAnswer4());
 
+            }
+        });
         lvListRoom.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 QcmModel qcmModel = qcmModels.get(i);
-                showUpdateDialog(qcmModel.getNameQcm(),qcmModel.getQuestion(),qcmModel.getAnswer1());
+                showUpdateDialog(qcmModel.getNameQcm(),qcmModel.getQuestion(),qcmModel.getAnswer1(),qcmModel.getAnswer2(),qcmModel.getAnswer3(),qcmModel.getAnswer4());
 
                 return false;
             }
@@ -163,14 +170,14 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         return super.onOptionsItemSelected(item);
     }
 
-    private boolean UpdateQcm(String qcm, String ask, String ans1, String ans2, String ans3, String ans4){
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Quizz").child(id);
+    private void updateQcm(String qcm, String ask, String ans1, String ans2, String ans3, String ans4){
+        /*DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Quizz").child(id);
 
         QcmModel qcmModel = new QcmModel();
 
         databaseReference.setValue(quizz);
 
-        Toast.makeText(this, "Votre QCM a été mis à jour", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Votre QCM a été mis à jour", Toast.LENGTH_SHORT).show();*/
 
     }
 
