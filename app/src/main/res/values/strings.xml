@@ -77,5 +77,18 @@
     <string name="nb_points_100">100 pts</string>
     <string name="nb_points_200">200 pts</string>
     <string name="quizz">Quizz  #%d</string>
+    <string name="nom_qcm">Nom du Qcm</string>
+    <string name="ex_automobile">Ex : Automobile</string>
+    <string name="question_1">Question</string>
+    <string name="rep1">Ex: Quel est la voiture la plus performante?</string>
+    <string name="ex_porsche_turbo_s">Ex: Porsche Turbo S</string>
+    <string name="réponse_2">Réponse 2</string>
+    <string name="ex_bmw_m3">Ex: Bmw M3</string>
+    <string name="réponse_3">Réponse 3</string>
+    <string name="ex_audi_rs4">Ex: Audi RS4</string>
+    <string name="réponse_4">Réponse 4</string>
+    <string name="ex_mercedes_sl_55_amg">Ex: Mercedes SL 55 AMG</string>
+    <string name="réponse_1">Réponse 1</string>
+    <string name="update">Update</string>
 
 </resources>
