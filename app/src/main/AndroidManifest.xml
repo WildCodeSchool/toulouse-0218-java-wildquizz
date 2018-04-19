@@ -38,12 +38,10 @@
 
         <activity android:name=".ResultsActivity" >
         </activity>
-        <activity android:name=".ProfileActivity">
 
+        <activity android:name=".ProfileActivity">
         </activity>
 
-        <activity android:name=".ResultsActivity"></activity>
-        <activity android:name=".ProfileActivity"></activity>
         <activity android:name=".CreateQcmActivity" />
         <activity android:name=".CreateQuizzActivity" />
         <activity android:name=".TestUuidActivity">
@@ -52,7 +50,9 @@
         <activity android:name=".SplashSecondActivity">
 
         </activity>
-        <activity android:name=".ForgotPassActivity"></activity>
+        <activity android:name=".ForgotPassActivity">
+        </activity>
+
     </application>
 
 </manifest>

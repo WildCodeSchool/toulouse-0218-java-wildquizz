@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 public class SplashSecondActivity extends AppCompatActivity {
 
-    private static int SPLASH_TIME_OUT = 3000;
+    private static int SPLASH_TIME_OUT = 5500;
     private ImageView mZoom;
 
     @Override
