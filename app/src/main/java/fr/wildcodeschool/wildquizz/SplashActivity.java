@@ -11,7 +11,6 @@ import android.widget.VideoView;
 
 public class SplashActivity extends AppCompatActivity {
 
-    //private static int SPLASH_TIME_OUT = 3000;
     private VideoView videoView;
 
     @Override
@@ -35,17 +34,6 @@ startActivity(new Intent(SplashActivity.this, MainActivity.class));
         });
 videoView.start();
 
-        /*new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-                Intent i = new Intent(SplashActivity.this,MainActivity.class);
-                startActivity(i);
-                finish();
-
-            }
-
-        }, SPLASH_TIME_OUT);*/
     }
 
 

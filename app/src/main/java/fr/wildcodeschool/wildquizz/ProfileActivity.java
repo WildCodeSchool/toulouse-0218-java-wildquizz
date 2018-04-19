@@ -1,7 +1,6 @@
 package fr.wildcodeschool.wildquizz;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -11,7 +10,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -27,7 +25,7 @@ public class ProfileActivity extends AppCompatActivity implements TabInfosFragme
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tablayout);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.name_tab1));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.name_tab2));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.name_tab3));
