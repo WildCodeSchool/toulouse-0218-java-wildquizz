@@ -85,5 +85,12 @@
     <string name="registration_impossible">Impossible de s\'inscrire, veuillez réessayer ultérieurement</string>
     <string name="fields_required">Veuillez renseigner les champs obligatoires</string>
     <string name="password_differents">Vous n\'avez pas renseigné le même mot de passe</string>
+    <string name="reset_password_indication">Si vous souhaiter réinitialiser votre mot de passe, renseigner votre email ci-dessous et cliquer sur le bouton</string>
+    <string name="change_pass_btn">changer mon mot de passe</string>
+    <string name="return_btn">Retour</string>
+    <string name="email">Email</string>
+    <string name="enter_email_please">Renseigner votre email s\'il vous plaît !</string>
+    <string name="email_send">Email envoyé</string>
+    <string name="unknow_email">Email inconnu</string>
 
 </resources>

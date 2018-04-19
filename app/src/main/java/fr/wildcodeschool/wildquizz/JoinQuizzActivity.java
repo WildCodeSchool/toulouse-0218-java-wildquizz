@@ -33,7 +33,7 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
         buttonGoToQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent Playquizz = new Intent(JoinQuizzActivity.this, PlayQuizzActivity.class);
+                Intent Playquizz = new Intent(JoinQuizzActivity.this, SplashSecondActivity.class);
                 JoinQuizzActivity.this.startActivity(Playquizz);
             }
         });
