@@ -81,7 +81,7 @@
                 android:layout_marginTop="24dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_level"
-                app:srcCompat="@mipmap/ic_launcher_round" />
+                app:srcCompat="@drawable/badge_medal" />
 
             <ImageView
                 android:id="@+id/iv_medal2"
@@ -94,7 +94,7 @@
                 android:layout_toStartOf="@+id/iv_medal3"
                 app:layout_constraintStart_toEndOf="@+id/iv_medal1"
                 app:layout_constraintTop_toBottomOf="@+id/tv_level"
-                app:srcCompat="@mipmap/ic_launcher_round" />
+                app:srcCompat="@drawable/bronze_icon_medal" />
 
             <ImageView
                 android:id="@+id/iv_medal3"
@@ -107,7 +107,7 @@
                 android:layout_toRightOf="@+id/tv_score"
                 app:layout_constraintStart_toEndOf="@+id/iv_medal2"
                 app:layout_constraintTop_toBottomOf="@+id/tv_level"
-                app:srcCompat="@mipmap/ic_launcher_round" />
+                app:srcCompat="@drawable/silver_icon_medal" />
 
             <TextView
                 android:id="@+id/tv_pts3"
@@ -137,7 +137,7 @@
                 android:layout_toRightOf="@+id/ratingBar"
                 app:layout_constraintStart_toEndOf="@+id/iv_medal3"
                 app:layout_constraintTop_toBottomOf="@+id/tv_level"
-                app:srcCompat="@mipmap/ic_launcher_round" />
+                app:srcCompat="@drawable/gold_medal_icon" />
 
             <TextView
                 android:id="@+id/tv_pts1"
