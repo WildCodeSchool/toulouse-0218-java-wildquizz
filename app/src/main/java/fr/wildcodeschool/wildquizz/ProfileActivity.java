@@ -10,6 +10,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -19,6 +21,8 @@ public class ProfileActivity extends AppCompatActivity implements TabInfosFragme
     private ActionBarDrawerToggle mToggle;
 
     private FirebaseAuth mAuth;
+
+    private ImageView mIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,7 @@ public class ProfileActivity extends AppCompatActivity implements TabInfosFragme
         tabLayout.addTab(tabLayout.newTab().setText(R.string.name_tab3));
         tabLayout.setTabGravity(tabLayout.GRAVITY_FILL);
 
+        mIcon = findViewById(R.id.icon_change_tab);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
@@ -40,6 +45,15 @@ public class ProfileActivity extends AppCompatActivity implements TabInfosFragme
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+                if (tab.getPosition() == 0) {
+                    mIcon.setImageResource(R.drawable.logo_info);
+                }
+                if (tab.getPosition() == 1) {
+                    mIcon.setImageResource(R.drawable.logo_friends);
+                }
+                if (tab.getPosition() == 2) {
+                    mIcon.setImageResource(R.drawable.logo_notif);
+                }
             }
 
             @Override
@@ -49,7 +63,15 @@ public class ProfileActivity extends AppCompatActivity implements TabInfosFragme
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
+                if (tab.getPosition() == 0){
+                    mIcon.setImageResource(R.drawable.logo_info);
+                }
+                if (tab.getPosition() == 1) {
+                    mIcon.setImageResource(R.drawable.logo_friends);
+                }
+                if (tab.getPosition() == 2) {
+                    mIcon.setImageResource(R.drawable.logo_notif);
+                }
             }
         });
 

@@ -111,11 +111,11 @@ public class RegistrationActivity extends AppCompatActivity {
                                     final String id = mAuth.getCurrentUser().getUid();
                                     //DATABASE :
                                     mDatabaseReference = mDatabase.getReference("Users").child(id);
-                                    mDatabaseReference.child("Name").setValue(mUsername.getText().toString());
+                                    mDatabaseReference.child("Name").setValue(mUsername.getText().toString());//TODO: faire un model USER
                                     //mDatabaseReference.child("Password").setValue(mPassword.getText().toString());
                                     //mDatabaseReference.child("ConfirmPassword").setValue(mConfirmPassword.getText().toString());
 
-                                    if (!mFileUri.equals("") && mFileUri != null) {
+                                    if (mFileUri != null && !mFileUri.equals("")) {
                                         StorageReference imageRef = FirebaseStorage.getInstance().getReference("Users").child(id).child("imageProfile.jpg");
                                         imageRef.putFile(mFileUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                             @Override
