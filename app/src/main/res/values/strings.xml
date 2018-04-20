@@ -81,7 +81,7 @@
     <string name="forgotten_password">Mot de passe oublié ?</string>
     <string name="enter_email_and_password">Veuillez entrer votre email et votre passe</string>
     <string name="incorrect_email_and_password">Email et/ou mot de passe incorrects</string>
-    <string name="registration_success">Insciption réussite</string>
+    <string name="registration_success">Inscription réussite</string>
     <string name="registration_impossible">Impossible de s\'inscrire, veuillez réessayer ultérieurement</string>
     <string name="fields_required">Veuillez renseigner les champs obligatoires</string>
     <string name="password_differents">Vous n\'avez pas renseigné le même mot de passe</string>
@@ -92,5 +92,7 @@
     <string name="enter_email_please">Renseigner votre email s\'il vous plaît !</string>
     <string name="email_send">Email envoyé</string>
     <string name="unknow_email">Email inconnu</string>
+    <string name="need_camera">L\'application WildQuizz a besoin d\'utiliser la caméra.</string>
+    <string name="need_storage">L\'application WildQuizz a besoin d\'accéder au Stockage.</string>
 
 </resources>
