@@ -22,22 +22,43 @@ import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.ArrayList;
 import java.util.Random;
-
-import static fr.wildcodeschool.wildquizz.R.layout.item_qcm;
 
 public class CreateQuizzActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     public TextView mIdQuizz;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
+
+    private TextView mTvQcmNameValue;
+    private EditText mEditQcmNameValue;
+    private TextView mTvQuestionValue;
+    private EditText mEditQuestionValue;
+    private TextView mTvAnswer1Value;
+    private EditText mEditAnswer1Value;
+    private TextView mTvAnswer2Value;
+    private EditText mEditAnswer2Value;
+    private TextView mTvAnswer3Value;
+    private EditText mEditAnswer3Value;
+    private TextView mTvAnswer4Value;
+    private EditText mEditAnswer4Value;
+    private Button mButtonUpdate;
+    private Button mButtonDelete;
+    private ListView mListqcmValue;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_quizz);
+
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("Quizz");
 
         //récupérer les données du menu pour la génération de quizz
         mIdQuizz = findViewById(R.id.tv_id_generate);
@@ -52,7 +73,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
             @Override
             public void onClick(View view) {
                 Intent goToCreateQcm = new Intent(CreateQuizzActivity.this, CreateQcmActivity.class);
-                CreateQuizzActivity.this.startActivity(goToCreateQcm);;
+                CreateQuizzActivity.this.startActivity(goToCreateQcm);
             }
         });
 
@@ -171,13 +192,13 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
     }
 
     private void updateQcm(String qcm, String ask, String ans1, String ans2, String ans3, String ans4){
-        /*DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Quizz").child(id);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Quizz");
 
         QcmModel qcmModel = new QcmModel();
 
-        databaseReference.setValue(quizz);
+        //databaseReference.setValue();
 
-        Toast.makeText(this, "Votre QCM a été mis à jour", Toast.LENGTH_SHORT).show();*/
+        Toast.makeText(this, "Votre QCM a été mis à jour", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -191,27 +212,70 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
 
         dialogBuilder.setView(dialogView);
 
-        final TextView tvQcmNameValue = (TextView) dialogView.findViewById(R.id.text_qcm);
-        final EditText editQcmNameValue = (EditText) dialogView.findViewById(R.id.edit_name_qcm);
-        final TextView tvQuestionValue = (TextView) dialogView.findViewById(R.id.text_question);
-        final EditText editQuestionValue = (EditText) dialogView.findViewById(R.id.edit_question);
-        final TextView tvAnswer1Value = (TextView) dialogView.findViewById(R.id.tv_answer1);
-        final EditText editAnswer1Value = (EditText) dialogView.findViewById(R.id.edit_answer_1);
-        final TextView tvAnswer2Value = (TextView) dialogView.findViewById(R.id.tv_answer2);
-        final EditText editAnswer2Value = (EditText) dialogView.findViewById(R.id.edit_answer_2);
-        final TextView tvAnswer3Value = (TextView) dialogView.findViewById(R.id.tv_answer3);
-        final EditText editAnswer3Value = (EditText) dialogView.findViewById(R.id.edit_answer_3);
-        final TextView tvAnswer4Value = (TextView) dialogView.findViewById(R.id.tv_answer4);
-        final EditText editAnswer4Value = (EditText) dialogView.findViewById(R.id.edit_answer_4);
-        final Button buttonUpdate = (Button) dialogView.findViewById(R.id.button_update);
-        final ListView listqcmValue = (ListView) dialogView.findViewById(R.id.list_qcm);
+        mTvQcmNameValue = dialogView.findViewById(R.id.text_qcm);
+        mEditQcmNameValue = dialogView.findViewById(R.id.edit_qcm);
+        mTvQuestionValue = dialogView.findViewById(R.id.text_question);
+        mEditQuestionValue = dialogView.findViewById(R.id.edit_question);
+        mTvAnswer1Value =  dialogView.findViewById(R.id.tv_answer1);
+        mEditAnswer1Value =  dialogView.findViewById(R.id.edit_answer1);
+        mTvAnswer2Value =  dialogView.findViewById(R.id.tv_answer2);
+        mEditAnswer2Value =  dialogView.findViewById(R.id.edit_answer_2);
+        mTvAnswer3Value =  dialogView.findViewById(R.id.tv_answer3);
+        mEditAnswer3Value = dialogView.findViewById(R.id.edit_answer_3);
+        mTvAnswer4Value = dialogView.findViewById(R.id.tv_answer4);
+        mEditAnswer4Value = dialogView.findViewById(R.id.edit_answer4);
+        mButtonUpdate = dialogView.findViewById(R.id.button_update);
+        mListqcmValue =dialogView.findViewById(R.id.list_qcm);
+        mButtonDelete = dialogView.findViewById(R.id.button_delete);
 
-        buttonUpdate.setOnClickListener(new View.OnClickListener() {
+        dialogBuilder.setTitle("Updating Qcm"+qcm );
+
+
+
+        mButtonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                //TODO Récupérer l'identifiant du quizz
+               // String id = quizzId.getText().toString();
+                String qcm = mEditQcmNameValue.getText().toString();
+                String ask = mEditQuestionValue.getText().toString();
+                String ans1 = mEditAnswer1Value.getText().toString();
+                String ans2 = mEditAnswer2Value.getText().toString();
+                String ans3 = mEditAnswer3Value.getText().toString();
+                String ans4 = mEditAnswer4Value.getText().toString();
+
+               final QcmModel qcmModel = new QcmModel("",qcm,ask,ans1,ans2,ans3,ans4);
+               addQcmToDB(mEditQcmNameValue.getText().toString());
+
+               Intent goToCreateQuizz = new Intent(CreateQuizzActivity.this, CreateQuizzActivity.class);
+               CreateQuizzActivity.this.startActivity(goToCreateQuizz);
+
             }
         });
+
+        mButtonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                DatabaseReference drQuizzId = FirebaseDatabase.getInstance().getReference("Quizz").child("quizzid");
+                drQuizzId.removeValue();
+
+                //TODO Récupérer l'identifiant du quizz
+               // String id = quizzId.getText().toString();
+                String qcm = mEditQcmNameValue.getText().toString().trim();
+                String ask = mEditQuestionValue.getText().toString();
+                String ans1 = mEditAnswer1Value.getText().toString();
+                String ans2 = mEditAnswer2Value.getText().toString();
+                String ans3 = mEditAnswer3Value.getText().toString();
+                String ans4 = mEditAnswer4Value.getText().toString();
+
+
+            }
+        });
+
+
+
 
         dialogBuilder.setTitle("Updating qcm"+ qcm);
         dialogBuilder.setTitle("Updating question"+ ask);
@@ -228,5 +292,13 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
 
 
     }
+
+    private void addQcmToDB(String s) {
+    }
+
+
+
+
+
 }
 

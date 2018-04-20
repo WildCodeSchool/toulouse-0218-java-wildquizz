@@ -53,7 +53,6 @@
     <string name="cr_er_son_quizz">Créer son Quizz</string>
     <string name="id">Identifiant :</string>
     <string name="ex_128">Ex : #128</string>
-    <string name="ex_140">ex : #140</string>
 
     <string name="title_resultats">Résultats</string>
     <string name="text_qcm_results">QCM</string>
@@ -90,5 +89,9 @@
     <string name="ex_mercedes_sl_55_amg">Ex: Mercedes SL 55 AMG</string>
     <string name="réponse_1">Réponse 1</string>
     <string name="update">Update</string>
+    <string name="delete">delete</string>
+    <string name="identifiant_du_quizz">Identifiant du quizz</string>
+    <string name="ex_aa123ee">Ex : aa123EE</string>
+    <string name="politique">Ex : Politique</string>
 
 </resources>

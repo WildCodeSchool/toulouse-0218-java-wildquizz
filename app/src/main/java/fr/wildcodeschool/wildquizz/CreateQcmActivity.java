@@ -32,11 +32,7 @@ public class CreateQcmActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_qcm);
         database = FirebaseDatabase.getInstance();
-        myRef = database.getReference();
-
-
-
-
+        myRef = database.getReference("Quizz");
 
 
 
@@ -64,6 +60,7 @@ public class CreateQcmActivity extends AppCompatActivity {
                 String ans4 = answer4.getText().toString();
 
                 QcmModel qcmModel = new QcmModel(id,qcm,ask,ans1,ans2,ans3,ans4);
+                myRef.push().setValue(qcmModel);
 
 
 
