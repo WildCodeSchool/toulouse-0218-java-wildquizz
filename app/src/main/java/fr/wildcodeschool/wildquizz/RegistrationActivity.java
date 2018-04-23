@@ -1,38 +1,62 @@
 package fr.wildcodeschool.wildquizz;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class RegistrationActivity extends AppCompatActivity {
 
+    static final int REQUEST_TAKE_PHOTO = 567;
+    private static final String TAG = "RegistrationActivity";
+    private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 101;
     private FirebaseDatabase mDatabase;
     private DatabaseReference mDatabaseReference;
-
     private FirebaseAuth mAuth;
-
-    private ImageView mImg;
+    private ImageView mAvatar;
+    private Uri mFileUri = null;
+    private boolean mIsOk;
     private EditText mUsername;
     private EditText mPassword;
     private EditText mConfirmPassword;
     private EditText mEmail;
     private Button mButtonCreate;
+    private String mCurrentPhotoPath;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,18 +64,18 @@ public class RegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registration);
 
         mDatabase = FirebaseDatabase.getInstance();
-
         mAuth = FirebaseAuth.getInstance();
 
         Intent register = getIntent();
 
         //CLICK SUR L'IMAGE :
-        mImg = findViewById(R.id.image_first);
-        mImg.setOnClickListener(new View.OnClickListener() {
+        mAvatar = findViewById(R.id.image_first);
+        mAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, 0);
+                if (checkAndRequestPermissions(RegistrationActivity.this)) {
+                    dispatchTakePictureIntent();
+                }
             }
         });
 
@@ -60,41 +84,47 @@ public class RegistrationActivity extends AppCompatActivity {
         mConfirmPassword = findViewById(R.id.edit_pass_confirm);
         mEmail = findViewById(R.id.edit_email2);
 
-
         //CLICK SUR LE BOUTON CREER SON COMPTE :
         mButtonCreate = findViewById(R.id.button_create);
         mButtonCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String child = mUsername.getText().toString();
+                final String userName = mUsername.getText().toString();
+
                 String password = mPassword.getText().toString();
                 String confirmPassword = mConfirmPassword.getText().toString();
                 String email = mEmail.getText().toString();
 
-
-                // Hasher un mot de passe :
+                // Hash un mot de passe :
                 // HashCode hashCode = Hashing.sha256().hashString(password, Charset.defaultCharset());
 
-                if (email.matches("") || child.matches("") || password.matches("") || confirmPassword.matches("")) {
+                if (email.matches("") || userName.matches("") || password.matches("") || confirmPassword.matches("")) {
                     Toast.makeText(RegistrationActivity.this, R.string.fields_required, Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    if (!password.equals(confirmPassword)){
+                } else {
+                    if (!password.equals(confirmPassword)) {
                         Toast.makeText(RegistrationActivity.this, R.string.password_differents, Toast.LENGTH_SHORT).show();
-                    }
-                    else {
+                    } else {
                         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    //user is successful registered and logged in
-
+                                    final String id = mAuth.getCurrentUser().getUid();
                                     //DATABASE :
-                                    mDatabaseReference = mDatabase.getReference("Users").child(child);
-                                    mDatabaseReference.child("Name").setValue(mUsername.getText().toString());
+                                    mDatabaseReference = mDatabase.getReference("Users").child(id);
+                                    mDatabaseReference.child("Name").setValue(mUsername.getText().toString());//TODO: faire un model USER
                                     //mDatabaseReference.child("Password").setValue(mPassword.getText().toString());
                                     //mDatabaseReference.child("ConfirmPassword").setValue(mConfirmPassword.getText().toString());
 
+                                    if (mFileUri != null && !mFileUri.equals("")) {
+                                        StorageReference imageRef = FirebaseStorage.getInstance().getReference("Users").child(id).child("imageProfile.jpg");
+                                        imageRef.putFile(mFileUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                            @Override
+                                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                Uri downloadUri = taskSnapshot.getDownloadUrl();
+                                                FirebaseDatabase.getInstance().getReference("Users").child(id).child("avatar").setValue(downloadUri.toString());
+                                            }
+                                        });
+                                    }
                                     Toast.makeText(RegistrationActivity.this, R.string.registration_success, Toast.LENGTH_SHORT).show();
                                     Intent gotoMenu = new Intent(RegistrationActivity.this, MenuActivity.class);
                                     RegistrationActivity.this.startActivity(gotoMenu);
@@ -110,14 +140,102 @@ public class RegistrationActivity extends AppCompatActivity {
 
     }
 
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                mFileUri = FileProvider.getUriForFile(this,
+                        "fr.wildcodeschool.wildquizz.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, mFileUri);
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+            }
+        }
+    }
+
+    public static boolean checkAndRequestPermissions(final Activity context) {
+        int extstorePermission = ContextCompat.checkSelfPermission(context,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int cameraPermission = ContextCompat.checkSelfPermission(context,
+                Manifest.permission.CAMERA);
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        if (cameraPermission != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.CAMERA);
+        }
+        if (extstorePermission != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded
+                    .add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(context, listPermissionsNeeded
+                            .toArray(new String[listPermissionsNeeded.size()]),
+                    REQUEST_ID_MULTIPLE_PERMISSIONS);
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_ID_MULTIPLE_PERMISSIONS:
+                if (ContextCompat.checkSelfPermission(RegistrationActivity.this,
+                        Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(getApplicationContext(),
+                            R.string.need_camera, Toast.LENGTH_SHORT)
+                            .show();
+                } else if (ContextCompat.checkSelfPermission(RegistrationActivity.this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(getApplicationContext(),
+                            R.string.need_storage,
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    dispatchTakePictureIntent();
+                }
+                break;
+        }
+    }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-        mImg.setImageBitmap(bitmap);
-        Glide.with(this).load(bitmap).apply(RequestOptions.circleCropTransform()).into(mImg);
-    }
+        switch (requestCode) {
+            case REQUEST_TAKE_PHOTO:
+                try {
+                    if (resultCode == RESULT_OK) {
+                        Glide.with(this).load(mFileUri).apply(RequestOptions.circleCropTransform()).into(mAvatar);
+                    }
 
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+        }
+    }
 
 
 }

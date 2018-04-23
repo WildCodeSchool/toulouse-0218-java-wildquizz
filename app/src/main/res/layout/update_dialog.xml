@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/identifiant_du_quizz"
+        android:textAlignment="center"
+        android:id="@+id/text_quizz_id"
+        />
+
+    <TextView
+        android:id="@+id/text_qcm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/nom_qcm"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/edit_qcm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/ex_automobile"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/text_question"
+        android:textAlignment="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/question_1" />
+
+    <EditText
+        android:id="@+id/edit_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/rep1"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/text_answer"
+        android:textAlignment="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/réponse_1" />
+
+    <EditText
+        android:id="@+id/edit_answer1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/ex_porsche_turbo_s"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/text_answer_2"
+        android:textAlignment="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/réponse_2" />
+
+    <EditText
+        android:id="@+id/edit_answer_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/ex_bmw_m3"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/text_answer_3"
+        android:textAlignment="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/réponse_3" />
+
+    <EditText
+        android:id="@+id/edit_answer_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/ex_audi_rs4"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/text_answer4"
+        android:textAlignment="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/réponse_4" />
+
+    <EditText
+        android:id="@+id/edit_answer4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/ex_mercedes_sl_55_amg"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/button_update"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/update" />
+
+    <Button
+        android:id="@+id/button_delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/delete" />
+</LinearLayout>

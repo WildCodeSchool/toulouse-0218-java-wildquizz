@@ -1,7 +1,6 @@
 package fr.wildcodeschool.wildquizz;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +32,8 @@ public class ResultsAdapter extends ArrayAdapter<ResultsModel> {
 
         TextView nameQcm =  convertView.findViewById(R.id.text_name_QCM);
         TextView answer =  convertView.findViewById(R.id.text_answer);
-        ImageButton logoValidate = convertView.findViewById(R.id.imgbtn_validate_logo);
+        ImageView logoValidate = convertView.findViewById(R.id.logo_validated);
+        ImageView logoUnvalidate = convertView.findViewById(R.id.logo_unvalidated);
         ImageView arrow = convertView.findViewById(R.id.iv_arrow);
         TextView checkText = convertView.findViewById(R.id.check_text);
         TextView goodAnswer = convertView.findViewById(R.id.text_good_answer);
@@ -41,6 +41,8 @@ public class ResultsAdapter extends ArrayAdapter<ResultsModel> {
         nameQcm.setText(resultsModel.getNameQcm());
         answer.setText(resultsModel.getAnswer());
         logoValidate.setImageResource(resultsModel.getValidateLogo());
+        logoUnvalidate.setImageResource(resultsModel.getValidateLogo());
+
         goodAnswer.setText(resultsModel.getGoodAnswer());
 
 
@@ -48,11 +50,13 @@ public class ResultsAdapter extends ArrayAdapter<ResultsModel> {
             arrow.setVisibility(View.GONE);
             checkText.setVisibility(View.GONE);
             goodAnswer.setVisibility(View.GONE);
+            logoUnvalidate.setVisibility(View.GONE);
         }
         else {
             arrow.setVisibility(View.VISIBLE);
             checkText.setVisibility(View.VISIBLE);
             goodAnswer.setVisibility(View.VISIBLE);
+            logoValidate.setVisibility(View.GONE);
         }
 
 

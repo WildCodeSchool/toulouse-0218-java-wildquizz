@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    >
 
     <TextView
         android:id="@+id/text_qcm_number"
@@ -19,25 +21,11 @@
         tools:textColor="@android:color/black" />
 
     <ImageButton
-        android:id="@+id/imagebtn_delete"
-        android:layout_width="93dp"
-        android:layout_height="94dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorAccent"
-        android:backgroundTint="@android:color/transparent"
-        android:scaleX="0.3"
-        android:scaleY="0.45"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imagebtn_pen"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/poubelle" />
-
-    <ImageButton
         android:id="@+id/imagebtn_pen"
         android:layout_width="96dp"
         android:layout_height="96dp"
         android:layout_marginEnd="16dp"
+        android:focusable="false"
         android:layout_marginTop="8dp"
         android:scaleX="0.40"
         android:scaleY="0.50"
