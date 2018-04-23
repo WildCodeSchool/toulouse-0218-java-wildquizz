@@ -1,5 +1,6 @@
 package fr.wildcodeschool.wildquizz;
 
+import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -70,4 +71,8 @@ public class PlayQuizzActivity extends AppCompatActivity {
     }
 
 
+    public void ValidateAnswer(View view) {
+        Intent goToResults = new Intent(PlayQuizzActivity.this, ResultsActivity.class);
+        PlayQuizzActivity.this.startActivity(goToResults);
+    }
 }
