@@ -20,8 +20,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -51,6 +54,8 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
 
 
 
+
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,8 +182,10 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
             Intent goToDisplayQuizz = new Intent(this, DisplayQuizzActivity.class);
             this.startActivity(goToDisplayQuizz);
         } else if (id == R.id.logout) {
-            Intent logOut = new Intent(this, MainActivity.class);
-            this.startActivity(logOut);
+            //Déconnexion
+            mAuth = FirebaseAuth.getInstance();
+            mAuth.signOut();
+            startActivity(new Intent(this, MainActivity.class));
         }
         return true;
     }

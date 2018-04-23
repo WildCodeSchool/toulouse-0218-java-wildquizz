@@ -39,7 +39,7 @@ public class PlayQuizzActivity extends AppCompatActivity {
         mCancel = (Button) findViewById(R.id.btn_stop);
         mCancel.setOnClickListener(btnClickOnListener);
         mTime = (TextView) findViewById(R.id.count);
-
+        start();
     }
     private void start () {
         mTime.setText("00:20");
