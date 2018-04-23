@@ -11,12 +11,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.Random;
 
 public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
+
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +78,10 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
             Intent goToDisplayQuizz = new Intent(this, DisplayQuizzActivity.class);
             this.startActivity(goToDisplayQuizz);
         } else if (id == R.id.logout) {
-            Intent logOut = new Intent(this, MainActivity.class);
-            this.startActivity(logOut);
+            //Déconnexion
+            mAuth = FirebaseAuth.getInstance();
+            mAuth.signOut();
+            startActivity(new Intent(this, MainActivity.class));
         }
         return true;
 

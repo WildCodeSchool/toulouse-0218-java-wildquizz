@@ -10,10 +10,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class JoinQuizzActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
+
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +33,8 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
         buttonGoToQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intentGoToQuiz = new Intent(JoinQuizActivity.this, .class);
-                //JoinQuizActivity.this.startActivity(intentGoToQuiz);
+                Intent Playquizz = new Intent(JoinQuizzActivity.this, SplashSecondActivity.class);
+                JoinQuizzActivity.this.startActivity(Playquizz);
             }
         });
 
@@ -67,8 +71,10 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
             Intent goToDisplayQuizz = new Intent(this, DisplayQuizzActivity.class);
             this.startActivity(goToDisplayQuizz);
         } else if (id == R.id.logout) {
-            Intent logOut = new Intent(this, MainActivity.class);
-            this.startActivity(logOut);
+            //Déconnexion
+            mAuth = FirebaseAuth.getInstance();
+            mAuth.signOut();
+            startActivity(new Intent(this, MainActivity.class));
         }
         return true;
     }
