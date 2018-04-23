@@ -23,7 +23,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         videoView = (VideoView) findViewById(R.id.video_view_splash);
-        Uri video = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_splash);
+        Uri video = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.splash);
         videoView.setVideoURI(video);
 
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
