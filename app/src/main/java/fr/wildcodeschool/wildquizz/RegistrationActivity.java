@@ -127,6 +127,7 @@ public class RegistrationActivity extends AppCompatActivity {
                                     }
                                     Toast.makeText(RegistrationActivity.this, R.string.registration_success, Toast.LENGTH_SHORT).show();
                                     Intent gotoMenu = new Intent(RegistrationActivity.this, MenuActivity.class);
+                                    gotoMenu.putExtra("id", id);
                                     RegistrationActivity.this.startActivity(gotoMenu);
                                 } else {
                                     Toast.makeText(RegistrationActivity.this, R.string.registration_impossible, Toast.LENGTH_SHORT).show();

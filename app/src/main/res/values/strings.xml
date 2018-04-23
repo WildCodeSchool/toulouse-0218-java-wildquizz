@@ -95,7 +95,7 @@
     <string name="politique">Ex : Politique</string>
     <string name="stay_connected">Rester connecté</string>
     <string name="forgotten_password">Mot de passe oublié ?</string>
-    <string name="enter_email_and_password">Veuillez entrer votre email et votre passe</string>
+    <string name="enter_email_and_password">Veuillez entrer votre email et votre mot de passe</string>
     <string name="incorrect_email_and_password">Email et/ou mot de passe incorrects</string>
     <string name="registration_success">Inscription réussite</string>
     <string name="registration_impossible">Impossible de s\'inscrire, veuillez réessayer ultérieurement</string>
