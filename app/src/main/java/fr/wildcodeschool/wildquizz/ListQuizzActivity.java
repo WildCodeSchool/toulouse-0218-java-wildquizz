@@ -3,7 +3,9 @@ package fr.wildcodeschool.wildquizz;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,7 +32,7 @@ public class ListQuizzActivity extends AppCompatActivity {
 
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        Query myRef = database.getReference("Quizz").orderByKey();
+        Query myRef = database.getReference("Quizz");
 
         // Read from the database
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -39,10 +41,9 @@ public class ListQuizzActivity extends AppCompatActivity {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 listQuizz.clear();
-                for (DataSnapshot quizzSnap : dataSnapshot.getChildren()) {
-                    QuizzModel quizzModel = quizzSnap.getValue(QuizzModel.class);
+                for (DataSnapshot quizzIdSnap : dataSnapshot.getChildren()) {
+                    QuizzModel quizzModel = quizzIdSnap.getValue(QuizzModel.class);
                     listQuizz.add(quizzModel);
-
                 }
                 quizzAdapter.notifyDataSetChanged();
 

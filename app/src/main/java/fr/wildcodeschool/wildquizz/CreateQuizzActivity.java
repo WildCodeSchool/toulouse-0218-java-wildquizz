@@ -30,6 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Random;
 
 public class CreateQuizzActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -75,7 +76,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
             mIdQuizz = String.format("%s%s%s", generateString(3, key1), generateString(2, key2), generateString(3, key1));
 
             // créer le quizz vide dans Firebase
-            QuizzModel quizzModel = new QuizzModel(mIdQuizz, new Date().getTime(), new ArrayList<QcmModel>(), false);
+            QuizzModel quizzModel = new QuizzModel(mIdQuizz, new Date().getTime(), new HashMap<String, QcmModel>(), false);
             database.getReference("Quizz").child(mIdQuizz).setValue(quizzModel);
         }
 
