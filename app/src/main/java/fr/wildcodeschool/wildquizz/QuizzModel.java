@@ -1,6 +1,7 @@
 package fr.wildcodeschool.wildquizz;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by wilder on 23/04/18.
@@ -10,13 +11,13 @@ public class QuizzModel {
 
     private String id;
     private long datetime;
-    private ArrayList<QcmModel> qcmList;
+    private HashMap<String, QcmModel> qcmList;
     private boolean isFinished;
 
 
    public QuizzModel() {}
 
-    public QuizzModel(String id, long datetime, ArrayList<QcmModel> qcmList, boolean isFinished) {
+    public QuizzModel(String id, long datetime, HashMap<String, QcmModel> qcmList, boolean isFinished) {
         this.id = id;
         this.datetime = datetime;
         this.qcmList = qcmList;
@@ -39,11 +40,11 @@ public class QuizzModel {
         this.datetime = datetime;
     }
 
-    public ArrayList<QcmModel> getQcmList() {
+    public HashMap<String, QcmModel> getQcmList() {
         return qcmList;
     }
 
-    public void setQcmList(ArrayList<QcmModel> qcmList) {
+    public void setQcmList(HashMap<String, QcmModel> qcmList) {
         this.qcmList = qcmList;
     }
 
