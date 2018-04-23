@@ -205,7 +205,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
 
         //databaseReference.setValue();
 
-        Toast.makeText(this, "Votre QCM a été mis à jour", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.updated_qcm, Toast.LENGTH_SHORT).show();
 
     }
 
@@ -215,7 +215,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
 
         LayoutInflater inflater = getLayoutInflater();
 
-        final View dialogView = inflater.inflate(R.layout.update_dialog,null);
+        final View dialogView = inflater.inflate(R.layout.update_dialog, null);
 
         dialogBuilder.setView(dialogView);
 
