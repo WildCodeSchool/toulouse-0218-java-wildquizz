@@ -6,19 +6,17 @@ package fr.wildcodeschool.wildquizz;
 
 public class QcmModel {
 
-    private long quizzId;
+
     private String name;
-    private String nameQcm;
+    private String theme;
     private String question;
     private String answer1;
     private String answer2;
     private String answer3;
     private String answer4;
+    private int correctAnswer;
 
-    public QcmModel(long quizzId, String name) {
-        this.quizzId = quizzId;
-        this.name = name;
-    }
+
 
     public QcmModel(String name) {
         this.name = name;
@@ -26,24 +24,32 @@ public class QcmModel {
 
     public QcmModel(){}
 
-    public QcmModel (String quizzId,String nameQcm,String question,String answer1,String answer2,String answer3,
-                     String answer4) {
+    public QcmModel (String theme, String question, String answer1, String answer2, String answer3,
+                     String answer4, int correctAnswer) {
 
-        this.nameQcm = nameQcm;
+        this.theme = theme;
         this.question = question;
         this.answer1 = answer1;
         this.answer2 = answer2;
         this.answer3 = answer3;
         this.answer4 = answer4;
+        this.correctAnswer = correctAnswer;
     }
 
-
-    public String getNameQcm() {
-        return nameQcm;
+    public int getCorrectAnswer() {
+        return correctAnswer;
     }
 
-    public void setNameQcm(String nameQcm) {
-        this.nameQcm = nameQcm;
+    public void setCorrectAnswer(int correctAnswer) {
+        this.correctAnswer = correctAnswer;
+    }
+
+    public String getTheme() {
+        return theme;
+    }
+
+    public void setTheme(String theme) {
+        this.theme = theme;
     }
 
     public String getQuestion() {
@@ -84,18 +90,6 @@ public class QcmModel {
 
     public void setAnswer4(String answer4) {
         this.answer4 = answer4;
-    }
-
-
-
-
-
-    public long getQuizzId() {
-        return quizzId;
-    }
-
-    public void setId(long quizzId) {
-        this.quizzId = quizzId;
     }
 
     public String getName() {

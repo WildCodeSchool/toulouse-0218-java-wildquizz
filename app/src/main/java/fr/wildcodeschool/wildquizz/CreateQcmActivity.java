@@ -58,8 +58,9 @@ public class CreateQcmActivity extends AppCompatActivity {
                 String ans2 = answer2.getText().toString();
                 String ans3 = answer3.getText().toString();
                 String ans4 = answer4.getText().toString();
+                int correctAnswer = 1;//TODO récupérer le numéro de la réponse correcte
 
-                QcmModel qcmModel = new QcmModel(id,qcm,ask,ans1,ans2,ans3,ans4);
+                QcmModel qcmModel = new QcmModel(qcm,ask,ans1,ans2,ans3,ans4,correctAnswer);
                 myRef.push().setValue(qcmModel);
 
 

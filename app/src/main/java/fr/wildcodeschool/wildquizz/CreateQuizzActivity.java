@@ -86,7 +86,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 QcmModel qcmModel = qcmModels.get(i);
-                showUpdateDialog(qcmModel.getNameQcm(),qcmModel.getQuestion(),qcmModel.getAnswer1(),qcmModel.getAnswer2(),qcmModel.getAnswer3(),qcmModel.getAnswer4());
+                showUpdateDialog(qcmModel.getTheme(),qcmModel.getQuestion(),qcmModel.getAnswer1(),qcmModel.getAnswer2(),qcmModel.getAnswer3(),qcmModel.getAnswer4());
 
             }
         });
@@ -95,7 +95,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 QcmModel qcmModel = qcmModels.get(i);
-                showUpdateDialog(qcmModel.getNameQcm(),qcmModel.getQuestion(),qcmModel.getAnswer1(),qcmModel.getAnswer2(),qcmModel.getAnswer3(),qcmModel.getAnswer4());
+                showUpdateDialog(qcmModel.getTheme(),qcmModel.getQuestion(),qcmModel.getAnswer1(),qcmModel.getAnswer2(),qcmModel.getAnswer3(),qcmModel.getAnswer4());
 
                 return false;
             }
@@ -148,7 +148,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         while (cursor.moveToNext()) {
             long id = cursor.getLong(cursor.getColumnIndexOrThrow(DbContract.QcmEntry._ID));
             String name = cursor.getString(cursor.getColumnIndexOrThrow(DbContract.QcmEntry.COLUMN_NAME_QCM));
-            QcmModel qcmModel = new QcmModel(id,name);
+            QcmModel qcmModel = new QcmModel(name);
             qcmModels.add(qcmModel);
         }
         cursor.close();
@@ -246,9 +246,12 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
                 String ans2 = mEditAnswer2Value.getText().toString();
                 String ans3 = mEditAnswer3Value.getText().toString();
                 String ans4 = mEditAnswer4Value.getText().toString();
+                int correctAnswer = 1;//TODO récupérer le numéro de la réponse correcte
 
-               final QcmModel qcmModel = new QcmModel("",qcm,ask,ans1,ans2,ans3,ans4);
+               final QcmModel qcmModel = new QcmModel(qcm,ask,ans1,ans2,ans3,ans4,correctAnswer);
                addQcmToDB(mEditQcmNameValue.getText().toString());
+
+
 
                Intent goToCreateQuizz = new Intent(CreateQuizzActivity.this, CreateQuizzActivity.class);
                CreateQuizzActivity.this.startActivity(goToCreateQuizz);
@@ -297,7 +300,18 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
 
     private void addQcmToDB(String s) {
     }
+    private boolean updateQcm() {
 
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Quizz");
+
+        QcmModel qcmModel = new QcmModel();
+
+        databaseReference.setValue(qcmModel);
+
+        Toast.makeText(this, "Qcm update successfully!! ", Toast.LENGTH_LONG).show();
+
+        return true;
+    }
 
 
 
