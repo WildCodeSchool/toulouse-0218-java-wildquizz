@@ -18,6 +18,7 @@ public class ResultsModel {
     }
 
 
+
     private String goodAnswer;
 
 
