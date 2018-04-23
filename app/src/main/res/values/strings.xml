@@ -93,5 +93,7 @@
     <string name="identifiant_du_quizz">Identifiant du quizz</string>
     <string name="ex_aa123ee">Ex : aa123EE</string>
     <string name="politique">Ex : Politique</string>
+    <string name="update_qcm">Updating Qcm</string>
+    <string name="qcm_update_success">Qcm update successfully!!</string>
 
 </resources>

@@ -30,8 +30,8 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
     public TextView mIdQuizz;
-    FirebaseDatabase database;
-    DatabaseReference myRef;
+    FirebaseDatabase mDatabase;
+    DatabaseReference mMyRef;
 
     private TextView mTvQcmNameValue;
     private EditText mEditQcmNameValue;
@@ -57,8 +57,8 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_quizz);
 
-        database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("Quizz");
+        mDatabase = FirebaseDatabase.getInstance();
+        mMyRef = mDatabase.getReference("Quizz");
 
         //récupérer les données du menu pour la génération de quizz
         mIdQuizz = findViewById(R.id.tv_id_generate);
@@ -86,7 +86,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 QcmModel qcmModel = qcmModels.get(i);
-                showUpdateDialog(qcmModel.getTheme(),qcmModel.getQuestion(),qcmModel.getAnswer1(),qcmModel.getAnswer2(),qcmModel.getAnswer3(),qcmModel.getAnswer4());
+                showUpdateDialog(qcmModel.getTheme(), qcmModel.getQuestion(), qcmModel.getAnswer1(), qcmModel.getAnswer2(), qcmModel.getAnswer3(), qcmModel.getAnswer4());
 
             }
         });
@@ -95,7 +95,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 QcmModel qcmModel = qcmModels.get(i);
-                showUpdateDialog(qcmModel.getTheme(),qcmModel.getQuestion(),qcmModel.getAnswer1(),qcmModel.getAnswer2(),qcmModel.getAnswer3(),qcmModel.getAnswer4());
+                showUpdateDialog(qcmModel.getTheme(), qcmModel.getQuestion(), qcmModel.getAnswer1(), qcmModel.getAnswer2(), qcmModel.getAnswer3(), qcmModel.getAnswer4());
 
                 return false;
             }
@@ -228,7 +228,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         mListqcmValue =dialogView.findViewById(R.id.list_qcm);
         mButtonDelete = dialogView.findViewById(R.id.button_delete);
 
-        dialogBuilder.setTitle("Updating Qcm"+qcm );
+        dialogBuilder.setTitle(String.format("%s%s", getString(R.string.update_qcm), qcm));
 
 
 
@@ -238,8 +238,8 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
             @Override
             public void onClick(View view) {
 
-                //TODO Récupérer l'identifiant du quizz
-               // String id = quizzId.getText().toString();
+
+
                 String qcm = mEditQcmNameValue.getText().toString();
                 String ask = mEditQuestionValue.getText().toString();
                 String ans1 = mEditAnswer1Value.getText().toString();
@@ -266,8 +266,8 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
                 DatabaseReference drQuizzId = FirebaseDatabase.getInstance().getReference("Quizz").child("quizzid");
                 drQuizzId.removeValue();
 
-                //TODO Récupérer l'identifiant du quizz
-               // String id = quizzId.getText().toString();
+
+
                 String qcm = mEditQcmNameValue.getText().toString().trim();
                 String ask = mEditQuestionValue.getText().toString();
                 String ans1 = mEditAnswer1Value.getText().toString();
@@ -280,14 +280,6 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         });
 
 
-
-
-        dialogBuilder.setTitle("Updating qcm"+ qcm);
-        dialogBuilder.setTitle("Updating question"+ ask);
-        dialogBuilder.setTitle("Updating answer1"+ ans1);
-        dialogBuilder.setTitle("Updating answer2"+ ans2);
-        dialogBuilder.setTitle("Updating answer3"+ ans3);
-        dialogBuilder.setTitle("Updating answer4"+ ans4);
 
         AlertDialog alertDialog = dialogBuilder.create();
         alertDialog.show();
@@ -308,7 +300,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
 
         databaseReference.setValue(qcmModel);
 
-        Toast.makeText(this, "Qcm update successfully!! ", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, R.string.qcm_update_success, Toast.LENGTH_LONG).show();
 
         return true;
     }

@@ -23,16 +23,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import static fr.wildcodeschool.wildquizz.R.layout.item_qcm;
 
 public class CreateQcmActivity extends AppCompatActivity {
-    private String quizz = null;
-    FirebaseDatabase database;
-    DatabaseReference myRef;
+    private String mQuizz = null;
+    FirebaseDatabase mDatabase;
+    DatabaseReference mMyRef;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_qcm);
-        database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("Quizz");
+        mDatabase = FirebaseDatabase.getInstance();
+        mMyRef = mDatabase.getReference("Quizz");
 
 
 
@@ -51,7 +52,7 @@ public class CreateQcmActivity extends AppCompatActivity {
                 EditText answer4 = findViewById(R.id.edit_answer_4);
 
                 //TODO Récupérer l'identifiant du quizz
-                String id = "1";
+                
                 String qcm = nameQcm.getText().toString();
                 String ask = question.getText().toString();
                 String ans1 = answer1.getText().toString();
@@ -61,7 +62,7 @@ public class CreateQcmActivity extends AppCompatActivity {
                 int correctAnswer = 1;//TODO récupérer le numéro de la réponse correcte
 
                 QcmModel qcmModel = new QcmModel(qcm,ask,ans1,ans2,ans3,ans4,correctAnswer);
-                myRef.push().setValue(qcmModel);
+                mMyRef.push().setValue(qcmModel);
 
 
 
