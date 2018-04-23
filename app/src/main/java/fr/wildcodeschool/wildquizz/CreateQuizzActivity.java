@@ -21,20 +21,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Random;
 
 public class CreateQuizzActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
-    public TextView mIdQuizz;
     FirebaseDatabase mDatabase;
-    DatabaseReference mMyRef;
+    DatabaseReference mQuizzRef;
 
     private TextView mTvQcmNameValue;
     private EditText mEditQcmNameValue;
@@ -51,9 +54,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
     private Button mButtonUpdate;
     private Button mButtonDelete;
     private ListView mListqcmValue;
-
-
-
+    String mIdQuizz;
 
     private FirebaseAuth mAuth;
 
@@ -62,30 +63,61 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_quizz);
 
-        mDatabase = FirebaseDatabase.getInstance();
-        mMyRef = mDatabase.getReference("Quizz");
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-        //récupérer les données du menu pour la génération de quizz
-        mIdQuizz = findViewById(R.id.tv_id_generate);
-        Intent recupCreationQuizz = getIntent();
-        String key1 = "123456789";
-        String key2 = "abcdefghijklmnopqrstuvwxyz";
-        mIdQuizz.setText(String.format("%s%s%s", generateString(3, key1), generateString(2, key2), generateString(3, key1)));
+        Intent intent = getIntent();
+        mIdQuizz = intent.getStringExtra("idQuizz");
 
-        Intent recupMenu = getIntent();
+        if (mIdQuizz == null) {
+            //récupérer les données du menu pour la génération de quizz
+            String key1 = "123456789";
+            String key2 = "abcdefghijklmnopqrstuvwxyz";
+            mIdQuizz = String.format("%s%s%s", generateString(3, key1), generateString(2, key2), generateString(3, key1));
+
+            // créer le quizz vide dans Firebase
+            QuizzModel quizzModel = new QuizzModel(mIdQuizz, new Date().getTime(), new ArrayList<QcmModel>(), false);
+            database.getReference("Quizz").child(mIdQuizz).setValue(quizzModel);
+        }
+
+        TextView tvIdQuizz = findViewById(R.id.tv_id_generate);
+        tvIdQuizz.setText(mIdQuizz);
+        // TODO V2 : vérifier que l'id unique n'existe pas déjà, si c'est le cas, le regénérer
+
         FloatingActionButton addQcm = findViewById(R.id.floating_add_qcm);
         addQcm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent goToCreateQcm = new Intent(CreateQuizzActivity.this, CreateQcmActivity.class);
+                goToCreateQcm.putExtra("idQuizz", mIdQuizz);
                 CreateQuizzActivity.this.startActivity(goToCreateQcm);
             }
         });
 
-        final ArrayList<QcmModel> qcmModels = loadQcmsFromDB();
-        QcmAdapter adapter = new QcmAdapter(this, 0, qcmModels);
+        // charger la liste des QCM du Quizz à partir de Firebase
+        final ArrayList<QcmModel> qcmModels = new ArrayList<>();
+        final QcmAdapter adapter = new QcmAdapter(this, 0, qcmModels);
         ListView lvListRoom = findViewById(R.id.list_qcm);
         lvListRoom.setAdapter(adapter);
+
+        mDatabase = FirebaseDatabase.getInstance();
+        mQuizzRef = mDatabase.getReference("Quizz").child(mIdQuizz).child("qcmList");
+        // Read from the database
+        mQuizzRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                qcmModels.clear(); // vide la liste par précaution
+                for (DataSnapshot qcmSnapshot : dataSnapshot.getChildren()) {
+                    QcmModel qcmModel = qcmSnapshot.getValue(QcmModel.class);
+                    qcmModels.add(qcmModel);
+                }
+                adapter.notifyDataSetChanged(); // met au courant l'adapter que la liste a changé
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
 
         lvListRoom.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -134,31 +166,6 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
             stringBuilder1.append(c);
         }
         return stringBuilder1.toString();
-    }
-
-    private ArrayList<QcmModel> loadQcmsFromDB() {
-        ArrayList<QcmModel> qcmModels = new ArrayList<>();
-        DbHelper mDbHelper = new DbHelper(CreateQuizzActivity.this);
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
-        String[] projection = {
-                DbContract.QcmEntry._ID,
-                DbContract.QcmEntry.COLUMN_NAME_QCM,
-        };
-        Cursor cursor = db.query(
-                DbContract.QcmEntry.TABLE_NAME,
-                projection,
-                null, null, null, null, null
-        );
-
-        while (cursor.moveToNext()) {
-            long id = cursor.getLong(cursor.getColumnIndexOrThrow(DbContract.QcmEntry._ID));
-            String name = cursor.getString(cursor.getColumnIndexOrThrow(DbContract.QcmEntry.COLUMN_NAME_QCM));
-            QcmModel qcmModel = new QcmModel(name);
-            qcmModels.add(qcmModel);
-        }
-        cursor.close();
-
-        return qcmModels;
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

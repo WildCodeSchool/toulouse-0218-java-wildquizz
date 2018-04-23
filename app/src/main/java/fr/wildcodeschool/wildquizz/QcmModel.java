@@ -6,8 +6,6 @@ package fr.wildcodeschool.wildquizz;
 
 public class QcmModel {
 
-
-    private String name;
     private String theme;
     private String question;
     private String answer1;
@@ -15,12 +13,6 @@ public class QcmModel {
     private String answer3;
     private String answer4;
     private int correctAnswer;
-
-
-
-    public QcmModel(String name) {
-        this.name = name;
-    }
 
     public QcmModel(){}
 
@@ -90,13 +82,5 @@ public class QcmModel {
 
     public void setAnswer4(String answer4) {
         this.answer4 = answer4;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }

@@ -28,11 +28,11 @@ public class QcmAdapter extends ArrayAdapter {
         if (convertView == null) {
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_qcm, parent, false);
         }
-        TextView tvName = convertView.findViewById(R.id.text_qcm_number);
+        TextView tvQuestion = convertView.findViewById(R.id.text_qcm_number);
 
         QcmModel qcmModel = (QcmModel) getItem(position);
         if (qcmModel != null) {
-            tvName.setText(qcmModel.getName());
+            tvQuestion.setText(qcmModel.getQuestion());
         }
 
         return convertView;
