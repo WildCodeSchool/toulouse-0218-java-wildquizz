@@ -77,6 +77,9 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.displayquizz) {
             Intent goToDisplayQuizz = new Intent(this, DisplayQuizzActivity.class);
             this.startActivity(goToDisplayQuizz);
+        }  else if (id == R.id.listquizz) {
+            Intent goToListQuizz = new Intent(this, ListQuizzActivity.class);
+            this.startActivity(goToListQuizz);
         } else if (id == R.id.logout) {
             //Déconnexion
             mAuth = FirebaseAuth.getInstance();

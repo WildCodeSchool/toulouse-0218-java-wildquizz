@@ -17,10 +17,10 @@ import fr.wildcodeschool.wildquizz.R;
  * Created by wilder on 23/04/18.
  */
 
-public class ListQuizzAdapter extends ArrayAdapter<FirebaseQuizzModel> {
+public class ListQuizzAdapter extends ArrayAdapter<QuizzModel> {
 
 
-    public ListQuizzAdapter(@NonNull Context context, @NonNull List<FirebaseQuizzModel> objects) {
+    public ListQuizzAdapter(@NonNull Context context, @NonNull List<QuizzModel> objects) {
         super(context,0, objects);
 
     }
@@ -31,11 +31,11 @@ public class ListQuizzAdapter extends ArrayAdapter<FirebaseQuizzModel> {
         if (convertView == null) {
 
             convertView = LayoutInflater.from(parent.getContext()).
-                    inflate(R.layout.item_firebase_quizz, parent, false);
+                    inflate(R.layout.item_list_quizz, parent, false);
         }
-        FirebaseQuizzModel firebaseQuizzModel = getItem(position);
-        TextView id = convertView.findViewById(R.id.quizz_id);
-        id.setText(firebaseQuizzModel.getId());
+        QuizzModel QuizzModel = getItem(position);
+        TextView id = convertView.findViewById(R.id.txt_id);
+        id.setText(QuizzModel.getId());
         return convertView;
     }
 
