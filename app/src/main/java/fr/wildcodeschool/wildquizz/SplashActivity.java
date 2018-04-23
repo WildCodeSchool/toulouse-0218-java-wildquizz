@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.VideoView;
 
@@ -25,6 +27,15 @@ public class SplashActivity extends AppCompatActivity {
         videoView = (VideoView) findViewById(R.id.video_view_splash);
         Uri video = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.splash);
         videoView.setVideoURI(video);
+
+        videoView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                Intent intent = new Intent(SplashActivity.this,MainActivity.class);
+                startActivity(intent);
+                return false;
+            }
+        });
 
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
