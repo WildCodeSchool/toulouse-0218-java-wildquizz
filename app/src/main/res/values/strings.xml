@@ -53,7 +53,6 @@
     <string name="cr_er_son_quizz">Créer son Quizz</string>
     <string name="id">Identifiant :</string>
     <string name="ex_128">Ex : #128</string>
-    <string name="ex_140">ex : #140</string>
 
     <string name="title_resultats">Résultats</string>
     <string name="text_qcm_results">QCM</string>
@@ -77,6 +76,23 @@
     <string name="nb_points_100">100 pts</string>
     <string name="nb_points_200">200 pts</string>
     <string name="quizz">Quizz  #%d</string>
+    <string name="nom_qcm">Nom du Qcm</string>
+    <string name="ex_automobile">Ex : Automobile</string>
+    <string name="question_1">Question</string>
+    <string name="rep1">Ex: Quel est la voiture la plus performante?</string>
+    <string name="ex_porsche_turbo_s">Ex: Porsche Turbo S</string>
+    <string name="réponse_2">Réponse 2</string>
+    <string name="ex_bmw_m3">Ex: Bmw M3</string>
+    <string name="réponse_3">Réponse 3</string>
+    <string name="ex_audi_rs4">Ex: Audi RS4</string>
+    <string name="réponse_4">Réponse 4</string>
+    <string name="ex_mercedes_sl_55_amg">Ex: Mercedes SL 55 AMG</string>
+    <string name="réponse_1">Réponse 1</string>
+    <string name="update">Update</string>
+    <string name="delete">delete</string>
+    <string name="identifiant_du_quizz">Identifiant du quizz</string>
+    <string name="ex_aa123ee">Ex : aa123EE</string>
+    <string name="politique">Ex : Politique</string>
     <string name="stay_connected">Rester connecté</string>
     <string name="forgotten_password">Mot de passe oublié ?</string>
     <string name="enter_email_and_password">Veuillez entrer votre email et votre passe</string>
@@ -94,5 +110,8 @@
     <string name="unknow_email">Email inconnu</string>
     <string name="need_camera">L\'application WildQuizz a besoin d\'utiliser la caméra.</string>
     <string name="need_storage">L\'application WildQuizz a besoin d\'accéder au Stockage.</string>
+    <string name="update_qcm">Updating Qcm</string>
+    <string name="qcm_update_success">Qcm update successfully!!</string>
+    <string name="updated_qcm">Votre QCM a été mis à jour</string>
 
 </resources>
