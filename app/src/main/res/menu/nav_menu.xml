@@ -30,7 +30,7 @@
 
     <item
         android:id="@+id/listquizz"
-        android:icon="@drawable/loog_display"
+        android:icon="@drawable/schoolsupplies"
         android:title="@string/mes_quizz"></item>
 
     <item

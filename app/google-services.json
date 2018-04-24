@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "372937963697-v4pbdh746pu1h44m28rsv66pgv179iut.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fr.wildcodeschool.wildquizz",
+            "certificate_hash": "5af72ffa95c5433ec923fb9081e885c3a5dec83a"
+          }
+        },
+        {
           "client_id": "372937963697-pkuvm4241mv4dme9aackh3clh9qbul8f.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
