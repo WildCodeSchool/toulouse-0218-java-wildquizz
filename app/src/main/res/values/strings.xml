@@ -27,7 +27,7 @@
     <string name="join_quiz">Participer à un Quizz</string>
     <string name="create_quiz">Créer un Quizz</string>
     <string name="my_profile">Mon profil</string>
-    <string name="display_quiz">Afficher mes Quizz</string>
+    <string name="display_quiz">Afficher les Quizz joués</string>
     <string name="logout">Se déconnecter</string>
 
     <string name="start">START</string>

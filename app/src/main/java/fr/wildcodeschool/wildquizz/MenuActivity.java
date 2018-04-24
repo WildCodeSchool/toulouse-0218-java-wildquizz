@@ -33,7 +33,6 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
 
     FirebaseAuth mAuth;
     FirebaseDatabase mDatabase;
-
     private ImageView mAvatar;
     private String mUid;
 
@@ -74,38 +73,25 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
 
         //Affichage du profil dans la nav bar :
         View headerLayout = navigationView.getHeaderView(0);
-
         mDatabase = FirebaseDatabase.getInstance();
         mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         mAvatar = headerLayout.findViewById(R.id.image_header);
         //TODO : faire pareil pour le pseudo
-
-
         DatabaseReference pathID = mDatabase.getReference("Users").child(mUid);
-
         pathID.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 if ((dataSnapshot.child("avatar").getValue() != null)){
                     String url = dataSnapshot.child("avatar").getValue(String.class);
                     Glide.with(MenuActivity.this).load(url).into(mAvatar);
                 }
-
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
-
-
         });
 
-
-
     }
-
 
 
     @SuppressWarnings("StatementWithEmptyBody")
