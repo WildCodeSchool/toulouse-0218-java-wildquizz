@@ -1,7 +1,5 @@
 package fr.wildcodeschool.wildquizz;
 
-import android.net.Uri;
-
 /**
  * Created by wilder on 24/04/18.
  */
@@ -9,7 +7,7 @@ import android.net.Uri;
 public class UserModel {
 
     private String username;
-    private Uri avatar;
+    private String avatar;
     private int average;
     private int score;
 
@@ -17,7 +15,7 @@ public class UserModel {
 
     }
 
-    public UserModel(String username, Uri avatar, int average, int score) {
+    public UserModel(String username, String avatar, int average, int score) {
         this.username = username;
         this.avatar = avatar;
         this.average = average;
@@ -32,11 +30,11 @@ public class UserModel {
         this.username = username;
     }
 
-    public Uri getAvatar() {
+    public String getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(Uri avatar) {
+    public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
 

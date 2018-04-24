@@ -131,8 +131,8 @@ public class RegistrationActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     final String id = mAuth.getCurrentUser().getUid();
                                     //DATABASE :
-                                    //TODO: faire un model USER :
                                     mDatabaseReference = mDatabase.getReference("Users").child(id);
+
 
                                     mDatabaseReference.child("Name").setValue(mUsername.getText().toString());
                                     //mDatabaseReference.child("Password").setValue(mPassword.getText().toString());
@@ -144,11 +144,15 @@ public class RegistrationActivity extends AppCompatActivity {
                                             @Override
                                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                                 Uri downloadUri = taskSnapshot.getDownloadUrl();
-                                                FirebaseDatabase.getInstance().getReference("Users").child(id).child("avatar").setValue(downloadUri.toString());
+
+                                                final String avatarUrl = downloadUri.toString();
+                                                //TODO: faire un model USER :
+                                                UserModel userModel = new UserModel(userName, avatarUrl, 0, 0);
+
+                                                FirebaseDatabase.getInstance().getReference("Users").child(id).child("avatar").setValue(avatarUrl);
                                             }
                                         });
                                     }
-
 
                                     Toast.makeText(RegistrationActivity.this, R.string.registration_success, Toast.LENGTH_SHORT).show();
                                     Intent gotoMenu = new Intent(RegistrationActivity.this, MenuActivity.class);
