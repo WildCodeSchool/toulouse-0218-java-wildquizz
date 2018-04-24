@@ -39,6 +39,11 @@
     </item>
 
     <item
+        android:id="@+id/listquizz"
+        android:icon="@drawable/loog_display"
+        android:title="@string/mes_quizz"></item>
+
+    <item
         android:id="@+id/logout"
         android:icon="@android:drawable/ic_lock_power_off"
         android:title="@string/logout">

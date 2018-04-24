@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">Wildquizz</string>
+    <string name="app_name">Wild Quizz</string>
     <string name="login">Email</string>
     <string name="password">Mot De Passe</string>
     <string name="identifiant">Identifiant</string>
@@ -118,5 +118,6 @@
     <string name="title_profile">Mon profil</string>
     <string name="title_create_qcm">Créer un QCM</string>
     <string name="title_display_quizz_played">Afficher les quizzs joués</string>
+    <string name="mes_quizz">Mes quizz</string>
 
 </resources>
