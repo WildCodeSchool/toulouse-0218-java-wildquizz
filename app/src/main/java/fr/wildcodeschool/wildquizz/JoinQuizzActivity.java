@@ -6,6 +6,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -41,6 +42,7 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
 
         //Recuperation of intent
         Intent intent = getIntent();
+        final String id = intent.getStringExtra("idQuizz");
 
         Button buttonGoToQuiz  = findViewById(R.id.button_go_quiz);
         buttonGoToQuiz.setOnClickListener(new View.OnClickListener() {
@@ -49,12 +51,27 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
                 //TODO :  récupérer l'id d'un quizz, puis le qcmList, et l'id d'un qcm :
                 mDatabase = FirebaseDatabase.getInstance();
 
-                DatabaseReference idRef = mDatabase.getReference("Quizz");
+                DatabaseReference quizzRef = mDatabase.getReference("Users").child(id).child("qcmList");
+                // Read from the database
+                quizzRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        // This method is called once with the initial value and again
+                        // whenever data at this location is updated.
+                        for (DataSnapshot quizzSnapshot : dataSnapshot.getChildren()){
+                            QuizzModel quizzModel = quizzSnapshot.getValue(QuizzModel.class);
+                        }
+                    }
 
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        // Failed to read value
 
-
-                Intent Playquizz = new Intent(JoinQuizzActivity.this, SplashSecondActivity.class);
-                JoinQuizzActivity.this.startActivity(Playquizz);
+                    }
+                });
+                Intent playQuizz = new Intent(JoinQuizzActivity.this, SplashSecondActivity.class);
+                playQuizz.putExtra("id", id);
+                JoinQuizzActivity.this.startActivity(playQuizz);
             }
         });
 

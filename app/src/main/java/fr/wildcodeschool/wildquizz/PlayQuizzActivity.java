@@ -16,6 +16,7 @@ public class PlayQuizzActivity extends AppCompatActivity {
     private CountDownTimer mCountDownTimer;
 
 
+
     private View.OnClickListener btnClickOnListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -63,6 +64,7 @@ public class PlayQuizzActivity extends AppCompatActivity {
             mCountDownTimer = null;
         }
         //TODO : si le timer = 0, passage au qcm suivant :
+
     }
 
 
