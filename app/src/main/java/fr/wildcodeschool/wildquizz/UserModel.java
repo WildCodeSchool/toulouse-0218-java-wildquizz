@@ -9,7 +9,7 @@ public class UserModel {
     private String username;
     private String avatar;
     private int average;
-    private int score;
+    private int score = 0;
 
     public UserModel() {
 
