@@ -114,5 +114,8 @@
     <string name="qcm_update_success">Qcm update successfully!!</string>
     <string name="updated_qcm">Votre QCM a été mis à jour</string>
     <string name="mes_quizz">Mes quizz</string>
+    <string name="edit_qcm">Editer le Qcm</string>
+    <string name="theme">Thème</string>
+    <string name="reponse_correcte">Réponse correcte</string>
 
 </resources>

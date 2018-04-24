@@ -40,21 +40,10 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
     FirebaseDatabase mDatabase;
     DatabaseReference mQuizzRef;
 
-    private TextView mTvQcmNameValue;
-    private EditText mEditQcmNameValue;
-    private TextView mTvQuestionValue;
-    private EditText mEditQuestionValue;
-    private TextView mTvAnswer1Value;
-    private EditText mEditAnswer1Value;
-    private TextView mTvAnswer2Value;
-    private EditText mEditAnswer2Value;
-    private TextView mTvAnswer3Value;
-    private EditText mEditAnswer3Value;
-    private TextView mTvAnswer4Value;
-    private EditText mEditAnswer4Value;
-    private Button mButtonUpdate;
-    private Button mButtonDelete;
-    private ListView mListqcmValue;
+
+
+
+
     String mIdQuizz;
 
     private FirebaseAuth mAuth;
@@ -124,11 +113,12 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 QcmModel qcmModel = qcmModels.get(i);
-                showUpdateDialog(qcmModel.getTheme(), qcmModel.getQuestion(), qcmModel.getAnswer1(), qcmModel.getAnswer2(), qcmModel.getAnswer3(), qcmModel.getAnswer4());
+                showUpdateDialog(qcmModel);
 
             }
+
         });
-        lvListRoom.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        /*lvListRoom.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
 
@@ -137,7 +127,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
 
                 return false;
             }
-        });
+        });*/
 
 
 
@@ -218,7 +208,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
     }
 
 
-    private void showUpdateDialog(String qcm, String ask, String ans1, String ans2, String ans3, String ans4) {
+    private void showUpdateDialog(QcmModel qcmModel) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
         LayoutInflater inflater = getLayoutInflater();
@@ -227,23 +217,23 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
 
         dialogBuilder.setView(dialogView);
 
-        mTvQcmNameValue = dialogView.findViewById(R.id.text_qcm);
-        mEditQcmNameValue = dialogView.findViewById(R.id.edit_qcm);
-        mTvQuestionValue = dialogView.findViewById(R.id.text_question);
-        mEditQuestionValue = dialogView.findViewById(R.id.edit_question);
-        mTvAnswer1Value =  dialogView.findViewById(R.id.tv_answer1);
-        mEditAnswer1Value =  dialogView.findViewById(R.id.edit_answer1);
-        mTvAnswer2Value =  dialogView.findViewById(R.id.tv_answer2);
-        mEditAnswer2Value =  dialogView.findViewById(R.id.edit_answer_2);
-        mTvAnswer3Value =  dialogView.findViewById(R.id.tv_answer3);
-        mEditAnswer3Value = dialogView.findViewById(R.id.edit_answer_3);
-        mTvAnswer4Value = dialogView.findViewById(R.id.tv_answer4);
-        mEditAnswer4Value = dialogView.findViewById(R.id.edit_answer4);
-        mButtonUpdate = dialogView.findViewById(R.id.button_update);
-        mListqcmValue =dialogView.findViewById(R.id.list_qcm);
-        mButtonDelete = dialogView.findViewById(R.id.button_delete);
 
-        dialogBuilder.setTitle(String.format("%s%s", getString(R.string.update_qcm), qcm));
+        final EditText mEditQcmNameValue = dialogView.findViewById(R.id.edit_qcm);
+        mEditQcmNameValue.setText(qcmModel.getTheme());
+        final EditText mEditQuestionValue = dialogView.findViewById(R.id.edit_question);
+        mEditQuestionValue.setText(qcmModel.getQuestion());
+        final EditText mEditAnswer1Value =  dialogView.findViewById(R.id.edit_answer1);
+        mEditAnswer1Value.setText(qcmModel.getAnswer1());
+        final EditText mEditAnswer2Value =  dialogView.findViewById(R.id.edit_answer_2);
+        mEditAnswer2Value.setText(qcmModel.getAnswer2());
+        final EditText mEditAnswer3Value = dialogView.findViewById(R.id.edit_answer_3);
+        mEditAnswer3Value.setText(qcmModel.getAnswer3());
+        final EditText mEditAnswer4Value = dialogView.findViewById(R.id.edit_answer4);
+        mEditAnswer4Value.setText(qcmModel.getAnswer4());
+        Button mButtonUpdate = dialogView.findViewById(R.id.button_update);
+        Button mButtonDelete = dialogView.findViewById(R.id.button_delete);
+
+        dialogBuilder.setTitle(R.string.edit_qcm);
 
 
 
@@ -252,7 +242,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         mButtonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //TODO mettre à jour dans Firebase
 
 
                 String qcm = mEditQcmNameValue.getText().toString();
@@ -263,13 +253,6 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
                 String ans4 = mEditAnswer4Value.getText().toString();
                 int correctAnswer = 1;//TODO récupérer le numéro de la réponse correcte
 
-               final QcmModel qcmModel = new QcmModel(qcm,ask,ans1,ans2,ans3,ans4,correctAnswer);
-               addQcmToDB(mEditQcmNameValue.getText().toString());
-
-
-
-               Intent goToCreateQuizz = new Intent(CreateQuizzActivity.this, CreateQuizzActivity.class);
-               CreateQuizzActivity.this.startActivity(goToCreateQuizz);
 
             }
         });
@@ -277,18 +260,8 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         mButtonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //TODO Supprimer dans Firebase
 
-                DatabaseReference drQuizzId = FirebaseDatabase.getInstance().getReference("Quizz").child("quizzid");
-                drQuizzId.removeValue();
-
-
-
-                String qcm = mEditQcmNameValue.getText().toString().trim();
-                String ask = mEditQuestionValue.getText().toString();
-                String ans1 = mEditAnswer1Value.getText().toString();
-                String ans2 = mEditAnswer2Value.getText().toString();
-                String ans3 = mEditAnswer3Value.getText().toString();
-                String ans4 = mEditAnswer4Value.getText().toString();
 
 
             }
