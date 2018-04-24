@@ -9,8 +9,17 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class JoinQuizzActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -18,21 +27,32 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
     private ActionBarDrawerToggle mToggle;
 
     private FirebaseAuth mAuth;
+    FirebaseDatabase mDatabase;
+    private ImageView mAvatar;
+    private String mUid;
+    private TextView mUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join_quizz);
 
+        setTitle(getString(R.string.title_join_quizz));
+
         //Recuperation of intent
         Intent intent = getIntent();
-
-        setTitle(getString(R.string.text_join_quiz));
 
         Button buttonGoToQuiz  = findViewById(R.id.button_go_quiz);
         buttonGoToQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //TODO :  récupérer l'id d'un quizz, puis le qcmList, et l'id d'un qcm :
+                mDatabase = FirebaseDatabase.getInstance();
+
+                DatabaseReference idRef = mDatabase.getReference("Quizz");
+
+
+
                 Intent Playquizz = new Intent(JoinQuizzActivity.this, SplashSecondActivity.class);
                 JoinQuizzActivity.this.startActivity(Playquizz);
             }
@@ -48,6 +68,32 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
         //Navigation View :
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view_join);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //Affichage du profil dans la nav bar :
+        View headerLayout = navigationView.getHeaderView(0);
+        mDatabase = FirebaseDatabase.getInstance();
+        mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        mAvatar = headerLayout.findViewById(R.id.image_header);
+        mUsername = headerLayout.findViewById(R.id.text_username);
+        //TODO : faire pareil pour le score
+
+        DatabaseReference pathID = mDatabase.getReference("Users").child(mUid);
+        pathID.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if ((dataSnapshot.child("avatar").getValue() != null)){
+                    String url = dataSnapshot.child("avatar").getValue(String.class);
+                    Glide.with(JoinQuizzActivity.this).load(url).apply(RequestOptions.circleCropTransform()).into(mAvatar);
+                }
+                if ((dataSnapshot.child("Name").getValue() != null)){
+                    String username = dataSnapshot.child("Name").getValue(String.class);
+                    mUsername.setText(username);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -86,6 +132,8 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }
 
 

@@ -6,27 +6,37 @@
     <item
         android:id="@+id/home"
         android:icon="@drawable/logo_home"
-        android:title="@string/accueil"></item>
+        android:title="@string/accueil">
+
+    </item>
 
     <item
         android:id="@+id/join"
         android:icon="@drawable/logo_play"
-        android:title="@string/join_quiz"></item>
+        android:title="@string/join_quiz">
+
+    </item>
 
     <item
         android:id="@+id/create"
         android:icon="@drawable/logo_create"
-        android:title="@string/create_quiz"></item>
+        android:title="@string/create_quiz">
+
+    </item>
 
     <item
         android:id="@+id/profile"
         android:icon="@drawable/logo_user"
-        android:title="@string/my_profile"></item>
+        android:title="@string/my_profile">
+
+    </item>
 
     <item
         android:id="@+id/displayquizz"
         android:icon="@drawable/loog_display"
-        android:title="@string/display_quiz"></item>
+        android:title="@string/display_quiz">
+
+    </item>
 
     <item
         android:id="@+id/listquizz"
@@ -36,7 +46,9 @@
     <item
         android:id="@+id/logout"
         android:icon="@android:drawable/ic_lock_power_off"
-        android:title="@string/logout"></item>
+        android:title="@string/logout">
+
+    </item>
 
 
 </menu>
