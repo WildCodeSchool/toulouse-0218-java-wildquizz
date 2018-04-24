@@ -132,11 +132,11 @@ public class RegistrationActivity extends AppCompatActivity {
                                     final String id = mAuth.getCurrentUser().getUid();
                                     //DATABASE :
                                     mDatabaseReference = mDatabase.getReference("Users").child(id);
+                                    //TODO: faire un model USER :
+                                    final UserModel userModel = new UserModel(userName, null, 0, 0);
+                                    SingletonClass.getInstance();
 
 
-                                    mDatabaseReference.child("Name").setValue(mUsername.getText().toString());
-                                    //mDatabaseReference.child("Password").setValue(mPassword.getText().toString());
-                                    //mDatabaseReference.child("ConfirmPassword").setValue(mConfirmPassword.getText().toString());
 
                                     if (mFileUri != null && !mFileUri.equals("")) {
                                         StorageReference imageRef = FirebaseStorage.getInstance().getReference("Users").child(id).child("imageProfile.jpg");
@@ -144,20 +144,19 @@ public class RegistrationActivity extends AppCompatActivity {
                                             @Override
                                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                                 Uri downloadUri = taskSnapshot.getDownloadUrl();
-
-                                                final String avatarUrl = downloadUri.toString();
-                                                //TODO: faire un model USER :
-                                                UserModel userModel = new UserModel(userName, avatarUrl, 0, 0);
-
-                                                FirebaseDatabase.getInstance().getReference("Users").child(id).child("avatar").setValue(avatarUrl);
+                                                String avatarUrl = downloadUri.toString();
+                                                userModel.setAvatar(avatarUrl);
+                                                mDatabaseReference.setValue(userModel);
+                                                goToMenu();
                                             }
                                         });
                                     }
+                                    else {
+                                        mDatabaseReference.setValue(userModel);
+                                        goToMenu();
+                                    }
 
-                                    Toast.makeText(RegistrationActivity.this, R.string.registration_success, Toast.LENGTH_SHORT).show();
-                                    Intent gotoMenu = new Intent(RegistrationActivity.this, MenuActivity.class);
-                                    gotoMenu.putExtra("id", id);
-                                    RegistrationActivity.this.startActivity(gotoMenu);
+
                                 } else {
                                     Toast.makeText(RegistrationActivity.this, R.string.registration_impossible, Toast.LENGTH_SHORT).show();
                                 }
@@ -168,6 +167,12 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void goToMenu(){
+        Toast.makeText(RegistrationActivity.this, R.string.registration_success, Toast.LENGTH_SHORT).show();
+        Intent gotoMenu = new Intent(RegistrationActivity.this, MenuActivity.class);
+        RegistrationActivity.this.startActivity(gotoMenu);
     }
 
     private File createImageFile() throws IOException {
