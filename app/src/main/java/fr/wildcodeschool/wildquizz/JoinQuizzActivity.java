@@ -46,6 +46,11 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
         buttonGoToQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //TODO :  récupérer l'id d'un quizz, puis le qcmList, et l'id d'un qcm :
+                mDatabase = FirebaseDatabase.getInstance();
+                DatabaseReference idRef = mDatabase.getReference("Quizz");
+
+
                 Intent Playquizz = new Intent(JoinQuizzActivity.this, SplashSecondActivity.class);
                 JoinQuizzActivity.this.startActivity(Playquizz);
             }
