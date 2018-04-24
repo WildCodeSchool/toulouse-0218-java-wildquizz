@@ -22,12 +22,12 @@
     <string name="text_username">Username</string>
     <string name="text_score">Score :</string>
     <string name="score_value">...</string>
-    <string name="text_join_quiz">Join a Quizz</string>
+    <string name="title_join_quizz">Participer à un quizz</string>
     <string name="accueil">Accueil</string>
     <string name="join_quiz">Participer à un Quizz</string>
     <string name="create_quiz">Créer un Quizz</string>
     <string name="my_profile">Mon profil</string>
-    <string name="display_quiz">Afficher les Quizz joués</string>
+    <string name="display_quiz">Afficher mes Quizz</string>
     <string name="logout">Se déconnecter</string>
 
     <string name="start">START</string>
@@ -113,5 +113,10 @@
     <string name="update_qcm">Updating Qcm</string>
     <string name="qcm_update_success">Qcm update successfully!!</string>
     <string name="updated_qcm">Votre QCM a été mis à jour</string>
+    <string name="title_menu_activity">Accueil</string>
+    <string name="title_create_quizz">Créer un quizz</string>
+    <string name="title_profile">Mon profil</string>
+    <string name="title_create_qcm">Créer un QCM</string>
+    <string name="title_display_quizz_played">Afficher les quizzs joués</string>
 
 </resources>

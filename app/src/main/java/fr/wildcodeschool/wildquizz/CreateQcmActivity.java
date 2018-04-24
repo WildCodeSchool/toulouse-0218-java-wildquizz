@@ -32,6 +32,7 @@ public class CreateQcmActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_qcm);
+        setTitle(getString(R.string.title_create_qcm));
         mDatabase = FirebaseDatabase.getInstance();
         mMyRef = mDatabase.getReference("Quizz");
 

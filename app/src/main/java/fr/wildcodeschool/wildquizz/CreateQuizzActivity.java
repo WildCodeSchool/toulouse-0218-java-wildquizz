@@ -61,11 +61,14 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
     private FirebaseAuth mAuth;
     private ImageView mAvatar;
     private String mUid;
+    private TextView mUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_quizz);
+
+        setTitle(getString(R.string.title_create_quizz));
 
         mDatabase = FirebaseDatabase.getInstance();
         mMyRef = mDatabase.getReference("Quizz");
@@ -130,7 +133,9 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         mDatabase = FirebaseDatabase.getInstance();
         mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         mAvatar = headerLayout.findViewById(R.id.image_header);
-        //TODO : faire pareil pour le pseudo
+        mUsername = headerLayout.findViewById(R.id.text_username);
+        //TODO : faire pareil pour le score
+
         DatabaseReference pathID = mDatabase.getReference("Users").child(mUid);
         pathID.addValueEventListener(new ValueEventListener() {
             @Override
@@ -138,6 +143,10 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
                 if ((dataSnapshot.child("avatar").getValue() != null)){
                     String url = dataSnapshot.child("avatar").getValue(String.class);
                     Glide.with(CreateQuizzActivity.this).load(url).apply(RequestOptions.circleCropTransform()).into(mAvatar);
+                }
+                if ((dataSnapshot.child("Name").getValue() != null)){
+                    String username = dataSnapshot.child("Name").getValue(String.class);
+                    mUsername.setText(username);
                 }
             }
             @Override

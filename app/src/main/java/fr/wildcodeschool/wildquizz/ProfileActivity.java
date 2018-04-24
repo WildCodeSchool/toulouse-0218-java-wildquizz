@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -37,11 +38,13 @@ public class ProfileActivity extends AppCompatActivity implements TabInfosFragme
     private ImageView mIcon;
     private ImageView mAvatar;
     private String mUid;
+    private TextView mUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        setTitle(getString(R.string.title_profile));
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.name_tab1));
@@ -110,7 +113,8 @@ public class ProfileActivity extends AppCompatActivity implements TabInfosFragme
         mDatabase = FirebaseDatabase.getInstance();
         mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         mAvatar = headerLayout.findViewById(R.id.image_header);
-        //TODO : faire pareil pour le pseudo
+        mUsername = headerLayout.findViewById(R.id.text_username);
+        //TODO : faire pareil pour le score
         DatabaseReference pathID = mDatabase.getReference("Users").child(mUid);
         pathID.addValueEventListener(new ValueEventListener() {
             @Override
@@ -118,6 +122,10 @@ public class ProfileActivity extends AppCompatActivity implements TabInfosFragme
                 if ((dataSnapshot.child("avatar").getValue() != null)){
                     String url = dataSnapshot.child("avatar").getValue(String.class);
                     Glide.with(ProfileActivity.this).load(url).apply(RequestOptions.circleCropTransform()).into(mAvatar);
+                }
+                if ((dataSnapshot.child("Name").getValue() != null)){
+                    String username = dataSnapshot.child("Name").getValue(String.class);
+                    mUsername.setText(username);
                 }
             }
             @Override

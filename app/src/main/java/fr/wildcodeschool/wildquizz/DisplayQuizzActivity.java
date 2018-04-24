@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -32,11 +33,14 @@ public class DisplayQuizzActivity extends AppCompatActivity implements Navigatio
     FirebaseDatabase mDatabase;
     private ImageView mAvatar;
     private String mUid;
+    private TextView mUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_quizz);
+        setTitle(getString(R.string.title_display_quizz_played));
+
 
         ListView lvDisplay = findViewById(R.id.list_quizz);
         ArrayList<DisplayQuizzModel> results = new ArrayList<>();
@@ -68,7 +72,9 @@ public class DisplayQuizzActivity extends AppCompatActivity implements Navigatio
         mDatabase = FirebaseDatabase.getInstance();
         mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         mAvatar = headerLayout.findViewById(R.id.image_header);
-        //TODO : faire pareil pour le pseudo
+        mUsername = headerLayout.findViewById(R.id.text_username);
+        //TODO : faire pareil pour le score
+
         DatabaseReference pathID = mDatabase.getReference("Users").child(mUid);
         pathID.addValueEventListener(new ValueEventListener() {
             @Override
@@ -76,6 +82,10 @@ public class DisplayQuizzActivity extends AppCompatActivity implements Navigatio
                 if ((dataSnapshot.child("avatar").getValue() != null)){
                     String url = dataSnapshot.child("avatar").getValue(String.class);
                     Glide.with(DisplayQuizzActivity.this).load(url).apply(RequestOptions.circleCropTransform()).into(mAvatar);
+                }
+                if ((dataSnapshot.child("Name").getValue() != null)){
+                    String username = dataSnapshot.child("Name").getValue(String.class);
+                    mUsername.setText(username);
                 }
             }
             @Override

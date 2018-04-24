@@ -134,7 +134,6 @@ public class RegistrationActivity extends AppCompatActivity {
                                     mDatabaseReference = mDatabase.getReference("Users").child(id);
                                     //TODO: faire un model USER :
                                     final UserModel userModel = new UserModel(userName, null, 0, 0);
-                                    SingletonClass.getInstance();
 
 
 
