@@ -83,7 +83,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if ((dataSnapshot.child("avatar").getValue() != null)){
                     String url = dataSnapshot.child("avatar").getValue(String.class);
-                    Glide.with(MenuActivity.this).load(url).into(mAvatar);
+                    Glide.with(MenuActivity.this).load(url).apply(RequestOptions.circleCropTransform()).into(mAvatar);
                 }
             }
             @Override
