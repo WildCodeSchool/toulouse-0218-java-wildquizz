@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -22,6 +23,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Map;
+
 public class JoinQuizzActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private DrawerLayout mDrawerLayout;
@@ -29,6 +32,7 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
 
     private FirebaseAuth mAuth;
     FirebaseDatabase mDatabase;
+    DatabaseReference mQuizzRef;
     private ImageView mAvatar;
     private String mUid;
     private TextView mUsername;
@@ -40,37 +44,29 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
 
         setTitle(getString(R.string.title_join_quizz));
 
-        //Recuperation of intent
-        Intent intent = getIntent();
-        final String id = intent.getStringExtra("idQuizz");
-
         Button buttonGoToQuiz  = findViewById(R.id.button_go_quiz);
         buttonGoToQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //TODO :  récupérer l'id d'un quizz, puis le qcmList, et l'id d'un qcm :
                 mDatabase = FirebaseDatabase.getInstance();
-
-                DatabaseReference quizzRef = mDatabase.getReference("Users").child(id).child("qcmList");
-                // Read from the database
-                quizzRef.addValueEventListener(new ValueEventListener() {
+                mQuizzRef = mDatabase.getReference();
+                mQuizzRef.child("Users").orderByKey().addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        // This method is called once with the initial value and again
-                        // whenever data at this location is updated.
-                        for (DataSnapshot quizzSnapshot : dataSnapshot.getChildren()){
-                            QuizzModel quizzModel = quizzSnapshot.getValue(QuizzModel.class);
+                        if(dataSnapshot==null || dataSnapshot.getChildren()==null) {
+                            //Key does not exist
+                        } else {
+                            //Key exists
+                            //TODO : si key existe alors envoyé le model dans le PlayQuizzActivity
                         }
                     }
-
                     @Override
-                    public void onCancelled(DatabaseError error) {
-                        // Failed to read value
-
+                    public void onCancelled(DatabaseError databaseError) {
                     }
                 });
+
                 Intent playQuizz = new Intent(JoinQuizzActivity.this, SplashSecondActivity.class);
-                playQuizz.putExtra("id", id);
                 JoinQuizzActivity.this.startActivity(playQuizz);
             }
         });
