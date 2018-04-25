@@ -71,6 +71,8 @@ public class PlayQuizzActivity extends AppCompatActivity {
     public void ValidateAnswer(View view) {
         //TODO : si bonne réponse 5pts sinon 0pts
 
+
+
         //TODO : passage au qcm suivant
 
         Intent goToResults = new Intent(PlayQuizzActivity.this, ResultsActivity.class);
