@@ -40,18 +40,13 @@ public class SplashActivity extends AppCompatActivity {
 
                 mAuth = FirebaseAuth.getInstance();
                 FirebaseUser currentUser = mAuth.getCurrentUser();
-                if (currentUser != null){
+                if (currentUser != null) {
                     Intent intent = new Intent(SplashActivity.this, MenuActivity.class);
                     startActivity(intent);
-
-                }
-                else {
+                } else {
                     Intent intent = new Intent(SplashActivity.this,MainActivity.class);
                     startActivity(intent);
                 }
-
-
-
             }
         });
 
@@ -63,8 +58,6 @@ startActivity(new Intent(SplashActivity.this, MainActivity.class));
             }
         });
 videoView.start();
-
-
     }
 
 }
