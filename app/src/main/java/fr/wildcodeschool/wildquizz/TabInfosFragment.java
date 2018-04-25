@@ -146,5 +146,40 @@ public class TabInfosFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+
+        ImageView mMedalBronze = getView().findViewById(R.id.iv_medal2);
+        ImageView mMedalRed = getView().findViewById(R.id.iv_medal1);
+        ImageView mMedalSilver = getView().findViewById(R.id.iv_medal3);
+        ImageView mMedalGold = getView().findViewById(R.id.iv_medal4);
+
+        // TODO récupérer l'utilisateur à partir de Firebase et le score de l'utilisateur avec mAuth et une requête dans firebase storage
+
+        int score = 110;
+
+        switch (ScoreClass.getMedal(score)) {
+            case 1:
+                mMedalRed.setAlpha(1.0f);
+                break;
+
+            case 2:
+                mMedalRed.setAlpha(1.0f);
+                mMedalBronze.setAlpha(1.0f);
+                break;
+
+            case 3:
+                mMedalRed.setAlpha(1.0f);
+                mMedalBronze.setAlpha(1.0f);
+                mMedalSilver.setAlpha(1.0f);
+                break;
+
+            case 4:
+                mMedalRed.setAlpha(1.0f);
+                mMedalBronze.setAlpha(1.0f);
+                mMedalSilver.setAlpha(1.0f);
+                mMedalGold.setAlpha(1.0f);
+                break;
+
+        }
+
     }
 }

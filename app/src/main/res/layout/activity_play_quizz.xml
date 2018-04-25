@@ -72,63 +72,20 @@
         app:layout_constraintTop_toBottomOf="@+id/btn_start" />
 
     <TextView
-        android:id="@+id/tv_answer4"
+        android:id="@+id/tv_answer1"
         android:layout_width="213dp"
-        android:layout_height="35dp"
+        android:layout_height="30dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/answer4"
-        android:textColor="@android:color/black"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/radio_button1"
-        app:layout_constraintHorizontal_bias="0.205"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_answer3" />
-
-    <RadioButton
-        android:id="@+id/radio_button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radio_button2" />
-
-    <TextView
-        android:id="@+id/tv_answer3"
-        android:layout_width="213dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/answer3"
+        android:layout_marginTop="28dp"
+        android:text="@string/answer1"
         android:textColor="?attr/colorPrimary"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/radio_button2"
-        app:layout_constraintHorizontal_bias="0.205"
+        app:layout_constraintEnd_toStartOf="@+id/radio_button1"
+        app:layout_constraintHorizontal_bias="0.241"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_answer2" />
-
-    <RadioButton
-        android:id="@+id/radio_button2"
-        android:layout_width="wrap_content"
-        android:layout_height="33dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radio_button3" />
-
-    <RadioButton
-        android:id="@+id/radio_button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radio_button4" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_question" />
 
     <TextView
         android:id="@+id/tv_answer2"
@@ -141,35 +98,78 @@
         android:textColor="?attr/colorPrimary"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/radio_button3"
-        app:layout_constraintHorizontal_bias="0.212"
+        app:layout_constraintEnd_toStartOf="@+id/radio_button2"
+        app:layout_constraintHorizontal_bias="0.241"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_answer1" />
 
     <TextView
-        android:id="@+id/tv_answer1"
+        android:id="@+id/tv_answer3"
         android:layout_width="213dp"
-        android:layout_height="30dp"
+        android:layout_height="35dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="45dp"
-        android:text="@string/answer1"
+        android:layout_marginTop="28dp"
+        android:text="@string/answer3"
         android:textColor="?attr/colorPrimary"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/radio_button4"
-        app:layout_constraintHorizontal_bias="0.205"
+        app:layout_constraintEnd_toStartOf="@+id/radio_button3"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_answer2" />
+
+    <TextView
+        android:id="@+id/tv_answer4"
+        android:layout_width="213dp"
+        android:layout_height="35dp"
+        android:layout_marginEnd="68dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/answer4"
+        android:textColor="@android:color/black"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/radio_button4"
+        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_answer3" />
+
+    <RadioButton
+        android:id="@+id/radio_button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_question" />
+
+    <RadioButton
+        android:id="@+id/radio_button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radio_button1" />
+
+    <RadioButton
+        android:id="@+id/radio_button3"
+        android:layout_width="wrap_content"
+        android:layout_height="33dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radio_button2" />
 
     <RadioButton
         android:id="@+id/radio_button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="47dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_question" />
+        app:layout_constraintTop_toBottomOf="@+id/radio_button3" />
 
     <ImageButton
         android:id="@+id/ib_leave"
@@ -192,14 +192,13 @@
         android:layout_height="49dp"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:background="@android:color/transparent"
         android:onClick="ValidateAnswer"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_answer2"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintTop_toBottomOf="@+id/radio_button4"
         app:srcCompat="@drawable/logo_check1" />
 
     <Button

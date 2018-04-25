@@ -2,19 +2,15 @@ package fr.wildcodeschool.wildquizz;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,18 +23,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class ProfileActivity extends AppCompatActivity implements TabInfosFragment.OnFragmentInteractionListener, TabFriendFragment.OnFragmentInteractionListener, TabNotificationFragment.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener{
-
-    private DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle mToggle;
+public class ProfileActivity extends AppCompatActivity implements TabInfosFragment.OnFragmentInteractionListener, TabFriendFragment.OnFragmentInteractionListener, TabNotificationFragment.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener {
 
     FirebaseAuth mAuth;
     FirebaseDatabase mDatabase;
-
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mToggle;
     private ImageView mIcon;
     private ImageView mAvatar;
     private String mUid;
     private TextView mUsername;
+    private ImageView mMedalBronze;
+    private ImageView mMedalSilver;
+    private ImageView mMedalGold;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +48,8 @@ public class ProfileActivity extends AppCompatActivity implements TabInfosFragme
         tabLayout.addTab(tabLayout.newTab().setText(R.string.name_tab2));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.name_tab3));
         tabLayout.setTabGravity(tabLayout.GRAVITY_FILL);
+
+
 
         mIcon = findViewById(R.id.icon_change_tab);
 
@@ -83,7 +82,7 @@ public class ProfileActivity extends AppCompatActivity implements TabInfosFragme
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                if (tab.getPosition() == 0){
+                if (tab.getPosition() == 0) {
                     mIcon.setImageResource(R.drawable.logo_info);
                 }
 
@@ -119,15 +118,16 @@ public class ProfileActivity extends AppCompatActivity implements TabInfosFragme
         pathID.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if ((dataSnapshot.child("avatar").getValue() != null)){
+                if ((dataSnapshot.child("avatar").getValue() != null)) {
                     String url = dataSnapshot.child("avatar").getValue(String.class);
                     Glide.with(ProfileActivity.this).load(url).apply(RequestOptions.circleCropTransform()).into(mAvatar);
                 }
-                if ((dataSnapshot.child("Name").getValue() != null)){
+                if ((dataSnapshot.child("Name").getValue() != null)) {
                     String username = dataSnapshot.child("Name").getValue(String.class);
                     mUsername.setText(username);
                 }
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }

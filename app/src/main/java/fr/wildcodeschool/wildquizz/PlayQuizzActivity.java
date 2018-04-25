@@ -141,8 +141,6 @@ public class PlayQuizzActivity extends AppCompatActivity {
         }
 
 
-
-
     }
 
 
