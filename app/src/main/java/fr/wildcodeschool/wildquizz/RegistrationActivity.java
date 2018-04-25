@@ -135,8 +135,6 @@ public class RegistrationActivity extends AppCompatActivity {
                                     //TODO: faire un model USER :
                                     final UserModel userModel = new UserModel(userName, null, 0, 0);
 
-
-
                                     if (mFileUri != null && !mFileUri.equals("")) {
                                         StorageReference imageRef = FirebaseStorage.getInstance().getReference("Users").child(id).child("imageProfile.jpg");
                                         imageRef.putFile(mFileUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

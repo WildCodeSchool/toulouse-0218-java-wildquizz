@@ -75,15 +75,12 @@
         android:id="@+id/tv_answer1"
         android:layout_width="213dp"
         android:layout_height="30dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="28dp"
         android:text="@string/answer1"
         android:textColor="?attr/colorPrimary"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/radio_button1"
-        app:layout_constraintHorizontal_bias="0.241"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_question" />
 
@@ -91,15 +88,12 @@
         android:id="@+id/tv_answer2"
         android:layout_width="213dp"
         android:layout_height="30dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:text="@string/answer2"
         android:textColor="?attr/colorPrimary"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/radio_button2"
-        app:layout_constraintHorizontal_bias="0.241"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_answer1" />
 
@@ -107,15 +101,12 @@
         android:id="@+id/tv_answer3"
         android:layout_width="213dp"
         android:layout_height="35dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="28dp"
         android:text="@string/answer3"
         android:textColor="?attr/colorPrimary"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/radio_button3"
-        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_answer2" />
 
@@ -123,53 +114,68 @@
         android:id="@+id/tv_answer4"
         android:layout_width="213dp"
         android:layout_height="35dp"
-        android:layout_marginEnd="68dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:text="@string/answer4"
         android:textColor="@android:color/black"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/radio_button4"
-        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_answer3" />
 
-    <RadioButton
-        android:id="@+id/radio_button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="28dp"
-        android:layout_marginTop="36dp"
+    <RadioGroup
+        android:id="@+id/radiogroup"
+        android:layout_width="64dp"
+        android:layout_height="233dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_question" />
+        app:layout_constraintStart_toEndOf="@+id/tv_answer1"
+        app:layout_constraintTop_toBottomOf="@+id/tv_question">
 
-    <RadioButton
-        android:id="@+id/radio_button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="28dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radio_button1" />
+        <RadioButton
+            android:id="@+id/radio_btn_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="15dp"
+            android:checked="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radiogroup" />
 
-    <RadioButton
-        android:id="@+id/radio_button3"
-        android:layout_width="wrap_content"
-        android:layout_height="33dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radio_button2" />
+        <RadioButton
+            android:id="@+id/radio_btn_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radiobtn_1" />
 
-    <RadioButton
-        android:id="@+id/radio_button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="28dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radio_button3" />
+        <RadioButton
+            android:id="@+id/radio_btn_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radiobtn_2" />
+
+        <RadioButton
+            android:id="@+id/radio_btn_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radiobtn_3" />
+
+    </RadioGroup>
 
     <ImageButton
         android:id="@+id/ib_leave"
@@ -192,13 +198,11 @@
         android:layout_height="49dp"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
         android:background="@android:color/transparent"
         android:onClick="ValidateAnswer"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radio_button4"
         app:srcCompat="@drawable/logo_check1" />
 
     <Button
