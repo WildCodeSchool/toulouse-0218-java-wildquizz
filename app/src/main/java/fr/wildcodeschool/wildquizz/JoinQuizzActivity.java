@@ -1,13 +1,11 @@
 package fr.wildcodeschool.wildquizz;
 
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -23,10 +21,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.Map;
 
 public class JoinQuizzActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -40,7 +35,7 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
     private String mUid;
     private TextView mUsername;
 
-    private EditText identifiantQuizz;
+    private EditText mIdentifiantQuizz;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +44,7 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
 
         setTitle(getString(R.string.title_join_quizz));
 
-        identifiantQuizz = findViewById(R.id.id_quiz);
+        mIdentifiantQuizz = findViewById(R.id.id_quiz);
 
         Button buttonGoToQuiz  = findViewById(R.id.button_go_quiz);
         buttonGoToQuiz.setOnClickListener(new View.OnClickListener() {
@@ -58,7 +53,7 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
                 //TODO :  récupérer l'id d'un quizz, puis le qcmList, et l'id d'un qcm :
 
                 //Récupération de l'identifiant rentré par l'utilisateur :
-                final String idQuizzEnter = identifiantQuizz.getText().toString();
+                final String idQuizzEnter = mIdentifiantQuizz.getText().toString();
 
                 mDatabase = FirebaseDatabase.getInstance();
                 mQuizzRef = mDatabase.getReference("Quizz");

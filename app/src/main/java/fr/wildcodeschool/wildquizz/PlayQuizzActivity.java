@@ -137,6 +137,7 @@ public class PlayQuizzActivity extends AppCompatActivity {
         }
         else {
             //TODO : si le timer = 0, passage au qcm suivant :
+
         }
 
 
