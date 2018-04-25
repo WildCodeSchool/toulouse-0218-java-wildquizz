@@ -27,7 +27,7 @@
     <string name="join_quiz">Participer à un Quizz</string>
     <string name="create_quiz">Créer un Quizz</string>
     <string name="my_profile">Mon profil</string>
-    <string name="display_quiz">Afficher mes Quizz</string>
+    <string name="display_quiz">Afficher les Quizzs joués</string>
     <string name="logout">Se déconnecter</string>
 
     <string name="start">START</string>
@@ -113,6 +113,7 @@
     <string name="update_qcm">Updating Qcm</string>
     <string name="qcm_update_success">Qcm update successfully!!</string>
     <string name="updated_qcm">Votre QCM a été mis à jour</string>
+    <string name="mes_quizz">Mes quizzs crées</string>
     <string name="title_menu_activity">Accueil</string>
     <string name="title_create_quizz">Créer un quizz</string>
     <string name="title_profile">Mon profil</string>
@@ -123,5 +124,4 @@
     <string name="theme">Thème</string>
     <string name="reponse_correcte">Réponse correcte</string>
     <string name="suppression_qcm">Le Qcm a été bien supprimé</string>
-
 </resources>
