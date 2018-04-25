@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -19,6 +20,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlayQuizzActivity extends AppCompatActivity {
 
@@ -41,6 +44,7 @@ public class PlayQuizzActivity extends AppCompatActivity {
         mCancel.setOnClickListener(btnClickOnListener);
         mTime = findViewById(R.id.count);
         start();
+        final ImageButton checkAnswer = findViewById(R.id.ib_next);
 
         final TextView tvQuestion = findViewById(R.id.tv_question);
         final TextView tvAnswer1 = findViewById(R.id.tv_answer1);
@@ -78,15 +82,16 @@ public class PlayQuizzActivity extends AppCompatActivity {
             }
         });
 
+        final List<QcmModel> qcmModelList =new ArrayList();
         //TODO : récupérer le qcm :
         String idQuizz = getIntent().getStringExtra("idQuizz");
         mDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference playRef = mDatabase.getReference("Quizz").child(idQuizz).child("qcmList");
+        final DatabaseReference playRef = mDatabase.getReference("Quizz").child(idQuizz).child("qcmList");
         playRef.limitToFirst(1).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot qcmSnapshot : dataSnapshot.getChildren()) {
-                    QcmModel qcmModel = qcmSnapshot.getValue(QcmModel.class);
+                for (final DataSnapshot qcmSnapshot : dataSnapshot.getChildren()) {
+                    final QcmModel qcmModel = qcmSnapshot.getValue(QcmModel.class);
                     String question = qcmModel.getQuestion();
                     tvQuestion.setText(question);
                     String answer1 = qcmModel.getAnswer1();
@@ -98,7 +103,8 @@ public class PlayQuizzActivity extends AppCompatActivity {
                     String answer4 = qcmModel.getAnswer4();
                     tvAnswer4.setText(answer4);
                     final int correctAnswer = qcmModel.getCorrectAnswer();
-                    ImageButton checkAnswer = findViewById(R.id.ib_next);
+
+
                     checkAnswer.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -115,10 +121,48 @@ public class PlayQuizzActivity extends AppCompatActivity {
                             }
 
                             //TODO : passage au qcm suivant
+                            String idQuizz = getIntent().getStringExtra("idQuizz");
+                            mDatabase = FirebaseDatabase.getInstance();
+                            DatabaseReference playRef2 = mDatabase.getReference("Quizz").child(idQuizz).child("qcmList");
+                            playRef2.limitToLast(1).addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot qcmSnap : dataSnapshot.getChildren()) {
+                                        QcmModel qcmModel1 = qcmSnap.getValue(QcmModel.class);
+                                        qcmModelList.add(qcmModel1);
+                                        String question = qcmModel1.getQuestion();
+                                        tvQuestion.setText(question);
+                                        String answer1 = qcmModel1.getAnswer1();
+                                        tvAnswer1.setText(answer1);
+                                        String answer2 = qcmModel1.getAnswer2();
+                                        tvAnswer2.setText(answer2);
+                                        String answer3 = qcmModel1.getAnswer3();
+                                        tvAnswer3.setText(answer3);
+                                        String answer4 = qcmModel1.getAnswer4();
+                                        tvAnswer4.setText(answer4);
+                                        final int correctAnswer = qcmModel1.getCorrectAnswer();
+                                        checkAnswer.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                //TODO : si bonne réponse 5pts sinon 0pts
+                                                int goodAnswer = 5;
+                                                int badAnswer = 0;
+                                                if (mPosition == correctAnswer) {
+                                                    int[] array = new int[]{goodAnswer};
+                                                    int score = ScoreClass.foundQuizzScore(array);
+                                                } else {
+                                                    int[] array = new int[]{badAnswer};
+                                                    int score = ScoreClass.foundQuizzScore(array);
+                                                }
+                                            }
+                                        });
+                                    }
+                                }
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
 
-
-
-
+                                }
+                            });
 
 
 
@@ -130,6 +174,7 @@ public class PlayQuizzActivity extends AppCompatActivity {
                     });
                 }
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
