@@ -28,7 +28,7 @@ public class SplashSecondActivity extends AppCompatActivity {
             public void run() {
 
                 Intent i = new Intent(SplashSecondActivity.this,PlayQuizzActivity.class);
-                i.putExtra("idQuizz",idQuizz);
+                i.putExtra("idQuizz", idQuizz);
                 startActivity(i);
                 finish();
 
