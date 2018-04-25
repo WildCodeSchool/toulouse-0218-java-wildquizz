@@ -16,11 +16,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,20 +42,36 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
     private ActionBarDrawerToggle mToggle;
     FirebaseDatabase mDatabase;
     DatabaseReference mQuizzRef;
-
-
-
-
-
+    private TextView mTvQcmNameValue;
+    private EditText mEditQcmNameValue;
+    private TextView mTvQuestionValue;
+    private EditText mEditQuestionValue;
+    private TextView mTvAnswer1Value;
+    private EditText mEditAnswer1Value;
+    private TextView mTvAnswer2Value;
+    private EditText mEditAnswer2Value;
+    private TextView mTvAnswer3Value;
+    private EditText mEditAnswer3Value;
+    private TextView mTvAnswer4Value;
+    private EditText mEditAnswer4Value;
+    private Button mButtonUpdate;
+    private Button mButtonDelete;
+    private ListView mListqcmValue;
     String mIdQuizz;
-
     private FirebaseAuth mAuth;
+    private ImageView mAvatar;
+    private String mUid;
+    private TextView mUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_quizz);
 
+        setTitle(getString(R.string.title_create_quizz));
+
+        mDatabase = FirebaseDatabase.getInstance();
+        mQuizzRef = mDatabase.getReference("Quizz");
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
         Intent intent = getIntent();
@@ -142,6 +161,35 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         //Navigation View :
         NavigationView navigationView = findViewById(R.id.nav_view_create);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //Affichage du profil dans la nav bar :
+        View headerLayout = navigationView.getHeaderView(0);
+        mDatabase = FirebaseDatabase.getInstance();
+        mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        mAvatar = headerLayout.findViewById(R.id.image_header);
+        mUsername = headerLayout.findViewById(R.id.text_username);
+        //TODO : faire pareil pour le score
+
+        DatabaseReference pathID = mDatabase.getReference("Users").child(mUid);
+        pathID.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if ((dataSnapshot.child("avatar").getValue() != null)){
+                    String url = dataSnapshot.child("avatar").getValue(String.class);
+                    Glide.with(CreateQuizzActivity.this).load(url).apply(RequestOptions.circleCropTransform()).into(mAvatar);
+                }
+                if ((dataSnapshot.child("Name").getValue() != null)){
+                    String username = dataSnapshot.child("Name").getValue(String.class);
+                    mUsername.setText(username);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+
+
     }
 
 

@@ -57,6 +57,27 @@ public class RegistrationActivity extends AppCompatActivity {
     private Button mButtonCreate;
     private String mCurrentPhotoPath;
 
+    public static boolean checkAndRequestPermissions(final Activity context) {
+        int extstorePermission = ContextCompat.checkSelfPermission(context,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int cameraPermission = ContextCompat.checkSelfPermission(context,
+                Manifest.permission.CAMERA);
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        if (cameraPermission != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.CAMERA);
+        }
+        if (extstorePermission != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded
+                    .add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(context, listPermissionsNeeded
+                            .toArray(new String[listPermissionsNeeded.size()]),
+                    REQUEST_ID_MULTIPLE_PERMISSIONS);
+            return false;
+        }
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,9 +132,10 @@ public class RegistrationActivity extends AppCompatActivity {
                                     final String id = mAuth.getCurrentUser().getUid();
                                     //DATABASE :
                                     mDatabaseReference = mDatabase.getReference("Users").child(id);
-                                    mDatabaseReference.child("Name").setValue(mUsername.getText().toString());//TODO: faire un model USER
-                                    //mDatabaseReference.child("Password").setValue(mPassword.getText().toString());
-                                    //mDatabaseReference.child("ConfirmPassword").setValue(mConfirmPassword.getText().toString());
+                                    //TODO: faire un model USER :
+                                    final UserModel userModel = new UserModel(userName, null, 0, 0);
+
+
 
                                     if (mFileUri != null && !mFileUri.equals("")) {
                                         StorageReference imageRef = FirebaseStorage.getInstance().getReference("Users").child(id).child("imageProfile.jpg");
@@ -121,13 +143,19 @@ public class RegistrationActivity extends AppCompatActivity {
                                             @Override
                                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                                 Uri downloadUri = taskSnapshot.getDownloadUrl();
-                                                FirebaseDatabase.getInstance().getReference("Users").child(id).child("avatar").setValue(downloadUri.toString());
+                                                String avatarUrl = downloadUri.toString();
+                                                userModel.setAvatar(avatarUrl);
+                                                mDatabaseReference.setValue(userModel);
+                                                goToMenu();
                                             }
                                         });
                                     }
-                                    Toast.makeText(RegistrationActivity.this, R.string.registration_success, Toast.LENGTH_SHORT).show();
-                                    Intent gotoMenu = new Intent(RegistrationActivity.this, MenuActivity.class);
-                                    RegistrationActivity.this.startActivity(gotoMenu);
+                                    else {
+                                        mDatabaseReference.setValue(userModel);
+                                        goToMenu();
+                                    }
+
+
                                 } else {
                                     Toast.makeText(RegistrationActivity.this, R.string.registration_impossible, Toast.LENGTH_SHORT).show();
                                 }
@@ -138,6 +166,12 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void goToMenu(){
+        Toast.makeText(RegistrationActivity.this, R.string.registration_success, Toast.LENGTH_SHORT).show();
+        Intent gotoMenu = new Intent(RegistrationActivity.this, MenuActivity.class);
+        RegistrationActivity.this.startActivity(gotoMenu);
     }
 
     private File createImageFile() throws IOException {
@@ -175,28 +209,6 @@ public class RegistrationActivity extends AppCompatActivity {
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
         }
-    }
-
-    public static boolean checkAndRequestPermissions(final Activity context) {
-        int extstorePermission = ContextCompat.checkSelfPermission(context,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        int cameraPermission = ContextCompat.checkSelfPermission(context,
-                Manifest.permission.CAMERA);
-        List<String> listPermissionsNeeded = new ArrayList<>();
-        if (cameraPermission != PackageManager.PERMISSION_GRANTED) {
-            listPermissionsNeeded.add(Manifest.permission.CAMERA);
-        }
-        if (extstorePermission != PackageManager.PERMISSION_GRANTED) {
-            listPermissionsNeeded
-                    .add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        }
-        if (!listPermissionsNeeded.isEmpty()) {
-            ActivityCompat.requestPermissions(context, listPermissionsNeeded
-                            .toArray(new String[listPermissionsNeeded.size()]),
-                    REQUEST_ID_MULTIPLE_PERMISSIONS);
-            return false;
-        }
-        return true;
     }
 
     @Override
