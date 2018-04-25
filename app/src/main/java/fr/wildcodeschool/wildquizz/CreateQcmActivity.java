@@ -6,7 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -17,7 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 public class CreateQcmActivity extends AppCompatActivity {
     FirebaseDatabase mDatabase;
     DatabaseReference mQuizzRef;
-
+    int mPosition = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,9 +47,11 @@ public class CreateQcmActivity extends AppCompatActivity {
                 String ans2 = answer2.getText().toString();
                 String ans3 = answer3.getText().toString();
                 String ans4 = answer4.getText().toString();
-                int correctAnswer = 1;//TODO récupérer le numéro de la réponse correcte
 
-                final QcmModel qcmModel = new QcmModel(qcm, ask, ans1, ans2, ans3, ans4, correctAnswer);
+
+
+
+                final QcmModel qcmModel = new QcmModel(qcm, ask, ans1, ans2, ans3, ans4, mPosition);
 
                 mQuizzRef = mDatabase.getReference("Quizz").child(idQuizz).child("qcmList");
                 // Read from the database
@@ -71,5 +74,34 @@ public class CreateQcmActivity extends AppCompatActivity {
             }
         });
 
+        RadioGroup radioGroup = findViewById(R.id.radiogroup);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                // This will get the radiobutton that has changed in its check state
+                RadioButton checkedRadioButton = (RadioButton)radioGroup.findViewById(i);
+                // This puts the value (true/false) into the variable
+                boolean isChecked = checkedRadioButton.isChecked();
+                // If the radiobutton that has changed in check state is now checked...
+                if (isChecked)
+                {
+                    // Changes the textview's text to "Checked: example radiobutton text"
+                    switch (i){
+                        case R.id.radiobtn_1 :
+                            mPosition = 1;
+                            break;
+                        case R.id.radiobtn_2:
+                            mPosition = 2;
+                            break;
+                        case R.id.radiobtn_3:
+                            mPosition = 3;
+                            break;
+                        case R.id.radiobtn_4:
+                            mPosition = 4;
+                            break;
+                    }
+                }
+            }
+        });
     }
 }

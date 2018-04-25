@@ -42,7 +42,6 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
     private ActionBarDrawerToggle mToggle;
     FirebaseDatabase mDatabase;
     DatabaseReference mQuizzRef;
-
     private TextView mTvQcmNameValue;
     private EditText mEditQcmNameValue;
     private TextView mTvQuestionValue;
@@ -58,9 +57,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
     private Button mButtonUpdate;
     private Button mButtonDelete;
     private ListView mListqcmValue;
-
     String mIdQuizz;
-
     private FirebaseAuth mAuth;
     private ImageView mAvatar;
     private String mUid;
@@ -135,11 +132,12 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 QcmModel qcmModel = qcmModels.get(i);
-                showUpdateDialog(qcmModel.getTheme(), qcmModel.getQuestion(), qcmModel.getAnswer1(), qcmModel.getAnswer2(), qcmModel.getAnswer3(), qcmModel.getAnswer4());
+                showUpdateDialog(qcmModel);
 
             }
+
         });
-        lvListRoom.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        /*lvListRoom.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
 
@@ -148,7 +146,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
 
                 return false;
             }
-        });
+        });*/
 
 
 
@@ -246,8 +244,29 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         return super.onOptionsItemSelected(item);
     }
 
-    private void updateQcm(String qcm, String ask, String ans1, String ans2, String ans3, String ans4){
+    private void updateQcm(final String qcm, final String ask, final String ans1, final String ans2, final String ans3, final String ans4){
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Quizz");
+
+        /*databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot quizz : dataSnapshot.getChildren()) {
+                    QcmModel qcmModel = quizz.getValue(QcmModel.class);
+                    qcmModel.setTheme(qcm);
+                    qcmModel.setQuestion(ask);
+                    qcmModel.setAnswer1(ans1);
+                    qcmModel.setAnswer2(ans2);
+                    qcmModel.setAnswer3(ans3);
+                    qcmModel.setAnswer4(ans4);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });*/
+
 
         QcmModel qcmModel = new QcmModel();
 
@@ -258,7 +277,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
     }
 
 
-    private void showUpdateDialog(String qcm, String ask, String ans1, String ans2, String ans3, String ans4) {
+    private void showUpdateDialog(final QcmModel qcmModel) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
         LayoutInflater inflater = getLayoutInflater();
@@ -267,23 +286,23 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
 
         dialogBuilder.setView(dialogView);
 
-        mTvQcmNameValue = dialogView.findViewById(R.id.text_qcm);
-        mEditQcmNameValue = dialogView.findViewById(R.id.edit_qcm);
-        mTvQuestionValue = dialogView.findViewById(R.id.text_question);
-        mEditQuestionValue = dialogView.findViewById(R.id.edit_question);
-        mTvAnswer1Value =  dialogView.findViewById(R.id.tv_answer1);
-        mEditAnswer1Value =  dialogView.findViewById(R.id.edit_answer1);
-        mTvAnswer2Value =  dialogView.findViewById(R.id.tv_answer2);
-        mEditAnswer2Value =  dialogView.findViewById(R.id.edit_answer_2);
-        mTvAnswer3Value =  dialogView.findViewById(R.id.tv_answer3);
-        mEditAnswer3Value = dialogView.findViewById(R.id.edit_answer_3);
-        mTvAnswer4Value = dialogView.findViewById(R.id.tv_answer4);
-        mEditAnswer4Value = dialogView.findViewById(R.id.edit_answer4);
-        mButtonUpdate = dialogView.findViewById(R.id.button_update);
-        mListqcmValue =dialogView.findViewById(R.id.list_qcm);
-        mButtonDelete = dialogView.findViewById(R.id.button_delete);
 
-        dialogBuilder.setTitle(String.format("%s%s", getString(R.string.update_qcm), qcm));
+        final EditText mEditQcmNameValue = dialogView.findViewById(R.id.edit_qcm);
+        mEditQcmNameValue.setText(qcmModel.getTheme());
+        final EditText mEditQuestionValue = dialogView.findViewById(R.id.edit_question);
+        mEditQuestionValue.setText(qcmModel.getQuestion());
+        final EditText mEditAnswer1Value =  dialogView.findViewById(R.id.edit_answer1);
+        mEditAnswer1Value.setText(qcmModel.getAnswer1());
+        final EditText mEditAnswer2Value =  dialogView.findViewById(R.id.edit_answer_2);
+        mEditAnswer2Value.setText(qcmModel.getAnswer2());
+        final EditText mEditAnswer3Value = dialogView.findViewById(R.id.edit_answer_3);
+        mEditAnswer3Value.setText(qcmModel.getAnswer3());
+        final EditText mEditAnswer4Value = dialogView.findViewById(R.id.edit_answer4);
+        mEditAnswer4Value.setText(qcmModel.getAnswer4());
+        Button mButtonUpdate = dialogView.findViewById(R.id.button_update);
+        Button mButtonDelete = dialogView.findViewById(R.id.button_delete);
+
+        dialogBuilder.setTitle(R.string.edit_qcm);
 
 
 
@@ -292,7 +311,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         mButtonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //TODO mettre à jour dans Firebase
 
 
                 String qcm = mEditQcmNameValue.getText().toString();
@@ -303,32 +322,15 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
                 String ans4 = mEditAnswer4Value.getText().toString();
                 int correctAnswer = 1;//TODO récupérer le numéro de la réponse correcte
 
-               final QcmModel qcmModel = new QcmModel(qcm,ask,ans1,ans2,ans3,ans4,correctAnswer);
-               addQcmToDB(mEditQcmNameValue.getText().toString());
-
-
-
-               Intent goToCreateQuizz = new Intent(CreateQuizzActivity.this, CreateQuizzActivity.class);
-               CreateQuizzActivity.this.startActivity(goToCreateQuizz);
-
+                updateQcm(qcm,ask,ans1,ans2,ans3,ans4);
             }
         });
 
         mButtonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //TODO Supprimer dans Firebase
 
-                DatabaseReference drQuizzId = FirebaseDatabase.getInstance().getReference("Quizz").child("quizzid");
-                drQuizzId.removeValue();
-
-
-
-                String qcm = mEditQcmNameValue.getText().toString().trim();
-                String ask = mEditQuestionValue.getText().toString();
-                String ans1 = mEditAnswer1Value.getText().toString();
-                String ans2 = mEditAnswer2Value.getText().toString();
-                String ans3 = mEditAnswer3Value.getText().toString();
-                String ans4 = mEditAnswer4Value.getText().toString();
 
 
             }
