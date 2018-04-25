@@ -6,12 +6,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -29,9 +30,12 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
 
     private FirebaseAuth mAuth;
     FirebaseDatabase mDatabase;
+    DatabaseReference mQuizzRef;
     private ImageView mAvatar;
     private String mUid;
     private TextView mUsername;
+
+    private EditText mIdentifiantQuizz;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,38 +44,41 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
 
         setTitle(getString(R.string.title_join_quizz));
 
-        //Recuperation of intent
-        Intent intent = getIntent();
-        final String id = intent.getStringExtra("idQuizz");
+        mIdentifiantQuizz = findViewById(R.id.id_quiz);
 
         Button buttonGoToQuiz  = findViewById(R.id.button_go_quiz);
         buttonGoToQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //TODO :  récupérer l'id d'un quizz, puis le qcmList, et l'id d'un qcm :
-                mDatabase = FirebaseDatabase.getInstance();
 
-                DatabaseReference quizzRef = mDatabase.getReference("Users").child(id).child("qcmList");
-                // Read from the database
-                quizzRef.addValueEventListener(new ValueEventListener() {
+                //Récupération de l'identifiant rentré par l'utilisateur :
+                final String idQuizzEnter = mIdentifiantQuizz.getText().toString();
+
+                mDatabase = FirebaseDatabase.getInstance();
+                mQuizzRef = mDatabase.getReference("Quizz");
+                mQuizzRef.orderByChild("id").equalTo(idQuizzEnter).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        // This method is called once with the initial value and again
-                        // whenever data at this location is updated.
-                        for (DataSnapshot quizzSnapshot : dataSnapshot.getChildren()){
-                            QuizzModel quizzModel = quizzSnapshot.getValue(QuizzModel.class);
+                        if (dataSnapshot.exists()) {
+                            //This means the value exist, you could also dataSnaphot.exist()
+                            for (DataSnapshot children : dataSnapshot.getChildren()) {
+                                QuizzModel quizzModel = children.getValue(QuizzModel.class);
+                                //TODO : si key existe alors envoyé le model dans le PlayQuizzActivity
+                                Intent goToSecondSplash = new Intent(JoinQuizzActivity.this, SplashSecondActivity.class);
+                                goToSecondSplash.putExtra("id", idQuizzEnter);
+                                JoinQuizzActivity.this.startActivity(goToSecondSplash);
+
+                            }
+                        }
+                        else {
+                            Toast.makeText(JoinQuizzActivity.this, "id incorrect", Toast.LENGTH_SHORT).show();
                         }
                     }
-
                     @Override
-                    public void onCancelled(DatabaseError error) {
-                        // Failed to read value
-
+                    public void onCancelled(DatabaseError databaseError) {
                     }
                 });
-                Intent playQuizz = new Intent(JoinQuizzActivity.this, SplashSecondActivity.class);
-                playQuizz.putExtra("id", id);
-                JoinQuizzActivity.this.startActivity(playQuizz);
             }
         });
 
