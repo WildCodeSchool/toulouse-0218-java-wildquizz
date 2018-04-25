@@ -196,8 +196,29 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         return super.onOptionsItemSelected(item);
     }
 
-    private void updateQcm(String qcm, String ask, String ans1, String ans2, String ans3, String ans4){
+    private void updateQcm(final String qcm, final String ask, final String ans1, final String ans2, final String ans3, final String ans4){
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Quizz");
+
+        /*databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot quizz : dataSnapshot.getChildren()) {
+                    QcmModel qcmModel = quizz.getValue(QcmModel.class);
+                    qcmModel.setTheme(qcm);
+                    qcmModel.setQuestion(ask);
+                    qcmModel.setAnswer1(ans1);
+                    qcmModel.setAnswer2(ans2);
+                    qcmModel.setAnswer3(ans3);
+                    qcmModel.setAnswer4(ans4);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });*/
+
 
         QcmModel qcmModel = new QcmModel();
 
@@ -208,7 +229,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
     }
 
 
-    private void showUpdateDialog(QcmModel qcmModel) {
+    private void showUpdateDialog(final QcmModel qcmModel) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
         LayoutInflater inflater = getLayoutInflater();
@@ -253,7 +274,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
                 String ans4 = mEditAnswer4Value.getText().toString();
                 int correctAnswer = 1;//TODO récupérer le numéro de la réponse correcte
 
-
+                updateQcm(qcm,ask,ans1,ans2,ans3,ans4);
             }
         });
 
