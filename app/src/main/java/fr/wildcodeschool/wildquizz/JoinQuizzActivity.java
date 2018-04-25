@@ -1,6 +1,7 @@
 package fr.wildcodeschool.wildquizz;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -69,8 +70,10 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
                             for (DataSnapshot children : dataSnapshot.getChildren()) {
                                 QuizzModel quizzModel = children.getValue(QuizzModel.class);
                                 //TODO : si key existe alors envoyé le model dans le PlayQuizzActivity
-                                Intent playQuizz = new Intent(JoinQuizzActivity.this, SplashSecondActivity.class);
-                                JoinQuizzActivity.this.startActivity(playQuizz);
+                                Intent goToSecondSplash = new Intent(JoinQuizzActivity.this, SplashSecondActivity.class);
+                                goToSecondSplash.putExtra("id", idQuizzEnter);
+                                JoinQuizzActivity.this.startActivity(goToSecondSplash);
+
                             }
                         }
                         else {
