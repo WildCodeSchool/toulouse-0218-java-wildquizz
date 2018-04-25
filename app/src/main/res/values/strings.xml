@@ -10,14 +10,11 @@
     <string name="cr_er_un_compte">Créer un compte</string>
     <string name="connexion">Connexion</string>
     <string name="inscription">Inscription</string>
-
     <string name="name_text_join_quiz">Veuillez entrer l\'identifiant d\'un Quizz</string>
     <string name="text_button_join">Participer à un Quizz</string>
     <string name="text_button_create">Créer un Quizz</string>
-
     <string name="open">Open</string>
     <string name="close">Close</string>
-
     <string name="ok">Ok</string>
     <string name="text_username">Username</string>
     <string name="text_score">Score :</string>
@@ -29,20 +26,17 @@
     <string name="my_profile">Mon profil</string>
     <string name="display_quiz">Afficher mes Quizz</string>
     <string name="logout">Se déconnecter</string>
-
     <string name="start">START</string>
     <string name="stop">STOP</string>
-    <string name="question">Question?</string>
+    <string name="question">Question</string>
     <string name="answer4">Answer4</string>
     <string name="answer3">Answer3</string>
     <string name="answer2">Answer2</string>
     <string name="answer1">Answer1</string>
-
     <string name="text_mesquizz">Mes Quizz</string>
     <string name="id_quizz">#id Quizz</string>
     <string name="score">Score</string>
     <string name="note_quizz">Note Quizz</string>
-
     <string name="ex_fur2">Ex: #FUR2</string>
     <string name="r_ponse_2">Réponse#2</string>
     <string name="r_ponse_3">Réponse#3</string>
@@ -53,14 +47,12 @@
     <string name="cr_er_son_quizz">Créer son Quizz</string>
     <string name="id">Identifiant :</string>
     <string name="ex_128">Ex : #128</string>
-
     <string name="title_resultats">Résultats</string>
     <string name="text_qcm_results">QCM</string>
     <string name="text_answer_results">Réponse</string>
     <string name="check_text">Réponse correcte :</string>
     <string name="text_good_answer">Réponse 2</string>
     <string name="text_score_results">Score</string>
-
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tab1">Mes informations</string>
@@ -79,7 +71,7 @@
     <string name="nom_qcm">Nom du Qcm</string>
     <string name="ex_automobile">Ex : Automobile</string>
     <string name="question_1">Question</string>
-    <string name="rep1">Ex: Quel est la voiture la plus performante?</string>
+    <string name="rep1">Ex: Quelle est la voiture la plus performante?</string>
     <string name="ex_porsche_turbo_s">Ex: Porsche Turbo S</string>
     <string name="réponse_2">Réponse 2</string>
     <string name="ex_bmw_m3">Ex: Bmw M3</string>
@@ -123,5 +115,6 @@
     <string name="theme">Thème</string>
     <string name="reponse_correcte">Réponse correcte</string>
     <string name="suppression_qcm">Le Qcm a été bien supprimé</string>
+    <string name="theme2">Thème</string>
 
 </resources>
