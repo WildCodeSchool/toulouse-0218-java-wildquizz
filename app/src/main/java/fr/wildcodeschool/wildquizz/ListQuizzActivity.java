@@ -7,7 +7,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -23,10 +26,12 @@ public class ListQuizzActivity extends AppCompatActivity implements NavigationVi
     private DrawerLayout mDrawerLayout;
     private FirebaseAuth mAuth;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_quizz);
+
 
         //Navigation Drawer :
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_list_quizz_created);
@@ -39,13 +44,26 @@ public class ListQuizzActivity extends AppCompatActivity implements NavigationVi
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view_list_quizz_created);
         navigationView.setNavigationItemSelectedListener(this);
 
-        ListView listView = findViewById(R.id.quizz_list);
+
+
+        final ListView listView = findViewById(R.id.quizz_list);
+
 
         final ArrayList<QuizzModel> listQuizz = new ArrayList<>();
-
-
         final ListQuizzAdapter quizzAdapter = new ListQuizzAdapter(ListQuizzActivity.this, listQuizz);
         listView.setAdapter(quizzAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> listView, View view, int position, long id) {
+                QuizzModel quizzmod = (QuizzModel) listView.getAdapter().getItem(position);
+                Intent intent = new Intent(listView.getContext(),CreateQuizzActivity.class);
+                intent.putExtra("idQuizz",quizzmod.getId());
+                listView.getContext().startActivity(intent);
+            }
+        });
+
+
+
 
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
