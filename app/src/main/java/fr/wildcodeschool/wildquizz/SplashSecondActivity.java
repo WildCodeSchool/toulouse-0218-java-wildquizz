@@ -17,6 +17,9 @@ public class SplashSecondActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_second_activity);
+
+        final String idQuizz = getIntent().getStringExtra("id");
+
         mZoom = (ImageView) findViewById(R.id.img_content);
         Animation zoomAnimation = AnimationUtils.loadAnimation(SplashSecondActivity.this, R.anim.zooming);
         mZoom.startAnimation(zoomAnimation);
@@ -25,6 +28,7 @@ public class SplashSecondActivity extends AppCompatActivity {
             public void run() {
 
                 Intent i = new Intent(SplashSecondActivity.this,PlayQuizzActivity.class);
+                i.putExtra("idQuizz", idQuizz);
                 startActivity(i);
                 finish();
 

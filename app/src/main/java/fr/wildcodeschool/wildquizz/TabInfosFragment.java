@@ -3,10 +3,21 @@ package fr.wildcodeschool.wildquizz;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 /**
@@ -51,6 +62,11 @@ public class TabInfosFragment extends Fragment {
         return fragment;
     }
 
+    private ImageView mImageProfile;
+    FirebaseAuth mAuth;
+    FirebaseDatabase mDatabase;
+    private String mUid;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +74,7 @@ public class TabInfosFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
@@ -104,5 +121,65 @@ public class TabInfosFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        mImageProfile = getView().findViewById(R.id.iv_profile);
+        //Affichage du profil dans la nav bar :
+        mDatabase = FirebaseDatabase.getInstance();
+        mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        //TODO : faire pareil pour le pseudo
+        DatabaseReference pathID = mDatabase.getReference("Users").child(mUid);
+
+        pathID.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if ((dataSnapshot.child("avatar").getValue() != null)){
+                    String url = dataSnapshot.child("avatar").getValue(String.class);
+                    Glide.with(TabInfosFragment.this).load(url).apply(RequestOptions.circleCropTransform()).into(mImageProfile);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+        ImageView mMedalBronze = getView().findViewById(R.id.iv_medal2);
+        ImageView mMedalRed = getView().findViewById(R.id.iv_medal1);
+        ImageView mMedalSilver = getView().findViewById(R.id.iv_medal3);
+        ImageView mMedalGold = getView().findViewById(R.id.iv_medal4);
+
+        // TODO récupérer l'utilisateur à partir de Firebase et le score de l'utilisateur avec mAuth et une requête dans firebase storage
+
+        int score = 110;
+
+        switch (ScoreClass.getMedal(score)) {
+            case 1:
+                mMedalRed.setAlpha(1.0f);
+                break;
+
+            case 2:
+                mMedalRed.setAlpha(1.0f);
+                mMedalBronze.setAlpha(1.0f);
+                break;
+
+            case 3:
+                mMedalRed.setAlpha(1.0f);
+                mMedalBronze.setAlpha(1.0f);
+                mMedalSilver.setAlpha(1.0f);
+                break;
+
+            case 4:
+                mMedalRed.setAlpha(1.0f);
+                mMedalBronze.setAlpha(1.0f);
+                mMedalSilver.setAlpha(1.0f);
+                mMedalGold.setAlpha(1.0f);
+                break;
+
+        }
+
     }
 }

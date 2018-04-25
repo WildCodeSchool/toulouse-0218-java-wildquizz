@@ -34,6 +34,7 @@
                 android:adjustViewBounds="false"
                 android:cropToPadding="true"
                 android:scaleType="fitXY"
+                android:tint="#77228d"
                 app:layout_constraintBottom_toBottomOf="@+id/header_profile"
                 app:layout_constraintEnd_toEndOf="@+id/header_profile"
                 app:layout_constraintStart_toStartOf="@+id/header_profile"
