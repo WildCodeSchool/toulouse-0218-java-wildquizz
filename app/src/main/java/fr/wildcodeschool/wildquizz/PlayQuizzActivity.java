@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -19,19 +18,22 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class PlayQuizzActivity extends AppCompatActivity {
 
     FirebaseDatabase mDatabase;
+    int mPosition = 1;
     private TextView mTime;
     private Button mStart;
     private Button mCancel;
     private CountDownTimer mCountDownTimer;
-    int mPosition = 1;
     private FirebaseAuth mAuth;
+    private String idQuizz;
+    private String mUid;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class PlayQuizzActivity extends AppCompatActivity {
         start();
         final ImageButton checkAnswer = findViewById(R.id.ib_next);
 
+
         final TextView tvQuestion = findViewById(R.id.tv_question);
         final TextView tvAnswer1 = findViewById(R.id.tv_answer1);
         final TextView tvAnswer2 = findViewById(R.id.tv_answer2);
@@ -57,15 +60,14 @@ public class PlayQuizzActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 // This will get the radiobutton that has changed in its check state
-                RadioButton checkedRadioButton = (RadioButton)radioGroup.findViewById(i);
+                RadioButton checkedRadioButton = (RadioButton) radioGroup.findViewById(i);
                 // This puts the value (true/false) into the variable
                 boolean isChecked = checkedRadioButton.isChecked();
                 // If the radiobutton that has changed in check state is now checked...
-                if (isChecked)
-                {
+                if (isChecked) {
                     // Changes the textview's text to "Checked: example radiobutton text"
-                    switch (i){
-                        case R.id.radio_btn_1 :
+                    switch (i) {
+                        case R.id.radio_btn_1:
                             mPosition = 1;
                             break;
                         case R.id.radio_btn_2:
@@ -82,9 +84,9 @@ public class PlayQuizzActivity extends AppCompatActivity {
             }
         });
 
-        final List<QcmModel> qcmModelList =new ArrayList();
+        final List<QcmModel> qcmModelList = new ArrayList();
         //TODO : récupérer le qcm :
-        String idQuizz = getIntent().getStringExtra("idQuizz");
+        idQuizz = getIntent().getStringExtra("idQuizz");
         mDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference playRef = mDatabase.getReference("Quizz").child(idQuizz).child("qcmList");
         playRef.limitToFirst(1).addValueEventListener(new ValueEventListener() {
@@ -111,20 +113,19 @@ public class PlayQuizzActivity extends AppCompatActivity {
                             //TODO : si bonne réponse 5pts sinon 0pts
                             int goodAnswer = 5;
                             int badAnswer = 0;
-                            if (mPosition == correctAnswer){
+                            if (mPosition == correctAnswer) {
                                 int[] array = new int[]{goodAnswer};
                                 int score = ScoreClass.foundQuizzScore(array);
-                            }
-                            else {
+                            } else {
                                 int[] array = new int[]{badAnswer};
                                 int score = ScoreClass.foundQuizzScore(array);
                             }
 
                             //TODO : passage au qcm suivant
-                            String idQuizz = getIntent().getStringExtra("idQuizz");
-                            mDatabase = FirebaseDatabase.getInstance();
-                            DatabaseReference playRef2 = mDatabase.getReference("Quizz").child(idQuizz).child("qcmList");
-                            playRef2.limitToLast(1).addValueEventListener(new ValueEventListener() {
+                            //String idQuizz = getIntent().getStringExtra("idQuizz");
+                            //mDatabase = FirebaseDatabase.getInstance();
+                            //DatabaseReference playRef2 = mDatabase.getReference("Quizz").child(idQuizz).child("qcmList");
+                            playRef.limitToLast(1).addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     for (DataSnapshot qcmSnap : dataSnapshot.getChildren()) {
@@ -158,6 +159,7 @@ public class PlayQuizzActivity extends AppCompatActivity {
                                         });
                                     }
                                 }
+
                                 @Override
                                 public void onCancelled(DatabaseError databaseError) {
 
@@ -172,6 +174,7 @@ public class PlayQuizzActivity extends AppCompatActivity {
                             PlayQuizzActivity.this.startActivity(goToResults);*/
                         }
                     });
+                    quit();
                 }
             }
 
@@ -179,40 +182,25 @@ public class PlayQuizzActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+        quit();
 
 
-        ImageButton leaveQuizz = findViewById(R.id.ib_leave);
-        leaveQuizz.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO : abandon = 0 pts
 
 
-            }
-        });
 
     }
-
-    private View.OnClickListener btnClickOnListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            switch (view.getId()) {
-                case R.id.btn_start:
-                    start();
-                    break;
-                case R.id.btn_stop:
-                    cancel();
-                    break;
-            }
-        }
-    };
+    private static final String FORMAT = "%02d:%02d";
 
     private void start() {
-        mTime.setText("00:20");
-        mCountDownTimer = new CountDownTimer(20 * 1000, 1000) {
+        mCountDownTimer = new CountDownTimer(60 * 5000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                mTime.setText(String.valueOf(millisUntilFinished / 1000));
+                //mTime.setText(String.valueOf(millisUntilFinished / 1000));
+                mTime.setText(""+String.format(FORMAT,
+                        TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(
+                                TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
+                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(
+                                TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
             }
 
             @Override
@@ -229,10 +217,49 @@ public class PlayQuizzActivity extends AppCompatActivity {
             mCountDownTimer = null;
         } else {
             //TODO : si le timer = 0, passage au qcm suivant :
-
         }
+    }
 
+    private View.OnClickListener btnClickOnListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.btn_start:
+                    start();
+                    break;
+                case R.id.btn_stop:
+                    cancel();
+                    break;
+            }
+        }
+    };
 
+    private void quit(){
+        ImageButton leaveQuizz = findViewById(R.id.ib_leave);
+        leaveQuizz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO : abandon = 0 pts
+                final int scoreQuit = 0;
+
+                Intent returnMenu = new Intent(PlayQuizzActivity.this, MenuActivity.class);
+                startActivity(returnMenu);
+
+                mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                final DatabaseReference quitRef = mDatabase.getReference("Users").child(mUid);
+                quitRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        quitRef.child("score").setValue(scoreQuit);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+
+            }
+        });
     }
 
 

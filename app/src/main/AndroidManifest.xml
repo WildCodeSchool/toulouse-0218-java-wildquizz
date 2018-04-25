@@ -41,7 +41,8 @@
       
         <activity
             android:name=".PlayQuizzActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:noHistory="true"/>
 
 
         <activity android:name=".DisplayQuizzActivity" />
@@ -59,7 +60,8 @@
         <activity
             android:name=".RegistrationActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
+            android:windowSoftInputMode="stateHidden|adjustPan"
+            android:noHistory="true"/>
 
 
         <activity android:name=".JoinQuizzActivity"
