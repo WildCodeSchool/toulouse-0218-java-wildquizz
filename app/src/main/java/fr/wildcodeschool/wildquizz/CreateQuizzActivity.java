@@ -36,12 +36,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Random;
 
-public class CreateQuizzActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class CreateQuizzActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle mToggle;
     FirebaseDatabase mDatabase;
     DatabaseReference mQuizzRef;
+    String mIdQuizz;
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mToggle;
     private TextView mTvQcmNameValue;
     private EditText mEditQcmNameValue;
     private TextView mTvQuestionValue;
@@ -57,7 +58,6 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
     private Button mButtonUpdate;
     private Button mButtonDelete;
     private ListView mListqcmValue;
-    String mIdQuizz;
     private FirebaseAuth mAuth;
     private ImageView mAvatar;
     private String mUid;
@@ -153,8 +153,6 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         });*/
 
 
-
-
         //Navigation Drawer :
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_create);
         mToggle = new ActionBarDrawerToggle(CreateQuizzActivity.this, mDrawerLayout, R.string.open, R.string.close);
@@ -178,24 +176,23 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         pathID.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if ((dataSnapshot.child("avatar").getValue() != null)){
+                if ((dataSnapshot.child("avatar").getValue() != null)) {
                     String url = dataSnapshot.child("avatar").getValue(String.class);
                     Glide.with(CreateQuizzActivity.this).load(url).apply(RequestOptions.circleCropTransform()).into(mAvatar);
                 }
-                if ((dataSnapshot.child("Name").getValue() != null)){
+                if ((dataSnapshot.child("Name").getValue() != null)) {
                     String username = dataSnapshot.child("Name").getValue(String.class);
                     mUsername.setText(username);
                 }
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
 
 
-
     }
-
 
 
     //String 1 composé de 3 chiffres
@@ -249,8 +246,6 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
     }
 
 
-
-
     private void showUpdateDialog(final QcmModel qcmModel) {
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
@@ -265,9 +260,9 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         mEditQcmNameValue.setText(qcmModel.getTheme());
         final EditText mEditQuestionValue = dialogView.findViewById(R.id.edit_question);
         mEditQuestionValue.setText(qcmModel.getQuestion());
-        final EditText mEditAnswer1Value =  dialogView.findViewById(R.id.edit_answer1);
+        final EditText mEditAnswer1Value = dialogView.findViewById(R.id.edit_answer1);
         mEditAnswer1Value.setText(qcmModel.getAnswer1());
-        final EditText mEditAnswer2Value =  dialogView.findViewById(R.id.edit_answer_2);
+        final EditText mEditAnswer2Value = dialogView.findViewById(R.id.edit_answer_2);
         mEditAnswer2Value.setText(qcmModel.getAnswer2());
         final EditText mEditAnswer3Value = dialogView.findViewById(R.id.edit_answer_3);
         mEditAnswer3Value.setText(qcmModel.getAnswer3());
@@ -277,23 +272,23 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         final Button mButtonDelete = dialogView.findViewById(R.id.button_delete);
         final RadioGroup radioGroup = dialogView.findViewById(R.id.radiogroup);
 
-        switch (qcmModel.getCorrectAnswer()){
+        switch (qcmModel.getCorrectAnswer()) {
 
-            case 1 :
+            case 1:
                 RadioButton button1 = dialogView.findViewById(R.id.radiobtn_1);
                 button1.setChecked(true);
                 break;
 
-            case 2 :
+            case 2:
                 RadioButton button2 = dialogView.findViewById(R.id.radiobtn_2);
                 button2.setChecked(true);
                 break;
 
-            case 3 :
+            case 3:
                 RadioButton button3 = dialogView.findViewById(R.id.radiobtn_3);
                 button3.setChecked(true);
                 break;
-            case 4 :
+            case 4:
                 RadioButton button4 = dialogView.findViewById(R.id.radiobtn_4);
                 button4.setChecked(true);
                 break;
@@ -321,8 +316,8 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
                 int correctAnswer = 1;//TODO récupérer le numéro de la réponse correcte
 
                 int i = radioGroup.getCheckedRadioButtonId();
-                switch (i){
-                    case R.id.radiobtn_1 :
+                switch (i) {
+                    case R.id.radiobtn_1:
                         correctAnswer = 1;
                         break;
                     case R.id.radiobtn_2:
@@ -335,7 +330,6 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
                         correctAnswer = 4;
                         break;
                 }
-
 
 
                 qcmModel.setTheme(theme);
@@ -365,24 +359,18 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
                 Toast.makeText(CreateQuizzActivity.this, R.string.suppression_qcm, Toast.LENGTH_SHORT).show();
 
 
-
             }
         });
 
 
-
-
         alertDialog.show();
-
-
-
-
 
 
     }
 
     private void addQcmToDB(String s) {
     }
+
     private boolean updateQcm() {
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Quizz");
@@ -395,8 +383,6 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
 
         return true;
     }
-
-
 
 
 }
