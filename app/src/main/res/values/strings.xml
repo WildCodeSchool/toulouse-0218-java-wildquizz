@@ -122,5 +122,6 @@
     <string name="edit_qcm">Editer le Qcm</string>
     <string name="theme">Thème</string>
     <string name="reponse_correcte">Réponse correcte</string>
+    <string name="suppression_qcm">Le Qcm a été bien supprimé</string>
 
 </resources>

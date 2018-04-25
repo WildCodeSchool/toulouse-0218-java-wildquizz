@@ -13,6 +13,7 @@ public class QcmModel {
     private String answer3;
     private String answer4;
     private int correctAnswer;
+    private String qcmId;
 
     public QcmModel(){}
 
@@ -26,6 +27,8 @@ public class QcmModel {
         this.answer3 = answer3;
         this.answer4 = answer4;
         this.correctAnswer = correctAnswer;
+        this.qcmId = "";
+
     }
 
     public int getCorrectAnswer() {
@@ -83,4 +86,15 @@ public class QcmModel {
     public void setAnswer4(String answer4) {
         this.answer4 = answer4;
     }
+
+    public String getQcmId() {
+        return qcmId;
+    }
+
+    public void setQcmId(String qcmId) {
+        this.qcmId = qcmId;
+    }
 }
+
+
+
