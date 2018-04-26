@@ -18,8 +18,9 @@ public class ScoreClass {
 
     public static int foundQuizzScore(int[] scoreQcm) {
         int totalScore = 0;
+        int scoreValue = scoreQcm[0];
         for (int i = 0; i < scoreQcm.length; i++) {
-            totalScore = totalScore + scoreQcm[i];
+            totalScore = totalScore + scoreQcm[i] ;
         }
         return totalScore;
     }

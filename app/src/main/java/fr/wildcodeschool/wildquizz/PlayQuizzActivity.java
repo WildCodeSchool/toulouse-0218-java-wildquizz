@@ -150,6 +150,8 @@ public class PlayQuizzActivity extends AppCompatActivity {
                                 if (mCurrentQcm == mNbQcm - 1) {
                                     //TODO : afficher la page de résultats
                                     Intent goToResults = new Intent(PlayQuizzActivity.this, ResultsActivity.class);
+                                    goToResults.putExtra("idQuizz", idQuizz);
+                                    goToResults.putExtra("scores", scores);
                                     startActivity(goToResults);
                                 } else {
                                     //TODO : passer au QCM suivant :
@@ -172,6 +174,8 @@ public class PlayQuizzActivity extends AppCompatActivity {
                 if (!hasFoundQcm) {
                     //TODO : afficher la page de résultats
                     Intent goToResults = new Intent(PlayQuizzActivity.this, ResultsActivity.class);
+                    goToResults.putExtra("idQuizz", idQuizz);
+                    goToResults.putExtra("scores", scores);
                     startActivity(goToResults);
                 }
             }
@@ -180,15 +184,14 @@ public class PlayQuizzActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-
     }
 
     private void start() {
         mCountDownTimer = new CountDownTimer(5 * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                //mTime.setText(String.valueOf(millisUntilFinished / 1000));
-                mTime.setText("" + String.format(FORMAT,
+
+                mTime.setText(""+String.format(FORMAT,
                         TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(
                                 TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
                         TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(
@@ -197,7 +200,6 @@ public class PlayQuizzActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-
                 if (mCurrentQcm == mNbQcm - 1) {
                     //TODO : afficher la page de résultats
                     Intent goToResults = new Intent(PlayQuizzActivity.this, ResultsActivity.class);
@@ -211,12 +213,15 @@ public class PlayQuizzActivity extends AppCompatActivity {
                     intent.putExtra("currentQcm", mCurrentQcm + 1);
                     startActivity(intent);
                 }
+
             }
         };
         mCountDownTimer.start();
     }
 
-    private void quit() {
+
+
+    private void quit(){
         ImageButton leaveQuizz = findViewById(R.id.ib_leave);
         leaveQuizz.setOnClickListener(new View.OnClickListener() {
             @Override
