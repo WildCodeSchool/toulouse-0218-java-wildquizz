@@ -50,11 +50,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:layout_marginTop="52dp"
+            android:inputType="number"
+            android:text="000"
             android:textColor="@android:color/white"
             android:textSize="20dp"
             app:layout_constraintStart_toEndOf="@+id/tv_score"
-            app:layout_constraintTop_toBottomOf="@+id/tv_results"
-            tools:text="@string/score_value" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_results" />
 
         <ListView
             android:id="@+id/list_results"
