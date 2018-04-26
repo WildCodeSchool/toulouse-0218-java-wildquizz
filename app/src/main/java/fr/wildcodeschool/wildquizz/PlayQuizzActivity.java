@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -18,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -34,6 +36,8 @@ public class PlayQuizzActivity extends AppCompatActivity {
     private String idQuizz;
     private String mUid;
     private static final String FORMAT = "%02d:%02d";
+
+    private int mCurrentQcm = 0;
 
     private int scoreQcm1 = 0;
     private int scoreQcm2 = 0;
@@ -94,14 +98,23 @@ public class PlayQuizzActivity extends AppCompatActivity {
         final List<Integer> myList = new ArrayList<Integer>();
         //TODO : récupérer le qcm :
         idQuizz = getIntent().getStringExtra("idQuizz");
+        final int currentQcm = getIntent().getIntExtra("currentQcm", 0);
+        final int nbQcm = getIntent().getIntExtra("nbQcm", 0);
+        final int[] scores = getIntent().getIntArrayExtra("scores");
+
         mDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference playRef = mDatabase.getReference("Quizz").child(idQuizz).child("qcmList");
-        /*for (int i = 1; i < 4; i++) {
-            playRef.limitToFirst(i).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for (final DataSnapshot qcmSnapshot : dataSnapshot.getChildren()) {
-                        final QcmModel qcmModel = qcmSnapshot.getValue(QcmModel.class);
+
+        //TODO : récupérer la valeur de position et l'incrémenter de 1 dans une boucle for :
+        playRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int i = 0;
+                boolean hasFoundQcm = false;
+                for (final DataSnapshot qcmSnapshot : dataSnapshot.getChildren()) {
+                    final QcmModel qcmModel = qcmSnapshot.getValue(QcmModel.class);
+                    if (i == currentQcm) {
+                        hasFoundQcm = true;
                         String question = qcmModel.getQuestion();
                         tvQuestion.setText(question);
                         String answer1 = qcmModel.getAnswer1();
@@ -114,159 +127,52 @@ public class PlayQuizzActivity extends AppCompatActivity {
                         tvAnswer4.setText(answer4);
                         final int correctAnswer = qcmModel.getCorrectAnswer();
 
+                        //Button check
+                        final int j = i;
                         checkAnswer.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                return;
+                                //si bonne réponse 5pts sinon 0pts
+                                if (mPosition == correctAnswer) {
+                                    scores[j] = 5;
+                                } else {
+                                    scores[j] = 0;
+                                }
+
+                                if (j == nbQcm - 1){
+                                    //TODO : afficher la page de résultats
+                                    Intent goToResults = new Intent(PlayQuizzActivity.this, ResultsActivity.class);
+                                    startActivity(goToResults);
+                                }
+                                else {
+                                    //TODO : passer au QCM suivant :
+                                    Intent intent = new Intent(PlayQuizzActivity.this, PlayQuizzActivity.class);
+                                    intent.putExtra("idQuizz", idQuizz);
+                                    intent.putExtra("nbQcm", nbQcm);
+                                    intent.putExtra("scores", scores);
+                                    intent.putExtra("currentQcm", j+1);
+                                    startActivity(intent);
+                                }
 
                             }
                         });
+
+                        quit();
                     }
+                    i++;
                 }
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
 
-                }
-            });
-            */
-
-        playRef.orderByChild("Position").equalTo(1).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (final DataSnapshot qcmSnapshot : dataSnapshot.getChildren()) {
-                    final QcmModel qcmModel = qcmSnapshot.getValue(QcmModel.class);
-                    String question = qcmModel.getQuestion();
-                    tvQuestion.setText(question);
-                    String answer1 = qcmModel.getAnswer1();
-                    tvAnswer1.setText(answer1);
-                    String answer2 = qcmModel.getAnswer2();
-                    tvAnswer2.setText(answer2);
-                    String answer3 = qcmModel.getAnswer3();
-                    tvAnswer3.setText(answer3);
-                    String answer4 = qcmModel.getAnswer4();
-                    tvAnswer4.setText(answer4);
-                    final int correctAnswer = qcmModel.getCorrectAnswer();
-
-                    //Button check
-                    checkAnswer.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            //si bonne réponse 5pts sinon 0pts
-                            int goodAnswer = 5;
-                            int badAnswer = 0;
-                            if (mPosition == correctAnswer) {
-                                array1 = new int[]{goodAnswer};
-                                scoreQcm1 = ScoreClass.foundQuizzScore(array1);
-
-                            } else {
-                                array1 = new int[]{badAnswer};
-                                scoreQcm1 = ScoreClass.foundQuizzScore(array1);
-                            }
-
-                            //TODO : passage au qcm suivant
-                            playRef.orderByChild("Position").equalTo(2).addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    for (DataSnapshot qcmSnap : dataSnapshot.getChildren()) {
-                                        QcmModel qcmModel = qcmSnap.getValue(QcmModel.class);
-                                        qcmModelList.add(qcmModel);
-                                        String question = qcmModel.getQuestion();
-                                        tvQuestion.setText(question);
-                                        String answer1 = qcmModel.getAnswer1();
-                                        tvAnswer1.setText(answer1);
-                                        String answer2 = qcmModel.getAnswer2();
-                                        tvAnswer2.setText(answer2);
-                                        String answer3 = qcmModel.getAnswer3();
-                                        tvAnswer3.setText(answer3);
-                                        String answer4 = qcmModel.getAnswer4();
-                                        tvAnswer4.setText(answer4);
-                                        final int correctAnswer = qcmModel.getCorrectAnswer();
-
-                                        //Button check
-                                        checkAnswer.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                //si bonne réponse 5pts sinon 0pts
-                                                int goodAnswer = 5;
-                                                int badAnswer = 0;
-                                                if (mPosition == correctAnswer) {
-                                                    int[] array2 = new int[]{goodAnswer};
-                                                    int scoreQcmInter = ScoreClass.foundQuizzScore(array2);
-                                                    scoreQcm2 = scoreQcm1 + scoreQcmInter;
-                                                } else {
-                                                    int[] array2 = new int[]{badAnswer};
-                                                    int scoreQcmInter = ScoreClass.foundQuizzScore(array2);
-                                                    scoreQcm2 = scoreQcm1 + scoreQcmInter;
-                                                }
-
-                                                //TODO : passage au qcm suivant
-                                                playRef.orderByChild("Position").equalTo(3).addValueEventListener(new ValueEventListener() {
-                                                    @Override
-                                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                                        for (DataSnapshot qcmSnap : dataSnapshot.getChildren()) {
-                                                            QcmModel qcmModel = qcmSnap.getValue(QcmModel.class);
-                                                            qcmModelList.add(qcmModel);
-                                                            String question = qcmModel.getQuestion();
-                                                            tvQuestion.setText(question);
-                                                            String answer1 = qcmModel.getAnswer1();
-                                                            tvAnswer1.setText(answer1);
-                                                            String answer2 = qcmModel.getAnswer2();
-                                                            tvAnswer2.setText(answer2);
-                                                            String answer3 = qcmModel.getAnswer3();
-                                                            tvAnswer3.setText(answer3);
-                                                            String answer4 = qcmModel.getAnswer4();
-                                                            tvAnswer4.setText(answer4);
-                                                            final int correctAnswer = qcmModel.getCorrectAnswer();
-
-                                                            //Button check
-                                                            checkAnswer.setOnClickListener(new View.OnClickListener() {
-                                                                @Override
-                                                                public void onClick(View v) {
-                                                                    //si bonne réponse 5pts sinon 0pts
-                                                                    int goodAnswer = 5;
-                                                                    int badAnswer = 0;
-                                                                    if (mPosition == correctAnswer) {
-                                                                        int[] array = new int[]{goodAnswer};
-                                                                        int score = ScoreClass.foundQuizzScore(array);
-                                                                    } else {
-                                                                        int[] array = new int[]{badAnswer};
-                                                                        int score = ScoreClass.foundQuizzScore(array);
-                                                                    }
-                                                                }
-                                                            });
-                                                        }
-                                                    }
-                                                    @Override
-                                                    public void onCancelled(DatabaseError databaseError) {
-
-                                                    }
-                                                });
-                                                quit();
-                                            }
-                                        });
-                                    }
-                                }
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-
-                                }
-                            });
-                            quit();
-
-                        /*
-                        //Finish quizz :
-                        Intent goToResults = new Intent(PlayQuizzActivity.this, ResultsActivity.class);
-                        PlayQuizzActivity.this.startActivity(goToResults);*/
-                        }
-                    });
+                if (!hasFoundQcm) {
+                    //TODO : afficher la page de résultats
+                    Intent goToResults = new Intent(PlayQuizzActivity.this, ResultsActivity.class);
+                    startActivity(goToResults);
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-        quit();
+
 
 
     }
@@ -274,7 +180,7 @@ public class PlayQuizzActivity extends AppCompatActivity {
 
 
     private void start() {
-        mCountDownTimer = new CountDownTimer(60 * 5000, 1000) {
+        mCountDownTimer = new CountDownTimer(60 * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 //mTime.setText(String.valueOf(millisUntilFinished / 1000));
