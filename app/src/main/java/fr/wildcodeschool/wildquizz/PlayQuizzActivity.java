@@ -187,7 +187,7 @@ public class PlayQuizzActivity extends AppCompatActivity {
     }
 
     private void start() {
-        mCountDownTimer = new CountDownTimer(5 * 1000, 1000) {
+        mCountDownTimer = new CountDownTimer(60 * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
 
