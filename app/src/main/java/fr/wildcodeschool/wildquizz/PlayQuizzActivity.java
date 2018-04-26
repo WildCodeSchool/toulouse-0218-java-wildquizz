@@ -65,7 +65,7 @@ public class PlayQuizzActivity extends AppCompatActivity {
         final TextView tvAnswer3 = findViewById(R.id.tv_answer3);
         final TextView tvAnswer4 = findViewById(R.id.tv_answer4);
 
-        RadioGroup radioGroup = findViewById(R.id.radiogroup);
+        final RadioGroup radioGroup = findViewById(R.id.radiogroup);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -94,13 +94,12 @@ public class PlayQuizzActivity extends AppCompatActivity {
             }
         });
 
-        final List<QcmModel> qcmModelList = new ArrayList();
-        final List<Integer> myList = new ArrayList<Integer>();
         //TODO : récupérer le qcm :
         idQuizz = getIntent().getStringExtra("idQuizz");
         final int currentQcm = getIntent().getIntExtra("currentQcm", 0);
         final int nbQcm = getIntent().getIntExtra("nbQcm", 0);
         final int[] scores = getIntent().getIntArrayExtra("scores");
+        String[] reponses = null;
 
         mDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference playRef = mDatabase.getReference("Quizz").child(idQuizz).child("qcmList");
@@ -140,14 +139,12 @@ public class PlayQuizzActivity extends AppCompatActivity {
                                 }
 
                                 if (j == nbQcm - 1){
-                                    //TODO : afficher la page de résultats
                                     Intent goToResults = new Intent(PlayQuizzActivity.this, ResultsActivity.class);
                                     goToResults.putExtra("idQuizz", idQuizz);
                                     goToResults.putExtra("scores", scores);
                                     startActivity(goToResults);
                                 }
                                 else {
-                                    //TODO : passer au QCM suivant :
                                     Intent intent = new Intent(PlayQuizzActivity.this, PlayQuizzActivity.class);
                                     intent.putExtra("idQuizz", idQuizz);
                                     intent.putExtra("nbQcm", nbQcm);
@@ -165,7 +162,6 @@ public class PlayQuizzActivity extends AppCompatActivity {
                 }
 
                 if (!hasFoundQcm) {
-                    //TODO : afficher la page de résultats
                     Intent goToResults = new Intent(PlayQuizzActivity.this, ResultsActivity.class);
                     goToResults.putExtra("idQuizz", idQuizz);
                     goToResults.putExtra("scores", scores);

@@ -27,16 +27,22 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
+
     private FirebaseAuth mAuth;
     FirebaseDatabase mDatabase;
+
     private ImageView mAvatar;
     private String mUid;
     private TextView mScoreValue;
+    private String mScoreFirebase;
+    private int mScoreActual;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
+
+        mDatabase = FirebaseDatabase.getInstance();
 
         //Navigation Drawer :
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_results);
@@ -49,31 +55,63 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_results);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //TODO: récupérer les infos :
+
 
         mScoreValue = findViewById(R.id.value_score);
         int[] scores = getIntent().getIntArrayExtra("scores");
         int scoreTotalQuizz = ScoreClass.foundQuizzScore(scores);
         mScoreValue.setText(String.valueOf(scoreTotalQuizz));
+        final int scoreQuizz = Integer.parseInt(mScoreValue.getText().toString());
+        //TODO : mettre  jour le scoreUser avec le scoreQuizz
+        mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        final DatabaseReference userRef = mDatabase.getReference("Users").child(mUid).child("score");
+        userRef.setValue(scoreQuizz);
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                mScoreFirebase = String.valueOf(dataSnapshot.getValue(Integer.class));
+                mScoreActual = Integer.parseInt(mScoreFirebase);
+                int scoreUser = scoreQuizz + mScoreActual ;
+                userRef.setValue(scoreUser);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
 
 
-        ArrayList<ResultsModel> resultsModelArrayList = new ArrayList<>();
-        resultsModelArrayList.add(new ResultsModel("aaa","bbb",R.drawable.logo_check1));
-        resultsModelArrayList.add(new ResultsModel("ccc","ddd",R.drawable.logo_cancel2,"fff"));
+        final ListView listView = findViewById(R.id.list_results);
 
+        final ArrayList<ResultsModel> resultsList = new ArrayList<>();
+        final ResultsAdapter adapter = new ResultsAdapter(this,resultsList);
+        listView.setAdapter(adapter);
 
-        ResultsAdapter resultsAdapter = new ResultsAdapter(this, resultsModelArrayList);
+        mDatabase = FirebaseDatabase.getInstance();
+        String idQuizz = getIntent().getStringExtra("idQuizz");
+        DatabaseReference listResultsRef = mDatabase.getReference("Quizz").child(idQuizz).child("qcmList");
+        listResultsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot qcmSnapshot : dataSnapshot.getChildren()) {
+                    ResultsModel resultsModel = qcmSnapshot.getValue(ResultsModel.class);
+                    resultsList.add(new ResultsModel(resultsModel.getQuestion(), null, 0));
 
-        ListView studentsListView
-                = (ListView) findViewById(R.id.list_results);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-        studentsListView.setAdapter(resultsAdapter);
+            }
+        });
+
 
         //Affichage du profil dans la nav bar :
         View headerLayout = navigationView.getHeaderView(0);
-        mDatabase = FirebaseDatabase.getInstance();
         mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         mAvatar = headerLayout.findViewById(R.id.image_header);
         //TODO : faire pareil pour le pseudo

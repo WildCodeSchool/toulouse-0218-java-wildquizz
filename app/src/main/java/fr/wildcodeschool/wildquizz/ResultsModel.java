@@ -6,13 +6,17 @@ package fr.wildcodeschool.wildquizz;
 
 public class ResultsModel {
 
-    private String nameQcm;
+    private String question;
     private String answer;
     private int validateLogo;
     private boolean isSuccess = true;
 
-    public ResultsModel(String nameQcm, String answer, int validateLogo){
-        this.nameQcm = nameQcm;
+    public ResultsModel(){
+
+    }
+
+    public ResultsModel(String question, String answer, int validateLogo){
+        this.question = question;
         this.answer = answer;
         this.validateLogo = validateLogo;
     }
@@ -22,17 +26,17 @@ public class ResultsModel {
     private String goodAnswer;
 
 
-    public ResultsModel(String nameQcm, String answer, int validateLogo, String goodAnswer){
-        this(nameQcm, answer, validateLogo);
+    public ResultsModel(String question, String answer, int validateLogo, String goodAnswer){
+        this(question, answer, validateLogo);
         this.goodAnswer = goodAnswer;
         this.isSuccess = false;
     }
 
-    public void setNameQcm(String nameQcm) {
-        this.nameQcm = nameQcm;
+    public void setQuestion(String question) {
+        this.question = question;
     }
-    public String getNameQcm() {
-        return nameQcm;
+    public String getQuestion() {
+        return question;
     }
 
     public void setAnswer(String reponse) {
