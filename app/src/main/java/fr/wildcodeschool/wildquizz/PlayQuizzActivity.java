@@ -34,10 +34,6 @@ public class PlayQuizzActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private String mIdQuizz;
     private String mUid;
-    private int scoreQcm1 = 0;
-    private int scoreQcm2 = 0;
-    private int scoreQcm3 = 0;
-    private int[] array1;
     private int mNbQcm;
     private int mCurrentQcm;
     private int[] mScores;
@@ -102,9 +98,7 @@ public class PlayQuizzActivity extends AppCompatActivity {
             }
         });
 
-        final List<QcmModel> qcmModelList = new ArrayList();
-        final List<Integer> myList = new ArrayList<Integer>();
-        //TODO : récupérer le qcm :
+
         mIdQuizz = getIntent().getStringExtra("idQuizz");
         mCurrentQcm = getIntent().getIntExtra("currentQcm", 0);
         mNbQcm = getIntent().getIntExtra("nbQcm", 0);
@@ -113,7 +107,6 @@ public class PlayQuizzActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference playRef = mDatabase.getReference("Quizz").child(mIdQuizz).child("qcmList");
 
-        //TODO : récupérer la valeur de position et l'incrémenter de 1 dans une boucle for :
         playRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -148,13 +141,11 @@ public class PlayQuizzActivity extends AppCompatActivity {
                                 }
 
                                 if (mCurrentQcm == mNbQcm - 1) {
-                                    //TODO : afficher la page de résultats
                                     Intent goToResults = new Intent(PlayQuizzActivity.this, ResultsActivity.class);
-                                    goToResults.putExtra("idQuizz", idQuizz);
-                                    goToResults.putExtra("scores", scores);
+                                    goToResults.putExtra("idQuizz", mIdQuizz);
+                                    goToResults.putExtra("scores", mScores);
                                     startActivity(goToResults);
                                 } else {
-                                    //TODO : passer au QCM suivant :
                                     Intent intent = new Intent(PlayQuizzActivity.this, PlayQuizzActivity.class);
                                     intent.putExtra("idQuizz", mIdQuizz);
                                     intent.putExtra("nbQcm", mNbQcm);
@@ -172,10 +163,9 @@ public class PlayQuizzActivity extends AppCompatActivity {
                 }
 
                 if (!hasFoundQcm) {
-                    //TODO : afficher la page de résultats
                     Intent goToResults = new Intent(PlayQuizzActivity.this, ResultsActivity.class);
-                    goToResults.putExtra("idQuizz", idQuizz);
-                    goToResults.putExtra("scores", scores);
+                    goToResults.putExtra("idQuizz", mIdQuizz);
+                    goToResults.putExtra("scores", mScores);
                     startActivity(goToResults);
                 }
             }
@@ -201,11 +191,9 @@ public class PlayQuizzActivity extends AppCompatActivity {
             @Override
             public void onFinish() {
                 if (mCurrentQcm == mNbQcm - 1) {
-                    //TODO : afficher la page de résultats
                     Intent goToResults = new Intent(PlayQuizzActivity.this, ResultsActivity.class);
                     startActivity(goToResults);
                 } else {
-                    //TODO : passer au QCM suivant :
                     Intent intent = new Intent(PlayQuizzActivity.this, PlayQuizzActivity.class);
                     intent.putExtra("idQuizz", mIdQuizz);
                     intent.putExtra("nbQcm", mNbQcm);
@@ -226,22 +214,8 @@ public class PlayQuizzActivity extends AppCompatActivity {
         leaveQuizz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO : abandon = 0 pts
-                final int scoreQuit = 0;
                 Intent returnMenu = new Intent(PlayQuizzActivity.this, MenuActivity.class);
                 startActivity(returnMenu);
-                mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                final DatabaseReference quitRef = mDatabase.getReference("Users").child(mUid);
-                quitRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        quitRef.child("score").setValue(scoreQuit);
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                });
 
             }
         });

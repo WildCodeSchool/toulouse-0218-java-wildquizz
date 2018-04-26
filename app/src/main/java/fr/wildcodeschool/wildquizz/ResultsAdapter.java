@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,7 +29,7 @@ public class ResultsAdapter extends ArrayAdapter<ResultsModel> {
         }
         ResultsModel resultsModel = (ResultsModel) getItem(position);
 
-        TextView nameQcm =  convertView.findViewById(R.id.text_name_QCM);
+        TextView question =  convertView.findViewById(R.id.text_name_QCM);
         TextView answer =  convertView.findViewById(R.id.text_answer);
         ImageView logoValidate = convertView.findViewById(R.id.logo_validated);
         ImageView logoUnvalidate = convertView.findViewById(R.id.logo_unvalidated);
@@ -38,7 +37,7 @@ public class ResultsAdapter extends ArrayAdapter<ResultsModel> {
         TextView checkText = convertView.findViewById(R.id.check_text);
         TextView goodAnswer = convertView.findViewById(R.id.text_good_answer);
 
-        nameQcm.setText(resultsModel.getNameQcm());
+        question.setText(resultsModel.getQuestion());
         answer.setText(resultsModel.getAnswer());
         logoValidate.setImageResource(resultsModel.getValidateLogo());
         logoUnvalidate.setImageResource(resultsModel.getValidateLogo());
