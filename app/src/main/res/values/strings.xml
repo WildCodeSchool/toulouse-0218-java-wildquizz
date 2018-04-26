@@ -49,8 +49,7 @@
     <string name="ex_128">Ex : #128</string>
     <string name="title_resultats">Résultats</string>
     <string name="text_qcm_results">QCM</string>
-    <string name="text_answer_results">Réponse</string>
-    <string name="check_text">Réponse correcte :</string>
+    <string name="text_points">Points :</string>
     <string name="text_good_answer">Réponse 2</string>
     <string name="text_score_results">Score</string>
     <!-- TODO: Remove or change this placeholder text -->

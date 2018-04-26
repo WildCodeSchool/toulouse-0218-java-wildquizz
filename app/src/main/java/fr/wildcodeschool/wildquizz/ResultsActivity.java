@@ -34,8 +34,7 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
     private ImageView mAvatar;
     private String mUid;
     private TextView mScoreValue;
-    private String mScoreFirebase;
-    private int mScoreActual;
+    private TextView mValueScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,20 +57,19 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
 
 
         mScoreValue = findViewById(R.id.value_score);
-        int[] scores = getIntent().getIntArrayExtra("scores");
-        int scoreTotalQuizz = ScoreClass.foundQuizzScore(scores);
+        mValueScore = findViewById(R.id.score_value);
+        final int[] scores = getIntent().getIntArrayExtra("scores");
+        final int scoreTotalQuizz = ScoreClass.foundQuizzScore(scores);
         mScoreValue.setText(String.valueOf(scoreTotalQuizz));
-        final int scoreQuizz = Integer.parseInt(mScoreValue.getText().toString());
         //TODO : mettre  jour le scoreUser avec le scoreQuizz
         mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         final DatabaseReference userRef = mDatabase.getReference("Users").child(mUid).child("score");
-        userRef.setValue(scoreQuizz);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                mScoreFirebase = String.valueOf(dataSnapshot.getValue(Integer.class));
-                mScoreActual = Integer.parseInt(mScoreFirebase);
-                int scoreUser = scoreQuizz + mScoreActual ;
+                String scoreFirebase = String.valueOf(dataSnapshot.getValue(Integer.class));
+                int scoreActual = Integer.parseInt(scoreFirebase);
+                int scoreUser = scoreTotalQuizz + scoreActual ;
                 userRef.setValue(scoreUser);
 
             }
@@ -94,14 +92,18 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
         mDatabase = FirebaseDatabase.getInstance();
         String idQuizz = getIntent().getStringExtra("idQuizz");
         DatabaseReference listResultsRef = mDatabase.getReference("Quizz").child(idQuizz).child("qcmList");
-        listResultsRef.addValueEventListener(new ValueEventListener() {
+        listResultsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                int i = 0;
                 for (DataSnapshot qcmSnapshot : dataSnapshot.getChildren()) {
                     ResultsModel resultsModel = qcmSnapshot.getValue(ResultsModel.class);
-                    resultsList.add(new ResultsModel(resultsModel.getQuestion(), null, 0));
+                    resultsList.add(new ResultsModel(resultsModel.getQuestion(),0,scores[i]));
+                    //TODO : afficher le score de chaque question
 
+                   i++;
                 }
+                adapter.notifyDataSetChanged();
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
