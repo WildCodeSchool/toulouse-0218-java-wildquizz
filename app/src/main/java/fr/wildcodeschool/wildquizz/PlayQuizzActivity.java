@@ -10,7 +10,6 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -19,13 +18,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class PlayQuizzActivity extends AppCompatActivity {
 
+    private static final String FORMAT = "%02d:%02d";
     FirebaseDatabase mDatabase;
     int mPosition = 1;
     private TextView mTime;
@@ -33,17 +32,26 @@ public class PlayQuizzActivity extends AppCompatActivity {
     private Button mCancel;
     private CountDownTimer mCountDownTimer;
     private FirebaseAuth mAuth;
-    private String idQuizz;
+    private String mIdQuizz;
     private String mUid;
-    private static final String FORMAT = "%02d:%02d";
-
-    private int mCurrentQcm = 0;
-
     private int scoreQcm1 = 0;
     private int scoreQcm2 = 0;
     private int scoreQcm3 = 0;
     private int[] array1;
+    private int mNbQcm;
+    private int mCurrentQcm;
+    private int[] mScores;
+    private View.OnClickListener btnClickOnListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.btn_start:
+                    start();
+                    break;
 
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,13 +105,13 @@ public class PlayQuizzActivity extends AppCompatActivity {
         final List<QcmModel> qcmModelList = new ArrayList();
         final List<Integer> myList = new ArrayList<Integer>();
         //TODO : récupérer le qcm :
-        idQuizz = getIntent().getStringExtra("idQuizz");
-        final int currentQcm = getIntent().getIntExtra("currentQcm", 0);
-        final int nbQcm = getIntent().getIntExtra("nbQcm", 0);
-        final int[] scores = getIntent().getIntArrayExtra("scores");
+        mIdQuizz = getIntent().getStringExtra("idQuizz");
+        mCurrentQcm = getIntent().getIntExtra("currentQcm", 0);
+        mNbQcm = getIntent().getIntExtra("nbQcm", 0);
+        mScores = getIntent().getIntArrayExtra("scores");
 
         mDatabase = FirebaseDatabase.getInstance();
-        final DatabaseReference playRef = mDatabase.getReference("Quizz").child(idQuizz).child("qcmList");
+        final DatabaseReference playRef = mDatabase.getReference("Quizz").child(mIdQuizz).child("qcmList");
 
         //TODO : récupérer la valeur de position et l'incrémenter de 1 dans une boucle for :
         playRef.addValueEventListener(new ValueEventListener() {
@@ -113,7 +121,7 @@ public class PlayQuizzActivity extends AppCompatActivity {
                 boolean hasFoundQcm = false;
                 for (final DataSnapshot qcmSnapshot : dataSnapshot.getChildren()) {
                     final QcmModel qcmModel = qcmSnapshot.getValue(QcmModel.class);
-                    if (i == currentQcm) {
+                    if (i == mCurrentQcm) {
                         hasFoundQcm = true;
                         String question = qcmModel.getQuestion();
                         tvQuestion.setText(question);
@@ -128,29 +136,28 @@ public class PlayQuizzActivity extends AppCompatActivity {
                         final int correctAnswer = qcmModel.getCorrectAnswer();
 
                         //Button check
-                        final int j = i;
+
                         checkAnswer.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 //si bonne réponse 5pts sinon 0pts
                                 if (mPosition == correctAnswer) {
-                                    scores[j] = 5;
+                                    mScores[mCurrentQcm] = 5;
                                 } else {
-                                    scores[j] = 0;
+                                    mScores[mCurrentQcm] = 0;
                                 }
 
-                                if (j == nbQcm - 1){
+                                if (mCurrentQcm == mNbQcm - 1) {
                                     //TODO : afficher la page de résultats
                                     Intent goToResults = new Intent(PlayQuizzActivity.this, ResultsActivity.class);
                                     startActivity(goToResults);
-                                }
-                                else {
+                                } else {
                                     //TODO : passer au QCM suivant :
                                     Intent intent = new Intent(PlayQuizzActivity.this, PlayQuizzActivity.class);
-                                    intent.putExtra("idQuizz", idQuizz);
-                                    intent.putExtra("nbQcm", nbQcm);
-                                    intent.putExtra("scores", scores);
-                                    intent.putExtra("currentQcm", j+1);
+                                    intent.putExtra("idQuizz", mIdQuizz);
+                                    intent.putExtra("nbQcm", mNbQcm);
+                                    intent.putExtra("scores", mScores);
+                                    intent.putExtra("currentQcm", mCurrentQcm + 1);
                                     startActivity(intent);
                                 }
 
@@ -168,60 +175,48 @@ public class PlayQuizzActivity extends AppCompatActivity {
                     startActivity(goToResults);
                 }
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
 
-
-
     }
 
-
-
     private void start() {
-        mCountDownTimer = new CountDownTimer(60 * 1000, 1000) {
+        mCountDownTimer = new CountDownTimer(5 * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 //mTime.setText(String.valueOf(millisUntilFinished / 1000));
-                mTime.setText(""+String.format(FORMAT,
+                mTime.setText("" + String.format(FORMAT,
                         TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(
                                 TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
                         TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(
                                 TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
             }
+
             @Override
             public void onFinish() {
-                mTime.setText("");
+
+                if (mCurrentQcm == mNbQcm - 1) {
+                    //TODO : afficher la page de résultats
+                    Intent goToResults = new Intent(PlayQuizzActivity.this, ResultsActivity.class);
+                    startActivity(goToResults);
+                } else {
+                    //TODO : passer au QCM suivant :
+                    Intent intent = new Intent(PlayQuizzActivity.this, PlayQuizzActivity.class);
+                    intent.putExtra("idQuizz", mIdQuizz);
+                    intent.putExtra("nbQcm", mNbQcm);
+                    intent.putExtra("scores", mScores);
+                    intent.putExtra("currentQcm", mCurrentQcm + 1);
+                    startActivity(intent);
+                }
             }
         };
         mCountDownTimer.start();
     }
 
-    private void cancel() {
-        if (mCountDownTimer != null) {
-            mCountDownTimer.cancel();
-            mCountDownTimer = null;
-        } else {
-            //TODO : si le timer = 0, passage au qcm suivant :
-        }
-    }
-
-    private View.OnClickListener btnClickOnListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            switch (view.getId()) {
-                case R.id.btn_start:
-                    start();
-                    break;
-                case R.id.btn_stop:
-                    cancel();
-                    break;
-            }
-        }
-    };
-
-    private void quit(){
+    private void quit() {
         ImageButton leaveQuizz = findViewById(R.id.ib_leave);
         leaveQuizz.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -237,6 +232,7 @@ public class PlayQuizzActivity extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         quitRef.child("score").setValue(scoreQuit);
                     }
+
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                     }
