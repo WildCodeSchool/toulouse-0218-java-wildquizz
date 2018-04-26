@@ -67,6 +67,7 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
                                 //TODO : si key existe alors envoyé le model dans le PlayQuizzActivity
                                 Intent goToSecondSplash = new Intent(JoinQuizzActivity.this, SplashSecondActivity.class);
                                 goToSecondSplash.putExtra("id", idQuizzEnter);
+                                goToSecondSplash.putExtra("nbQcm",quizzModel.getQcmList().size());
                                 JoinQuizzActivity.this.startActivity(goToSecondSplash);
 
                             }
@@ -140,6 +141,9 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
         } else if (id == R.id.displayquizz) {
             Intent goToDisplayQuizz = new Intent(this, DisplayQuizzActivity.class);
             this.startActivity(goToDisplayQuizz);
+        } else if (id == R.id.listquizz) {
+                Intent goToListQuizz = new Intent(this, ListQuizzActivity.class);
+                this.startActivity(goToListQuizz);
         } else if (id == R.id.logout) {
             //Déconnexion
             mAuth = FirebaseAuth.getInstance();
