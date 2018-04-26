@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -48,29 +49,46 @@ public class CreateQcmActivity extends AppCompatActivity {
                 String ans3 = answer3.getText().toString();
                 String ans4 = answer4.getText().toString();
 
+                if (qcm.isEmpty() || ask.isEmpty() || ans1.isEmpty() || ans2.isEmpty() || ans3.isEmpty()
+                         || ans4.isEmpty()){
+
+                    Toast.makeText(CreateQcmActivity.this, "Remplissez tous les champs s'il vous plaît !", Toast.LENGTH_SHORT).show();
+
+                }
+                else {
+                    qcm = nameQcm.getText().toString();
+                    ask = question.getText().toString();
+                    ans1 = answer1.getText().toString();
+                    ans2 = answer2.getText().toString();
+                    ans3 = answer3.getText().toString();
+                    ans4 = answer4.getText().toString();
+
+                    final QcmModel qcmModel = new QcmModel(qcm, ask, ans1, ans2, ans3, ans4, mPosition);
+
+                    mQuizzRef = mDatabase.getReference("Quizz").child(idQuizz).child("qcmList");
+                    // Read from the database
+                    mQuizzRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            // enregistrer le qcm dans Firebase
+                            mQuizzRef.push().setValue(qcmModel);
+
+                            Intent goToCreateQuizz = new Intent(CreateQcmActivity.this, CreateQuizzActivity.class);
+                            goToCreateQuizz.putExtra("idQuizz", idQuizz);
+                            CreateQcmActivity.this.startActivity(goToCreateQuizz);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError error) {
+
+                        }
+                    });
+
+                }
 
 
 
-                final QcmModel qcmModel = new QcmModel(qcm, ask, ans1, ans2, ans3, ans4, mPosition);
 
-                mQuizzRef = mDatabase.getReference("Quizz").child(idQuizz).child("qcmList");
-                // Read from the database
-                mQuizzRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        // enregistrer le qcm dans Firebase
-                        mQuizzRef.push().setValue(qcmModel);
-
-                        Intent goToCreateQuizz = new Intent(CreateQcmActivity.this, CreateQuizzActivity.class);
-                        goToCreateQuizz.putExtra("idQuizz", idQuizz);
-                        CreateQcmActivity.this.startActivity(goToCreateQuizz);
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError error) {
-
-                    }
-                });
             }
         });
 
