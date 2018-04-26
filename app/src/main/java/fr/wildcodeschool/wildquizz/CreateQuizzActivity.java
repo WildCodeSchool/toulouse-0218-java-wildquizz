@@ -1,13 +1,13 @@
 package fr.wildcodeschool.wildquizz;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,14 +21,13 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -95,20 +94,20 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         // TODO V2 : vérifier que l'id unique n'existe pas déjà, si c'est le cas, le regénérer
 
         FloatingActionButton addQcm = findViewById(R.id.floating_add_qcm);
-            addQcm.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // TODO : vérifier le nombre d'item dans l'adapter
-                    if (mQcmAdapter.getCount() >= 5) {
-                        Toast.makeText(CreateQuizzActivity.this, "la limite de création de Qcm a été atteinte!", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Intent goToCreateQcm = new Intent(CreateQuizzActivity.this, CreateQcmActivity.class);
-                        goToCreateQcm.putExtra("idQuizz", mIdQuizz);
-                        CreateQuizzActivity.this.startActivity(goToCreateQcm);
-                    }
-
+        addQcm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO : vérifier le nombre d'item dans l'adapter
+                if (mQcmAdapter.getCount() >= 5) {
+                    Toast.makeText(CreateQuizzActivity.this, R.string.limit_create_quizz, Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent goToCreateQcm = new Intent(CreateQuizzActivity.this, CreateQcmActivity.class);
+                    goToCreateQcm.putExtra("idQuizz", mIdQuizz);
+                    CreateQuizzActivity.this.startActivity(goToCreateQcm);
                 }
-            });
+
+            }
+        });
         // charger la liste des QCM du Quizz à partir de Firebase
         final ArrayList<QcmModel> qcmModels = new ArrayList<>();
         mQcmAdapter = new QcmAdapter(this, 0, qcmModels);
@@ -281,7 +280,6 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         final RadioGroup radioGroup = dialogView.findViewById(R.id.radiogroup);
 
 
-
         switch (qcmModel.getCorrectAnswer()) {
 
             case 1:
@@ -342,17 +340,12 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
                 }
 
 
-
-
-
-
-                if (theme.isEmpty() || question.isEmpty() || ans1.isEmpty()||
-                         ans2.isEmpty() || ans3.isEmpty() ||
+                if (theme.isEmpty() || question.isEmpty() || ans1.isEmpty() ||
+                        ans2.isEmpty() || ans3.isEmpty() ||
                         ans4.isEmpty()) {
 
-                    Toast.makeText(CreateQuizzActivity.this, "Remplissez tous les champs s'il vous plaît!!", Toast.LENGTH_SHORT).show();
-                }
-                else{
+                    Toast.makeText(CreateQuizzActivity.this, R.string.fill_all, Toast.LENGTH_SHORT).show();
+                } else {
                     qcmModel.setTheme(theme);
                     qcmModel.setQuestion(question);
                     qcmModel.setAnswer1(ans1);

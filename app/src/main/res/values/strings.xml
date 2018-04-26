@@ -116,5 +116,7 @@
     <string name="reponse_correcte">Réponse correcte</string>
     <string name="suppression_qcm">Le Qcm a été bien supprimé</string>
     <string name="theme2">Thème</string>
+    <string name="limit_create_quizz">la limite de création de Qcm a été atteinte!</string>
+    <string name="fill_all">Remplissez tous les champs s\'il vous plaît!!</string>
 
 </resources>
