@@ -31,7 +31,7 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
     FirebaseDatabase mDatabase;
     private ImageView mAvatar;
     private String mUid;
-    private TextView scoreValue;
+    private TextView mScoreValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +51,11 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
 
         //TODO: récupérer les infos :
 
-        scoreValue = findViewById(R.id.text_score_value);
-        int[] score = getIntent().getIntArrayExtra("scores");
-        int scoreTotalQuizz = ScoreClass.foundQuizzScore(score);
+        mScoreValue = findViewById(R.id.value_score);
+        int[] scores = getIntent().getIntArrayExtra("scores");
+        int scoreTotalQuizz = ScoreClass.foundQuizzScore(scores);
+        mScoreValue.setText(String.valueOf(scoreTotalQuizz));
+
 
 
 
