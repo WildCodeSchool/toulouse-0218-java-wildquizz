@@ -272,6 +272,8 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         final Button mButtonDelete = dialogView.findViewById(R.id.button_delete);
         final RadioGroup radioGroup = dialogView.findViewById(R.id.radiogroup);
 
+
+
         switch (qcmModel.getCorrectAnswer()) {
 
             case 1:
@@ -332,19 +334,30 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
                 }
 
 
-                qcmModel.setTheme(theme);
-                qcmModel.setQuestion(question);
-                qcmModel.setAnswer1(ans1);
-                qcmModel.setAnswer2(ans2);
-                qcmModel.setAnswer3(ans3);
-                qcmModel.setAnswer4(ans4);
-                qcmModel.setCorrectAnswer(correctAnswer);
-                databaseReference.setValue(qcmModel);
 
-                Toast.makeText(CreateQuizzActivity.this, R.string.updated_qcm, Toast.LENGTH_SHORT).show();
-                alertDialog.dismiss();
-                mQcmAdapter.notifyDataSetChanged();
 
+
+
+                if (theme.isEmpty() || question.isEmpty() || ans1.isEmpty()||
+                         ans2.isEmpty() || ans3.isEmpty() ||
+                        ans4.isEmpty()) {
+
+                    Toast.makeText(CreateQuizzActivity.this, "Remplissez tous les champs s'il vous plaît!!", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    qcmModel.setTheme(theme);
+                    qcmModel.setQuestion(question);
+                    qcmModel.setAnswer1(ans1);
+                    qcmModel.setAnswer2(ans2);
+                    qcmModel.setAnswer3(ans3);
+                    qcmModel.setAnswer4(ans4);
+                    qcmModel.setCorrectAnswer(correctAnswer);
+                    databaseReference.setValue(qcmModel);
+
+                    Toast.makeText(CreateQuizzActivity.this, R.string.updated_qcm, Toast.LENGTH_SHORT).show();
+                    alertDialog.dismiss();
+                    mQcmAdapter.notifyDataSetChanged();
+                }
             }
         });
 
