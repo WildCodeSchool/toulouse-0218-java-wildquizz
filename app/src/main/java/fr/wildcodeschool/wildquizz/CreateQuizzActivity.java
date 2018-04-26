@@ -1,13 +1,13 @@
 package fr.wildcodeschool.wildquizz;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,14 +21,13 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -63,6 +62,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
     private String mUid;
     private TextView mUsername;
     private QcmAdapter mQcmAdapter;
+    private int mCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,12 +97,17 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         addQcm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent goToCreateQcm = new Intent(CreateQuizzActivity.this, CreateQcmActivity.class);
-                goToCreateQcm.putExtra("idQuizz", mIdQuizz);
-                CreateQuizzActivity.this.startActivity(goToCreateQcm);
+                // TODO : vérifier le nombre d'item dans l'adapter
+                if (mQcmAdapter.getCount() >= 5) {
+                    Toast.makeText(CreateQuizzActivity.this, R.string.limit_create_quizz, Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent goToCreateQcm = new Intent(CreateQuizzActivity.this, CreateQcmActivity.class);
+                    goToCreateQcm.putExtra("idQuizz", mIdQuizz);
+                    CreateQuizzActivity.this.startActivity(goToCreateQcm);
+                }
+
             }
         });
-
         // charger la liste des QCM du Quizz à partir de Firebase
         final ArrayList<QcmModel> qcmModels = new ArrayList<>();
         mQcmAdapter = new QcmAdapter(this, 0, qcmModels);
@@ -136,6 +141,8 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 QcmModel qcmModel = qcmModels.get(i);
+
+
                 showUpdateDialog(qcmModel);
 
             }
@@ -272,6 +279,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         final Button mButtonDelete = dialogView.findViewById(R.id.button_delete);
         final RadioGroup radioGroup = dialogView.findViewById(R.id.radiogroup);
 
+
         switch (qcmModel.getCorrectAnswer()) {
 
             case 1:
@@ -332,19 +340,25 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
                 }
 
 
-                qcmModel.setTheme(theme);
-                qcmModel.setQuestion(question);
-                qcmModel.setAnswer1(ans1);
-                qcmModel.setAnswer2(ans2);
-                qcmModel.setAnswer3(ans3);
-                qcmModel.setAnswer4(ans4);
-                qcmModel.setCorrectAnswer(correctAnswer);
-                databaseReference.setValue(qcmModel);
+                if (theme.isEmpty() || question.isEmpty() || ans1.isEmpty() ||
+                        ans2.isEmpty() || ans3.isEmpty() ||
+                        ans4.isEmpty()) {
 
-                Toast.makeText(CreateQuizzActivity.this, R.string.updated_qcm, Toast.LENGTH_SHORT).show();
-                alertDialog.dismiss();
-                mQcmAdapter.notifyDataSetChanged();
+                    Toast.makeText(CreateQuizzActivity.this, R.string.fill_all, Toast.LENGTH_SHORT).show();
+                } else {
+                    qcmModel.setTheme(theme);
+                    qcmModel.setQuestion(question);
+                    qcmModel.setAnswer1(ans1);
+                    qcmModel.setAnswer2(ans2);
+                    qcmModel.setAnswer3(ans3);
+                    qcmModel.setAnswer4(ans4);
+                    qcmModel.setCorrectAnswer(correctAnswer);
+                    databaseReference.setValue(qcmModel);
 
+                    Toast.makeText(CreateQuizzActivity.this, R.string.updated_qcm, Toast.LENGTH_SHORT).show();
+                    alertDialog.dismiss();
+                    mQcmAdapter.notifyDataSetChanged();
+                }
             }
         });
 
