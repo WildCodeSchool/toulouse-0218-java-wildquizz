@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -18,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -34,6 +36,13 @@ public class PlayQuizzActivity extends AppCompatActivity {
     private String idQuizz;
     private String mUid;
     private static final String FORMAT = "%02d:%02d";
+
+    private int mCurrentQcm = 0;
+
+    private int scoreQcm1 = 0;
+    private int scoreQcm2 = 0;
+    private int scoreQcm3 = 0;
+    private int[] array1;
 
 
     @Override
@@ -86,16 +95,26 @@ public class PlayQuizzActivity extends AppCompatActivity {
         });
 
         final List<QcmModel> qcmModelList = new ArrayList();
+        final List<Integer> myList = new ArrayList<Integer>();
         //TODO : récupérer le qcm :
         idQuizz = getIntent().getStringExtra("idQuizz");
+        final int currentQcm = getIntent().getIntExtra("currentQcm", 0);
+        final int nbQcm = getIntent().getIntExtra("nbQcm", 0);
+        final int[] scores = getIntent().getIntArrayExtra("scores");
+
         mDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference playRef = mDatabase.getReference("Quizz").child(idQuizz).child("qcmList");
-        /*for (int i = 1; i < 4; i++) {
-            playRef.limitToFirst(i).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for (final DataSnapshot qcmSnapshot : dataSnapshot.getChildren()) {
-                        final QcmModel qcmModel = qcmSnapshot.getValue(QcmModel.class);
+
+        //TODO : récupérer la valeur de position et l'incrémenter de 1 dans une boucle for :
+        playRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int i = 0;
+                boolean hasFoundQcm = false;
+                for (final DataSnapshot qcmSnapshot : dataSnapshot.getChildren()) {
+                    final QcmModel qcmModel = qcmSnapshot.getValue(QcmModel.class);
+                    if (i == currentQcm) {
+                        hasFoundQcm = true;
                         String question = qcmModel.getQuestion();
                         tvQuestion.setText(question);
                         String answer1 = qcmModel.getAnswer1();
@@ -108,115 +127,52 @@ public class PlayQuizzActivity extends AppCompatActivity {
                         tvAnswer4.setText(answer4);
                         final int correctAnswer = qcmModel.getCorrectAnswer();
 
+                        //Button check
+                        final int j = i;
                         checkAnswer.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                return;
-
-                            }
-                        });
-                    }
-                }
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-            */
-            playRef.limitToFirst(1).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for (final DataSnapshot qcmSnapshot : dataSnapshot.getChildren()) {
-                        final QcmModel qcmModel = qcmSnapshot.getValue(QcmModel.class);
-                        String question = qcmModel.getQuestion();
-                        tvQuestion.setText(question);
-                        String answer1 = qcmModel.getAnswer1();
-                        tvAnswer1.setText(answer1);
-                        String answer2 = qcmModel.getAnswer2();
-                        tvAnswer2.setText(answer2);
-                        String answer3 = qcmModel.getAnswer3();
-                        tvAnswer3.setText(answer3);
-                        String answer4 = qcmModel.getAnswer4();
-                        tvAnswer4.setText(answer4);
-                        final int correctAnswer = qcmModel.getCorrectAnswer();
-
-
-                        checkAnswer.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                //TODO : si bonne réponse 5pts sinon 0pts
-                                int goodAnswer = 5;
-                                int badAnswer = 0;
+                                //si bonne réponse 5pts sinon 0pts
                                 if (mPosition == correctAnswer) {
-                                    int[] array = new int[]{goodAnswer};
-                                    int score = ScoreClass.foundQuizzScore(array);
+                                    scores[j] = 5;
                                 } else {
-                                    int[] array = new int[]{badAnswer};
-                                    int score = ScoreClass.foundQuizzScore(array);
+                                    scores[j] = 0;
                                 }
 
-                                //TODO : passage au qcm suivant
-                                //String idQuizz = getIntent().getStringExtra("idQuizz");
-                                //mDatabase = FirebaseDatabase.getInstance();
-                                //DatabaseReference playRef2 = mDatabase.getReference("Quizz").child(idQuizz).child("qcmList");
-                                playRef.limitToLast(1).addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        for (DataSnapshot qcmSnap : dataSnapshot.getChildren()) {
-                                            QcmModel qcmModel1 = qcmSnap.getValue(QcmModel.class);
-                                            qcmModelList.add(qcmModel1);
-                                            String question = qcmModel1.getQuestion();
-                                            tvQuestion.setText(question);
-                                            String answer1 = qcmModel1.getAnswer1();
-                                            tvAnswer1.setText(answer1);
-                                            String answer2 = qcmModel1.getAnswer2();
-                                            tvAnswer2.setText(answer2);
-                                            String answer3 = qcmModel1.getAnswer3();
-                                            tvAnswer3.setText(answer3);
-                                            String answer4 = qcmModel1.getAnswer4();
-                                            tvAnswer4.setText(answer4);
-                                            final int correctAnswer = qcmModel1.getCorrectAnswer();
-                                            checkAnswer.setOnClickListener(new View.OnClickListener() {
-                                                @Override
-                                                public void onClick(View v) {
-                                                    //TODO : si bonne réponse 5pts sinon 0pts
-                                                    int goodAnswer = 5;
-                                                    int badAnswer = 0;
-                                                    if (mPosition == correctAnswer) {
-                                                        int[] array = new int[]{goodAnswer};
-                                                        int score = ScoreClass.foundQuizzScore(array);
-                                                    } else {
-                                                        int[] array = new int[]{badAnswer};
-                                                        int score = ScoreClass.foundQuizzScore(array);
-                                                    }
-                                                }
-                                            });
-                                        }
-                                    }
+                                if (j == nbQcm - 1){
+                                    //TODO : afficher la page de résultats
+                                    Intent goToResults = new Intent(PlayQuizzActivity.this, ResultsActivity.class);
+                                    startActivity(goToResults);
+                                }
+                                else {
+                                    //TODO : passer au QCM suivant :
+                                    Intent intent = new Intent(PlayQuizzActivity.this, PlayQuizzActivity.class);
+                                    intent.putExtra("idQuizz", idQuizz);
+                                    intent.putExtra("nbQcm", nbQcm);
+                                    intent.putExtra("scores", scores);
+                                    intent.putExtra("currentQcm", j+1);
+                                    startActivity(intent);
+                                }
 
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-
-                                    }
-                                });
-
-
-
-                            /*
-                            //Finish quizz :
-                            Intent goToResults = new Intent(PlayQuizzActivity.this, ResultsActivity.class);
-                            PlayQuizzActivity.this.startActivity(goToResults);*/
                             }
                         });
+
                         quit();
                     }
+                    i++;
                 }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+                if (!hasFoundQcm) {
+                    //TODO : afficher la page de résultats
+                    Intent goToResults = new Intent(PlayQuizzActivity.this, ResultsActivity.class);
+                    startActivity(goToResults);
                 }
-            });
-            quit();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
 
 
     }
@@ -224,7 +180,7 @@ public class PlayQuizzActivity extends AppCompatActivity {
 
 
     private void start() {
-        mCountDownTimer = new CountDownTimer(60 * 5000, 1000) {
+        mCountDownTimer = new CountDownTimer(60 * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 //mTime.setText(String.valueOf(millisUntilFinished / 1000));
@@ -234,7 +190,6 @@ public class PlayQuizzActivity extends AppCompatActivity {
                         TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(
                                 TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
             }
-
             @Override
             public void onFinish() {
                 mTime.setText("");
@@ -273,10 +228,8 @@ public class PlayQuizzActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //TODO : abandon = 0 pts
                 final int scoreQuit = 0;
-
                 Intent returnMenu = new Intent(PlayQuizzActivity.this, MenuActivity.class);
                 startActivity(returnMenu);
-
                 mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 final DatabaseReference quitRef = mDatabase.getReference("Users").child(mUid);
                 quitRef.addValueEventListener(new ValueEventListener() {
@@ -284,7 +237,6 @@ public class PlayQuizzActivity extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         quitRef.child("score").setValue(scoreQuit);
                     }
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                     }

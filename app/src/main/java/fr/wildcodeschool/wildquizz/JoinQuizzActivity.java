@@ -67,6 +67,7 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
                                 //TODO : si key existe alors envoyé le model dans le PlayQuizzActivity
                                 Intent goToSecondSplash = new Intent(JoinQuizzActivity.this, SplashSecondActivity.class);
                                 goToSecondSplash.putExtra("id", idQuizzEnter);
+                                goToSecondSplash.putExtra("nbQcm",quizzModel.getQcmList().size());
                                 JoinQuizzActivity.this.startActivity(goToSecondSplash);
 
                             }
