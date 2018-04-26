@@ -25,8 +25,9 @@ public class QcmAdapter extends ArrayAdapter {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        if (convertView == null) {
+        if (convertView == null ) {
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_qcm, parent, false);
+
         }
         TextView tvQuestion = convertView.findViewById(R.id.text_qcm_number);
 

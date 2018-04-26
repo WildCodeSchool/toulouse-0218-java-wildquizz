@@ -63,6 +63,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
     private String mUid;
     private TextView mUsername;
     private QcmAdapter mQcmAdapter;
+    private int mCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,15 +95,20 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         // TODO V2 : vérifier que l'id unique n'existe pas déjà, si c'est le cas, le regénérer
 
         FloatingActionButton addQcm = findViewById(R.id.floating_add_qcm);
-        addQcm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent goToCreateQcm = new Intent(CreateQuizzActivity.this, CreateQcmActivity.class);
-                goToCreateQcm.putExtra("idQuizz", mIdQuizz);
-                CreateQuizzActivity.this.startActivity(goToCreateQcm);
-            }
-        });
+            addQcm.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // TODO : vérifier le nombre d'item dans l'adapter
+                    if (mQcmAdapter.getCount() >= 5) {
+                        Toast.makeText(CreateQuizzActivity.this, "la limite de création de Qcm a été atteinte!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Intent goToCreateQcm = new Intent(CreateQuizzActivity.this, CreateQcmActivity.class);
+                        goToCreateQcm.putExtra("idQuizz", mIdQuizz);
+                        CreateQuizzActivity.this.startActivity(goToCreateQcm);
+                    }
 
+                }
+            });
         // charger la liste des QCM du Quizz à partir de Firebase
         final ArrayList<QcmModel> qcmModels = new ArrayList<>();
         mQcmAdapter = new QcmAdapter(this, 0, qcmModels);
@@ -136,6 +142,8 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 QcmModel qcmModel = qcmModels.get(i);
+
+
                 showUpdateDialog(qcmModel);
 
             }
