@@ -36,7 +36,7 @@ public class ResultsAdapter extends ArrayAdapter<ResultsModel> {
 
         question.setText(resultsModel.getQuestion());
         logoValidate.setImageResource(resultsModel.getValidateLogo(R.drawable.logo_check1));
-        logoUnvalidate.setImageResource(resultsModel.getValidateLogo(R.drawable.logo_cancel2));
+        logoUnvalidate.setImageResource(resultsModel.getUnvalidateLogo(R.drawable.logo_cancel2));
         score.setText(String.valueOf(resultsModel.getScore()));
 
 

@@ -98,7 +98,7 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
                 int i = 0;
                 for (DataSnapshot qcmSnapshot : dataSnapshot.getChildren()) {
                     ResultsModel resultsModel = qcmSnapshot.getValue(ResultsModel.class);
-                    resultsList.add(new ResultsModel(resultsModel.getQuestion(),0,scores[i]));
+                    resultsList.add(new ResultsModel(resultsModel.getQuestion(),0,0,scores[i]));
                     //TODO : afficher le score de chaque question
 
                    i++;
