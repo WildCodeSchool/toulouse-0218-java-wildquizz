@@ -142,6 +142,8 @@ public class PlayQuizzActivity extends AppCompatActivity {
                                 if (j == nbQcm - 1){
                                     //TODO : afficher la page de résultats
                                     Intent goToResults = new Intent(PlayQuizzActivity.this, ResultsActivity.class);
+                                    goToResults.putExtra("idQuizz", idQuizz);
+                                    goToResults.putExtra("scores", scores);
                                     startActivity(goToResults);
                                 }
                                 else {
@@ -165,6 +167,8 @@ public class PlayQuizzActivity extends AppCompatActivity {
                 if (!hasFoundQcm) {
                     //TODO : afficher la page de résultats
                     Intent goToResults = new Intent(PlayQuizzActivity.this, ResultsActivity.class);
+                    goToResults.putExtra("idQuizz", idQuizz);
+                    goToResults.putExtra("scores", scores);
                     startActivity(goToResults);
                 }
             }
@@ -172,7 +176,6 @@ public class PlayQuizzActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-
 
 
     }
@@ -183,7 +186,6 @@ public class PlayQuizzActivity extends AppCompatActivity {
         mCountDownTimer = new CountDownTimer(60 * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                //mTime.setText(String.valueOf(millisUntilFinished / 1000));
                 mTime.setText(""+String.format(FORMAT,
                         TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(
                                 TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
@@ -192,20 +194,12 @@ public class PlayQuizzActivity extends AppCompatActivity {
             }
             @Override
             public void onFinish() {
-                mTime.setText("");
+
             }
         };
         mCountDownTimer.start();
     }
 
-    private void cancel() {
-        if (mCountDownTimer != null) {
-            mCountDownTimer.cancel();
-            mCountDownTimer = null;
-        } else {
-            //TODO : si le timer = 0, passage au qcm suivant :
-        }
-    }
 
     private View.OnClickListener btnClickOnListener = new View.OnClickListener() {
         @Override
@@ -213,9 +207,6 @@ public class PlayQuizzActivity extends AppCompatActivity {
             switch (view.getId()) {
                 case R.id.btn_start:
                     start();
-                    break;
-                case R.id.btn_stop:
-                    cancel();
                     break;
             }
         }

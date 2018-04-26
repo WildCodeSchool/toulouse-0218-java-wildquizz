@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -30,6 +31,7 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
     FirebaseDatabase mDatabase;
     private ImageView mAvatar;
     private String mUid;
+    private TextView mScoreValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,16 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
         //Navigation View :
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_results);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //TODO: récupérer les infos :
+
+        mScoreValue = findViewById(R.id.value_score);
+        int[] scores = getIntent().getIntArrayExtra("scores");
+        int scoreTotalQuizz = ScoreClass.foundQuizzScore(scores);
+        mScoreValue.setText(String.valueOf(scoreTotalQuizz));
+
+
+
 
         ArrayList<ResultsModel> resultsModelArrayList = new ArrayList<>();
         resultsModelArrayList.add(new ResultsModel("aaa","bbb",R.drawable.logo_check1));
