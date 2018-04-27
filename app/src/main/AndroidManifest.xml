@@ -68,7 +68,8 @@
             android:windowSoftInputMode="stateHidden|adjustPan"/>
 
 
-        <activity android:name=".ResultsActivity" > </activity>
+        <activity android:name=".ResultsActivity"
+            android:noHistory="true"> </activity>
 
         <activity android:name=".ProfileActivity"> </activity>
 

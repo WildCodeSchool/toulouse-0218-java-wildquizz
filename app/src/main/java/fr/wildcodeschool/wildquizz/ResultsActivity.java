@@ -62,19 +62,20 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
 
         mScoreValue = findViewById(R.id.value_score);
         mValueScore = findViewById(R.id.score_value);
+
         final int[] scores = getIntent().getIntArrayExtra("scores");
+        final int nbQcm = getIntent().getIntExtra("nbQcm", 0);
         final int scoreTotalQuizz = ScoreClass.foundQuizzScore(scores);
         mScoreValue.setText(String.valueOf(scoreTotalQuizz));
-        //TODO : mettre  jour le scoreUser avec le scoreQuizz
         mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        final DatabaseReference userRef = mDatabase.getReference("Users").child(mUid).child("score");
+        final DatabaseReference userRef = mDatabase.getReference("Users").child(mUid);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String scoreFirebase = String.valueOf(dataSnapshot.getValue(Integer.class));
-                int scoreActual = Integer.parseInt(scoreFirebase);
-                int scoreUser = scoreTotalQuizz + scoreActual ;
-                userRef.setValue(scoreUser);
+                UserModel userModel = dataSnapshot.getValue(UserModel.class);
+                userModel.setScore(scoreTotalQuizz + userModel.getScore());
+                userModel.setNbQcm(nbQcm + userModel.getNbQcm());
+                userRef.setValue(userModel);
 
             }
 
@@ -100,13 +101,8 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
                 int i = 0;
                 for (DataSnapshot qcmSnapshot : dataSnapshot.getChildren()) {
                     ResultsModel resultsModel = qcmSnapshot.getValue(ResultsModel.class);
-                    resultsList.add(new ResultsModel(resultsModel.getQuestion(),0, scores[i]));
-                    //TODO : afficher le score de chaque question
-                    if (scores[i] == 5 ){
+                    resultsList.add(new ResultsModel(resultsModel.getQuestion(),1, scores[i]));
 
-                    } else {
-
-                    }
                    i++;
                 }
                 adapter.notifyDataSetChanged();
@@ -124,7 +120,7 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
         mAvatar = headerLayout.findViewById(R.id.image_header);
         //TODO : faire pareil pour le pseudo
         DatabaseReference pathID = mDatabase.getReference("Users").child(mUid);
-        pathID.addValueEventListener(new ValueEventListener() {
+        pathID.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if ((dataSnapshot.child("avatar").getValue() != null)){

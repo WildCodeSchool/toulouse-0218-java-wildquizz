@@ -76,7 +76,7 @@ public class DisplayQuizzActivity extends AppCompatActivity implements Navigatio
         //TODO : faire pareil pour le score
 
         DatabaseReference pathID = mDatabase.getReference("Users").child(mUid);
-        pathID.addValueEventListener(new ValueEventListener() {
+        pathID.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if ((dataSnapshot.child("avatar").getValue() != null)){

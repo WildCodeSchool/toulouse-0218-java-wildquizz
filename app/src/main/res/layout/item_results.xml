@@ -15,12 +15,11 @@
         android:lines="2"
         android:maxLines="2"
         android:text="@string/text_qcm_results"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:textColor="@android:color/black" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/text_points"
@@ -29,12 +28,11 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:text="@string/text_points"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/question"
-        tools:textColor="@android:color/black" />
+        app:layout_constraintTop_toBottomOf="@+id/question" />
 
     <ImageView
         android:id="@+id/logo_validated"
@@ -46,19 +44,7 @@
         android:visibility="visible"
         app:layout_constraintStart_toEndOf="@+id/question"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_check1" />
-
-    <ImageView
-        android:id="@+id/logo_unvalidated"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="33dp"
-        android:scaleType="fitXY"
-        android:visibility="invisible"
-        app:layout_constraintStart_toEndOf="@+id/question"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_cancel2" />
+        app:srcCompat="@mipmap/ic_launcher_round" />
 
     <TextView
         android:id="@+id/score_value"
@@ -67,13 +53,12 @@
         android:layout_marginBottom="24dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/text_points"
         app:layout_constraintTop_toBottomOf="@+id/question"
-        tools:text="00"
-        tools:textColor="@android:color/black" />
+        tools:text="00" />
 
 </android.support.constraint.ConstraintLayout>

@@ -81,7 +81,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         if (mIdQuizz == null) {
             //récupérer les données du menu pour la génération de quizz
             String key1 = "123456789";
-            String key2 = "abcdefghijklmnopqrstuvwxyz";
+            String key2 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             mIdQuizz = String.format("%s%s%s", generateString(3, key1), generateString(2, key2), generateString(3, key1));
 
             // créer le quizz vide dans Firebase
@@ -117,7 +117,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         mDatabase = FirebaseDatabase.getInstance();
         mQuizzRef = mDatabase.getReference("Quizz").child(mIdQuizz).child("qcmList");
         // Read from the database
-        mQuizzRef.addValueEventListener(new ValueEventListener() {
+        mQuizzRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 qcmModels.clear(); // vide la liste par précaution
@@ -180,7 +180,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         //TODO : faire pareil pour le score
 
         DatabaseReference pathID = mDatabase.getReference("Users").child(mUid);
-        pathID.addValueEventListener(new ValueEventListener() {
+        pathID.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if ((dataSnapshot.child("avatar").getValue() != null)) {

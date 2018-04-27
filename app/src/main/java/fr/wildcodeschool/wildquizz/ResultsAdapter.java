@@ -8,7 +8,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
+
+import javax.microedition.khronos.opengles.GL;
 
 /**
  * Created by wilder on 09/04/18.
@@ -31,21 +35,19 @@ public class ResultsAdapter extends ArrayAdapter<ResultsModel> {
 
         TextView question =  convertView.findViewById(R.id.question);
         ImageView logoValidate = convertView.findViewById(R.id.logo_validated);
-        ImageView logoUnvalidate = convertView.findViewById(R.id.logo_unvalidated);
         TextView score = convertView.findViewById(R.id.score_value);
 
         question.setText(resultsModel.getQuestion());
         score.setText(String.valueOf(resultsModel.getScore()));
 
         if (resultsModel.isSuccess()){
-            logoValidate.setImageResource(resultsModel.getValidateLogo(R.drawable.logo_check1));
-            logoUnvalidate.setVisibility(View.GONE);
+            Glide.with(getContext()).load(R.drawable.logo_check1).into(logoValidate);
         }
         else {
-            logoUnvalidate.setImageResource(resultsModel.getValidateLogo(R.drawable.logo_cancel2));
-            logoValidate.setVisibility(View.GONE);
+            Glide.with(getContext()).load(R.drawable.logo_cancel2).into(logoValidate);
 
         }
+
 
 
         return convertView;

@@ -57,7 +57,7 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
 
                 mDatabase = FirebaseDatabase.getInstance();
                 mQuizzRef = mDatabase.getReference("Quizz");
-                mQuizzRef.orderByChild("id").equalTo(idQuizzEnter).addValueEventListener(new ValueEventListener() {
+                mQuizzRef.orderByChild("id").equalTo(idQuizzEnter).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
@@ -69,6 +69,7 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
                                 goToSecondSplash.putExtra("id", idQuizzEnter);
                                 goToSecondSplash.putExtra("nbQcm",quizzModel.getQcmList().size());
                                 JoinQuizzActivity.this.startActivity(goToSecondSplash);
+                                finish();
 
                             }
                         }
@@ -103,7 +104,7 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
         //TODO : faire pareil pour le score
 
         DatabaseReference pathID = mDatabase.getReference("Users").child(mUid);
-        pathID.addValueEventListener(new ValueEventListener() {
+        pathID.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if ((dataSnapshot.child("avatar").getValue() != null)){

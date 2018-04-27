@@ -19,7 +19,16 @@ public class ResultsModel {
         this.question = question;
         this.validateLogo = validateLogo;
         this.score = score;
+        if (score > 0) {
+            isSuccess = true;
+        }
+        else {
+            isSuccess = false;
+        }
     }
+
+
+
     private int unvalidateLogo;
 
     public int getScore() {

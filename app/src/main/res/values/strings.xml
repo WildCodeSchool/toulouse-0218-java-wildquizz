@@ -35,7 +35,7 @@
     <string name="answer1">Answer1</string>
     <string name="text_mesquizz">Mes Quizz</string>
     <string name="id_quizz">#id Quizz</string>
-    <string name="score">Score</string>
+    <string name="average">Moyenne</string>
     <string name="note_quizz">Note Quizz</string>
     <string name="ex_fur2">Ex: #FUR2</string>
     <string name="r_ponse_2">Réponse#2</string>
@@ -117,7 +117,8 @@
     <string name="theme2">Thème</string>
     <string name="limit_create_quizz">la limite de création de Qcm a été atteinte!</string>
     <string name="fill_all">Remplissez tous les champs s\'il vous plaît!!</string>
-
+    <string name="score">Score</string>
+    <string name="scoretext">Score : %s</string>
 
 
 </resources>
