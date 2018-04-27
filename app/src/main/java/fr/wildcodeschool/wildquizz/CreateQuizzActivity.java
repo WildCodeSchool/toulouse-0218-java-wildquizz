@@ -198,6 +198,15 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
             }
         });
 
+        Button validate = findViewById(R.id.button_check);
+        validate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent returnMenu = new Intent(CreateQuizzActivity.this, MenuActivity.class);
+                startActivity(returnMenu);
+            }
+        });
+
 
     }
 
@@ -232,10 +241,10 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         } else if (id == R.id.profile) {
             Intent goToProfile = new Intent(this, ProfileActivity.class);
             this.startActivity(goToProfile);
-        } else if (id == R.id.displayquizz) {
+        }/* else if (id == R.id.displayquizz) {
             Intent goToDisplayQuizz = new Intent(this, DisplayQuizzActivity.class);
             this.startActivity(goToDisplayQuizz);
-        } else if (id == R.id.logout) {
+        }*/ else if (id == R.id.logout) {
             //Déconnexion
             mAuth = FirebaseAuth.getInstance();
             mAuth.signOut();

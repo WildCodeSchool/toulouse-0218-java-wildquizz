@@ -151,10 +151,10 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
         } else if (id == R.id.profile) {
             Intent goToProfile = new Intent(this, ProfileActivity.class);
             this.startActivity(goToProfile);
-        } else if (id == R.id.displayquizz) {
+        } /*else if (id == R.id.displayquizz) {
             Intent goToDisplayQuizz = new Intent(this, DisplayQuizzActivity.class);
             this.startActivity(goToDisplayQuizz);
-        } else if (id == R.id.quizz_list) {
+        }*/ else if (id == R.id.quizz_list) {
                 Intent goToListQuizzActivity = new Intent(this, DisplayQuizzActivity.class);
                 this.startActivity(goToListQuizzActivity);
         } else if (id == R.id.logout) {
