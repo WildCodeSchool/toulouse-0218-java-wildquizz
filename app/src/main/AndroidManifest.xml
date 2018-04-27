@@ -76,7 +76,8 @@
         <activity android:name=".CreateQcmActivity"
             android:windowSoftInputMode="stateHidden|adjustPan" />
 
-        <activity android:name=".CreateQuizzActivity" />
+        <activity android:name=".CreateQuizzActivity"
+            android:noHistory="true"/>
 
         <activity android:name=".TestUuidActivity" />
 
