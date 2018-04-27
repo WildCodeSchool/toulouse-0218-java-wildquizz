@@ -1,14 +1,20 @@
 package fr.wildcodeschool.wildquizz;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -18,6 +24,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 
 
 /**
@@ -31,12 +38,14 @@ import com.google.firebase.database.ValueEventListener;
 public class TabInfosFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    DatabaseReference mUserRef;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    String mIdUsers;
 
     private OnFragmentInteractionListener mListener;
 
@@ -76,6 +85,64 @@ public class TabInfosFragment extends Fragment {
         }
 
     }
+
+
+    private void showUpdateDialog(final UserModel userModel) {
+        final AlertDialog.Builder dialogBuilder;
+        dialogBuilder = new AlertDialog.Builder(getActivity());
+
+        LayoutInflater inflater = getLayoutInflater();
+
+        final View dialogView = inflater.inflate(R.layout.update_dialog, null);
+
+        dialogBuilder.setView(dialogView);
+
+
+
+
+        dialogBuilder.setTitle("Editer le nom d'utilisateur");
+        final AlertDialog alertDialog = dialogBuilder.create();
+
+        final EditText mUsername = (EditText) dialogView.findViewById(R.id.et_user);
+        mUsername.setText(userModel.getUsername());
+        final ImageButton mImUserName = dialogView.findViewById(R.id.img_btn_user);
+
+        mImUserName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String user = mUsername.getText().toString();
+
+
+
+            }
+        });
+
+        alertDialog.show();
+
+
+          mUserRef = FirebaseDatabase.getInstance()
+                .getReference("Users").child(mIdUsers).child(userModel.getUsername());
+
+    }
+    private boolean updateQcm() {
+
+        mUserRef = FirebaseDatabase.getInstance().getReference("Users");
+
+        UserModel userModel = new UserModel();
+
+        mUserRef.setValue(userModel);
+
+
+        return true;
+    }
+
+
+
+
+
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
