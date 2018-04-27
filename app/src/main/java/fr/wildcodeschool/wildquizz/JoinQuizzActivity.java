@@ -116,17 +116,13 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
                     mUsername.setText(username);
                 }
 
-            //For Score
-                if((dataSnapshot.child("score").
-
-            getValue() !=null))
-
-            {
-                String score = String.valueOf(dataSnapshot.child("score").getValue(int.class));
-                mScoreValue.setText(score);
-
+                //For Score
+                if((dataSnapshot.child("score").getValue() !=null)) {
+                    String score = String.valueOf(dataSnapshot.child("score").getValue(int.class));
+                    mScoreValue.setText(score);
+                }
             }
-        }
+            
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
