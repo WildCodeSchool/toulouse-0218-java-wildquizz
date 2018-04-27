@@ -75,6 +75,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         mDatabase = FirebaseDatabase.getInstance();
         mQuizzRef = mDatabase.getReference("Quizz");
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+        FirebaseDatabase database2 = FirebaseDatabase.getInstance();
 
         Intent intent = getIntent();
         mIdQuizz = intent.getStringExtra("idQuizz");
@@ -86,8 +87,10 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
             mIdQuizz = String.format("%s%s%s", generateString(3, key1), generateString(2, key2), generateString(3, key1));
 
             // créer le quizz vide dans Firebase
+            mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
             QuizzModel quizzModel = new QuizzModel(mIdQuizz, new Date().getTime(), new HashMap<String, QcmModel>(), false);
             database.getReference("Quizz").child(mIdQuizz).setValue(quizzModel);
+            database2.getReference("Users").child(mUid).child("Quizz-created").setValue(quizzModel);
         }
 
         TextView tvIdQuizz = findViewById(R.id.tv_id_generate);
@@ -149,16 +152,6 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
             }
 
         });
-        /*lvListRoom.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                QcmModel qcmModel = qcmModels.get(i);
-                showUpdateDialog(qcmModel.getTheme(), qcmModel.getQuestion(), qcmModel.getAnswer1(), qcmModel.getAnswer2(), qcmModel.getAnswer3(), qcmModel.getAnswer4());
-
-                return false;
-            }
-        });*/
 
 
         //Navigation Drawer :

@@ -62,7 +62,6 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
 
         mScoreValue = findViewById(R.id.value_score);
         mValueScore = findViewById(R.id.score_value);
-
         final int[] scores = getIntent().getIntArrayExtra("scores");
         final int nbQcm = getIntent().getIntExtra("nbQcm", 0);
         final int scoreTotalQuizz = ScoreClass.foundQuizzScore(scores);
