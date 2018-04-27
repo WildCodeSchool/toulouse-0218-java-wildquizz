@@ -1,11 +1,14 @@
 package fr.wildcodeschool.wildquizz;
 
+import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -34,8 +37,8 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
     private ImageView mAvatar;
     private String mUid;
     private TextView mScoreValue;
-    private String mScoreFirebase;
-    private int mScoreActual;
+    private TextView mValueScore;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,21 +61,21 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
 
 
         mScoreValue = findViewById(R.id.value_score);
-        int[] scores = getIntent().getIntArrayExtra("scores");
-        int scoreTotalQuizz = ScoreClass.foundQuizzScore(scores);
+        mValueScore = findViewById(R.id.score_value);
+
+        final int[] scores = getIntent().getIntArrayExtra("scores");
+        final int nbQcm = getIntent().getIntExtra("nbQcm", 0);
+        final int scoreTotalQuizz = ScoreClass.foundQuizzScore(scores);
         mScoreValue.setText(String.valueOf(scoreTotalQuizz));
-        final int scoreQuizz = Integer.parseInt(mScoreValue.getText().toString());
-        //TODO : mettre  jour le scoreUser avec le scoreQuizz
         mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        final DatabaseReference userRef = mDatabase.getReference("Users").child(mUid).child("score");
-        userRef.setValue(scoreQuizz);
+        final DatabaseReference userRef = mDatabase.getReference("Users").child(mUid);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                mScoreFirebase = String.valueOf(dataSnapshot.getValue(Integer.class));
-                mScoreActual = Integer.parseInt(mScoreFirebase);
-                int scoreUser = scoreQuizz + mScoreActual ;
-                userRef.setValue(scoreUser);
+                UserModel userModel = dataSnapshot.getValue(UserModel.class);
+                userModel.setScore(scoreTotalQuizz + userModel.getScore());
+                userModel.setNbQcm(nbQcm + userModel.getNbQcm());
+                userRef.setValue(userModel);
 
             }
 
@@ -81,8 +84,6 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
 
             }
         });
-
-
 
 
         final ListView listView = findViewById(R.id.list_results);
@@ -94,14 +95,17 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
         mDatabase = FirebaseDatabase.getInstance();
         String idQuizz = getIntent().getStringExtra("idQuizz");
         DatabaseReference listResultsRef = mDatabase.getReference("Quizz").child(idQuizz).child("qcmList");
-        listResultsRef.addValueEventListener(new ValueEventListener() {
+        listResultsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                int i = 0;
                 for (DataSnapshot qcmSnapshot : dataSnapshot.getChildren()) {
                     ResultsModel resultsModel = qcmSnapshot.getValue(ResultsModel.class);
-                    resultsList.add(new ResultsModel(resultsModel.getQuestion(), null, 0));
+                    resultsList.add(new ResultsModel(resultsModel.getQuestion(),1, scores[i]));
 
+                   i++;
                 }
+                adapter.notifyDataSetChanged();
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -116,7 +120,7 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
         mAvatar = headerLayout.findViewById(R.id.image_header);
         //TODO : faire pareil pour le pseudo
         DatabaseReference pathID = mDatabase.getReference("Users").child(mUid);
-        pathID.addValueEventListener(new ValueEventListener() {
+        pathID.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if ((dataSnapshot.child("avatar").getValue() != null)){

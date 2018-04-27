@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -33,13 +35,15 @@ public class TabInfosFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    FirebaseAuth mAuth;
+    FirebaseDatabase mDatabase;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
     private OnFragmentInteractionListener mListener;
-
+    private ImageView mImageProfile;
+    private TextView mScoreValueProfile;
+    private String mUid;
     public TabInfosFragment() {
         // Required empty public constructor
     }
@@ -61,11 +65,6 @@ public class TabInfosFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
-    private ImageView mImageProfile;
-    FirebaseAuth mAuth;
-    FirebaseDatabase mDatabase;
-    private String mUid;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -108,6 +107,89 @@ public class TabInfosFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        mImageProfile = getView().findViewById(R.id.iv_profile);
+        mScoreValueProfile = getView().findViewById(R.id.tv_score_profile);
+        //Affichage du profil dans la nav bar :
+        mDatabase = FirebaseDatabase.getInstance();
+        mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        //TODO : faire pareil pour le pseudo
+        DatabaseReference pathID = mDatabase.getReference("Users").child(mUid);
+
+        pathID.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if ((dataSnapshot.child("avatar").getValue() != null)) {
+                    String url = dataSnapshot.child("avatar").getValue(String.class);
+                    Glide.with(TabInfosFragment.this).load(url).apply(RequestOptions.circleCropTransform()).into(mImageProfile);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+        final ImageView mMedalBronze = getView().findViewById(R.id.iv_medal2);
+        final ImageView mMedalRed = getView().findViewById(R.id.iv_medal1);
+        final ImageView mMedalSilver = getView().findViewById(R.id.iv_medal3);
+        final ImageView mMedalGold = getView().findViewById(R.id.iv_medal4);
+
+
+        //Affichage du score dans la ratingBar et médailles :
+        DatabaseReference scoreId = mDatabase.getReference("Users").child(mUid);
+        scoreId.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                UserModel userModel = dataSnapshot.getValue(UserModel.class);
+
+                int scoreUser = userModel.getScore();
+                mScoreValueProfile.setText(String.format(getString(R.string.scoretext), String.valueOf(scoreUser)));
+                int nbQcm = userModel.getNbQcm();
+
+                float scoreUserFloat = scoreUser / nbQcm;
+                RatingBar ratingBar = getView().findViewById(R.id.rating_bar);
+                ratingBar.setFocusable(false);
+                ratingBar.setRating(scoreUserFloat);
+
+                switch (ScoreClass.getMedal(scoreUser)) {
+                    case 1:
+                        mMedalRed.setAlpha(1.0f);
+                        break;
+
+                    case 2:
+                        mMedalRed.setAlpha(1.0f);
+                        mMedalBronze.setAlpha(1.0f);
+                        break;
+
+                    case 3:
+                        mMedalRed.setAlpha(1.0f);
+                        mMedalBronze.setAlpha(1.0f);
+                        mMedalSilver.setAlpha(1.0f);
+                        break;
+
+                    case 4:
+                        mMedalRed.setAlpha(1.0f);
+                        mMedalBronze.setAlpha(1.0f);
+                        mMedalSilver.setAlpha(1.0f);
+                        mMedalGold.setAlpha(1.0f);
+                        break;
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+
+    }
+
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -121,65 +203,5 @@ public class TabInfosFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
-
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        mImageProfile = getView().findViewById(R.id.iv_profile);
-        //Affichage du profil dans la nav bar :
-        mDatabase = FirebaseDatabase.getInstance();
-        mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        //TODO : faire pareil pour le pseudo
-        DatabaseReference pathID = mDatabase.getReference("Users").child(mUid);
-
-        pathID.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                if ((dataSnapshot.child("avatar").getValue() != null)){
-                    String url = dataSnapshot.child("avatar").getValue(String.class);
-                    Glide.with(TabInfosFragment.this).load(url).apply(RequestOptions.circleCropTransform()).into(mImageProfile);
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-
-        ImageView mMedalBronze = getView().findViewById(R.id.iv_medal2);
-        ImageView mMedalRed = getView().findViewById(R.id.iv_medal1);
-        ImageView mMedalSilver = getView().findViewById(R.id.iv_medal3);
-        ImageView mMedalGold = getView().findViewById(R.id.iv_medal4);
-
-        // TODO récupérer l'utilisateur à partir de Firebase et le score de l'utilisateur avec mAuth et une requête dans firebase storage
-
-        int score = 110;
-
-        switch (ScoreClass.getMedal(score)) {
-            case 1:
-                mMedalRed.setAlpha(1.0f);
-                break;
-
-            case 2:
-                mMedalRed.setAlpha(1.0f);
-                mMedalBronze.setAlpha(1.0f);
-                break;
-
-            case 3:
-                mMedalRed.setAlpha(1.0f);
-                mMedalBronze.setAlpha(1.0f);
-                mMedalSilver.setAlpha(1.0f);
-                break;
-
-            case 4:
-                mMedalRed.setAlpha(1.0f);
-                mMedalBronze.setAlpha(1.0f);
-                mMedalSilver.setAlpha(1.0f);
-                mMedalGold.setAlpha(1.0f);
-                break;
-
-        }
-
     }
 }

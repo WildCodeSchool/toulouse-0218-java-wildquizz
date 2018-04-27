@@ -56,10 +56,27 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/tv_score_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tv_pts2"
+                android:layout_alignStart="@+id/tv_pts2"
+                android:layout_alignTop="@+id/iv_profile"
+                android:layout_marginEnd="50dp"
+                android:layout_marginTop="16dp"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_user"
+                tools:text="0" />
+
+            <TextView
                 android:id="@+id/tv_level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/et_user"
+                android:layout_marginTop="10dp"
                 android:layout_toLeftOf="@+id/tv_pts2"
                 android:layout_toStartOf="@+id/tv_pts2"
                 android:text="@string/level"
@@ -106,8 +123,8 @@
                 android:layout_above="@+id/tv_pts2"
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="24dp"
-                android:layout_toEndOf="@+id/tv_score"
-                android:layout_toRightOf="@+id/tv_score"
+                android:layout_toEndOf="@+id/tv_average"
+                android:layout_toRightOf="@+id/tv_average"
                 android:alpha="0.5"
                 app:layout_constraintStart_toEndOf="@+id/iv_medal2"
                 app:layout_constraintTop_toBottomOf="@+id/tv_level"
@@ -194,13 +211,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/iv_medal4" />
 
             <TextView
-                android:id="@+id/tv_score"
+                android:id="@+id/tv_average"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_pts3"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="18dp"
-                android:text="@string/score"
+                android:text="@string/average"
                 android:textColor="@android:color/black"
                 android:textSize="20dp"
                 android:textStyle="bold"
@@ -212,16 +229,18 @@
                 android:id="@+id/rating_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="42dp"
-                android:layout_below="@+id/tv_score"
+                android:layout_below="@+id/tv_average"
                 android:layout_marginBottom="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_toEndOf="@+id/tv_pts1"
                 android:layout_toRightOf="@+id/tv_pts1"
                 android:background="@android:color/transparent"
+                android:clickable="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_score"
+                app:layout_constraintTop_toBottomOf="@+id/tv_average"
+                android:isIndicator="true"
                 app:layout_constraintVertical_bias="1.0" />
 
             <ImageView

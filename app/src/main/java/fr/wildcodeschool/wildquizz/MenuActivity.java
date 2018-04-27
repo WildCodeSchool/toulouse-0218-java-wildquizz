@@ -86,7 +86,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         //TODO : faire pareil pour le score
 
         DatabaseReference pathID = mDatabase.getReference("Users").child(mUid);
-        pathID.addValueEventListener(new ValueEventListener() {
+        pathID.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //For avatar

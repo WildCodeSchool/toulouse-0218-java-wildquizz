@@ -8,17 +8,17 @@ public class UserModel {
 
     private String username;
     private String avatar;
-    private int average;
+    private int nbQcm;
     private int score = 0;
 
     public UserModel() {
 
     }
 
-    public UserModel(String username, String avatar, int average, int score) {
+    public UserModel(String username, String avatar, int nbQcm, int score) {
         this.username = username;
         this.avatar = avatar;
-        this.average = average;
+        this.nbQcm = nbQcm;
         this.score = score;
     }
 
@@ -38,12 +38,12 @@ public class UserModel {
         this.avatar = avatar;
     }
 
-    public int getAverage() {
-        return average;
+    public int getNbQcm() {
+        return nbQcm;
     }
 
-    public void setAverage(int average) {
-        this.average = average;
+    public void setNbQcm(int nbQcm) {
+        this.nbQcm = nbQcm;
     }
 
     public int getScore() {

@@ -8,7 +8,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
+
+import javax.microedition.khronos.opengles.GL;
 
 /**
  * Created by wilder on 09/04/18.
@@ -29,34 +33,21 @@ public class ResultsAdapter extends ArrayAdapter<ResultsModel> {
         }
         ResultsModel resultsModel = (ResultsModel) getItem(position);
 
-        TextView question =  convertView.findViewById(R.id.text_name_QCM);
-        TextView answer =  convertView.findViewById(R.id.text_answer);
+        TextView question =  convertView.findViewById(R.id.question);
         ImageView logoValidate = convertView.findViewById(R.id.logo_validated);
-        ImageView logoUnvalidate = convertView.findViewById(R.id.logo_unvalidated);
-        ImageView arrow = convertView.findViewById(R.id.iv_arrow);
-        TextView checkText = convertView.findViewById(R.id.check_text);
-        TextView goodAnswer = convertView.findViewById(R.id.text_good_answer);
+        TextView score = convertView.findViewById(R.id.score_value);
 
         question.setText(resultsModel.getQuestion());
-        answer.setText(resultsModel.getAnswer());
-        logoValidate.setImageResource(resultsModel.getValidateLogo());
-        logoUnvalidate.setImageResource(resultsModel.getValidateLogo());
-
-        goodAnswer.setText(resultsModel.getGoodAnswer());
-
+        score.setText(String.valueOf(resultsModel.getScore()));
 
         if (resultsModel.isSuccess()){
-            arrow.setVisibility(View.GONE);
-            checkText.setVisibility(View.GONE);
-            goodAnswer.setVisibility(View.GONE);
-            logoUnvalidate.setVisibility(View.GONE);
+            Glide.with(getContext()).load(R.drawable.logo_check1).into(logoValidate);
         }
         else {
-            arrow.setVisibility(View.VISIBLE);
-            checkText.setVisibility(View.VISIBLE);
-            goodAnswer.setVisibility(View.VISIBLE);
-            logoValidate.setVisibility(View.GONE);
+            Glide.with(getContext()).load(R.drawable.logo_cancel2).into(logoValidate);
+
         }
+
 
 
         return convertView;

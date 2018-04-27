@@ -18,8 +18,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class PlayQuizzActivity extends AppCompatActivity {
@@ -42,7 +40,7 @@ public class PlayQuizzActivity extends AppCompatActivity {
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.btn_start:
-                    start();
+                    initTimer();
                     break;
 
             }
@@ -59,7 +57,7 @@ public class PlayQuizzActivity extends AppCompatActivity {
         mCancel = findViewById(R.id.btn_stop);
         mCancel.setOnClickListener(btnClickOnListener);
         mTime = findViewById(R.id.count);
-        start();
+        initTimer();
         final ImageButton checkAnswer = findViewById(R.id.ib_next);
 
 
@@ -107,7 +105,7 @@ public class PlayQuizzActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference playRef = mDatabase.getReference("Quizz").child(mIdQuizz).child("qcmList");
 
-        playRef.addValueEventListener(new ValueEventListener() {
+        playRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int i = 0;
@@ -144,7 +142,10 @@ public class PlayQuizzActivity extends AppCompatActivity {
                                     Intent goToResults = new Intent(PlayQuizzActivity.this, ResultsActivity.class);
                                     goToResults.putExtra("idQuizz", mIdQuizz);
                                     goToResults.putExtra("scores", mScores);
+                                    goToResults.putExtra("nbQcm", mNbQcm);
                                     startActivity(goToResults);
+                                    mCountDownTimer.cancel();
+                                    finish();
                                 } else {
                                     Intent intent = new Intent(PlayQuizzActivity.this, PlayQuizzActivity.class);
                                     intent.putExtra("idQuizz", mIdQuizz);
@@ -152,12 +153,14 @@ public class PlayQuizzActivity extends AppCompatActivity {
                                     intent.putExtra("scores", mScores);
                                     intent.putExtra("currentQcm", mCurrentQcm + 1);
                                     startActivity(intent);
+                                    mCountDownTimer.cancel();
+                                    finish();
                                 }
 
                             }
                         });
 
-                        quit();
+                        leaveQuizz();
                     }
                     i++;
                 }
@@ -167,6 +170,8 @@ public class PlayQuizzActivity extends AppCompatActivity {
                     goToResults.putExtra("idQuizz", mIdQuizz);
                     goToResults.putExtra("scores", mScores);
                     startActivity(goToResults);
+                    mCountDownTimer.cancel();
+                    finish();
                 }
             }
 
@@ -176,7 +181,7 @@ public class PlayQuizzActivity extends AppCompatActivity {
         });
     }
 
-    private void start() {
+    private void initTimer() {
         mCountDownTimer = new CountDownTimer(60 * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -193,6 +198,7 @@ public class PlayQuizzActivity extends AppCompatActivity {
                 if (mCurrentQcm == mNbQcm - 1) {
                     Intent goToResults = new Intent(PlayQuizzActivity.this, ResultsActivity.class);
                     startActivity(goToResults);
+                    finish();
                 } else {
                     Intent intent = new Intent(PlayQuizzActivity.this, PlayQuizzActivity.class);
                     intent.putExtra("idQuizz", mIdQuizz);
@@ -200,6 +206,7 @@ public class PlayQuizzActivity extends AppCompatActivity {
                     intent.putExtra("scores", mScores);
                     intent.putExtra("currentQcm", mCurrentQcm + 1);
                     startActivity(intent);
+                    finish();
                 }
 
             }
@@ -209,7 +216,7 @@ public class PlayQuizzActivity extends AppCompatActivity {
 
 
 
-    private void quit(){
+    private void leaveQuizz(){
         ImageButton leaveQuizz = findViewById(R.id.ib_leave);
         leaveQuizz.setOnClickListener(new View.OnClickListener() {
             @Override
