@@ -35,17 +35,16 @@ public class ResultsAdapter extends ArrayAdapter<ResultsModel> {
         TextView score = convertView.findViewById(R.id.score_value);
 
         question.setText(resultsModel.getQuestion());
-        logoValidate.setImageResource(resultsModel.getValidateLogo(R.drawable.logo_check1));
-        logoUnvalidate.setImageResource(resultsModel.getUnvalidateLogo(R.drawable.logo_cancel2));
         score.setText(String.valueOf(resultsModel.getScore()));
 
-
-
         if (resultsModel.isSuccess()){
+            logoValidate.setImageResource(resultsModel.getValidateLogo(R.drawable.logo_check1));
             logoUnvalidate.setVisibility(View.GONE);
         }
         else {
+            logoUnvalidate.setImageResource(resultsModel.getValidateLogo(R.drawable.logo_cancel2));
             logoValidate.setVisibility(View.GONE);
+
         }
 
 

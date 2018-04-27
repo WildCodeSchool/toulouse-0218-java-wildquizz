@@ -15,21 +15,12 @@ public class ResultsModel {
 
     }
 
-
     public ResultsModel(String question, int validateLogo, int score) {
         this.question = question;
         this.validateLogo = validateLogo;
         this.score = score;
     }
     private int unvalidateLogo;
-
-    public ResultsModel(String question, int validateLogo, int unvalidateLogo, int score){
-        this.question = question;
-        this.validateLogo = validateLogo;
-        this.unvalidateLogo = unvalidateLogo;
-        this.score = score;
-    }
-
 
     public int getScore() {
         return score;
@@ -55,7 +46,6 @@ public class ResultsModel {
         this.validateLogo = validateLogo;
     }
 
-
     public boolean isSuccess() {
         return isSuccess;
     }
@@ -64,11 +54,5 @@ public class ResultsModel {
         isSuccess = success;
     }
 
-    public int getUnvalidateLogo(int logo_cancel2) {
-        return unvalidateLogo;
-    }
 
-    public void setUnvalidateLogo(int unvalidateLogo) {
-        this.unvalidateLogo = unvalidateLogo;
-    }
 }

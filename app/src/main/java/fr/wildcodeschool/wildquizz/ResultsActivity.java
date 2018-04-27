@@ -1,11 +1,14 @@
 package fr.wildcodeschool.wildquizz;
 
+import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -35,6 +38,7 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
     private String mUid;
     private TextView mScoreValue;
     private TextView mValueScore;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +85,6 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
         });
 
 
-
-
         final ListView listView = findViewById(R.id.list_results);
 
         final ArrayList<ResultsModel> resultsList = new ArrayList<>();
@@ -98,9 +100,13 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
                 int i = 0;
                 for (DataSnapshot qcmSnapshot : dataSnapshot.getChildren()) {
                     ResultsModel resultsModel = qcmSnapshot.getValue(ResultsModel.class);
-                    resultsList.add(new ResultsModel(resultsModel.getQuestion(),0,0,scores[i]));
+                    resultsList.add(new ResultsModel(resultsModel.getQuestion(),0, scores[i]));
                     //TODO : afficher le score de chaque question
+                    if (scores[i] == 5 ){
 
+                    } else {
+
+                    }
                    i++;
                 }
                 adapter.notifyDataSetChanged();
