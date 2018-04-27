@@ -34,7 +34,7 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
     private ImageView mAvatar;
     private String mUid;
     private TextView mUsername;
-
+    private TextView mScoreValue;
     private EditText mIdentifiantQuizz;
 
     @Override
@@ -100,21 +100,33 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
         mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         mAvatar = headerLayout.findViewById(R.id.image_header);
         mUsername = headerLayout.findViewById(R.id.text_username);
+        mScoreValue = headerLayout.findViewById(R.id.text_score_value);
         //TODO : faire pareil pour le score
 
         DatabaseReference pathID = mDatabase.getReference("Users").child(mUid);
         pathID.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if ((dataSnapshot.child("avatar").getValue() != null)){
+                if ((dataSnapshot.child("avatar").getValue() != null)) {
                     String url = dataSnapshot.child("avatar").getValue(String.class);
                     Glide.with(JoinQuizzActivity.this).load(url).apply(RequestOptions.circleCropTransform()).into(mAvatar);
                 }
-                if ((dataSnapshot.child("Name").getValue() != null)){
+                if ((dataSnapshot.child("Name").getValue() != null)) {
                     String username = dataSnapshot.child("Name").getValue(String.class);
                     mUsername.setText(username);
                 }
+
+            //For Score
+                if((dataSnapshot.child("score").
+
+            getValue() !=null))
+
+            {
+                String score = String.valueOf(dataSnapshot.child("score").getValue(int.class));
+                mScoreValue.setText(score);
+
             }
+        }
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }

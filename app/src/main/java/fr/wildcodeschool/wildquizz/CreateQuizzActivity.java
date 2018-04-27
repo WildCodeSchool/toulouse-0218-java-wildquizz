@@ -61,6 +61,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
     private ImageView mAvatar;
     private String mUid;
     private TextView mUsername;
+    private TextView mScoreValue;
     private QcmAdapter mQcmAdapter;
     private int mCount = 0;
 
@@ -177,6 +178,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         mAvatar = headerLayout.findViewById(R.id.image_header);
         mUsername = headerLayout.findViewById(R.id.text_username);
+        mScoreValue = headerLayout.findViewById(R.id.text_score_value);
         //TODO : faire pareil pour le score
 
         DatabaseReference pathID = mDatabase.getReference("Users").child(mUid);
@@ -190,6 +192,11 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
                 if ((dataSnapshot.child("Name").getValue() != null)) {
                     String username = dataSnapshot.child("Name").getValue(String.class);
                     mUsername.setText(username);
+                }
+                //For Score
+                if ((dataSnapshot.child("score").getValue() != null)) {
+                    String score = String.valueOf(dataSnapshot.child("score").getValue(int.class));
+                    mScoreValue.setText(score);
                 }
             }
 
