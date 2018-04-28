@@ -16,6 +16,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
+
 public class CreateQcmActivity extends AppCompatActivity {
     FirebaseDatabase mDatabase;
     DatabaseReference mQuizzRef;
@@ -62,10 +64,9 @@ public class CreateQcmActivity extends AppCompatActivity {
                     ans2 = answer2.getText().toString();
                     ans3 = answer3.getText().toString();
                     ans4 = answer4.getText().toString();
-
                     final QcmModel qcmModel = new QcmModel(qcm, ask, ans1, ans2, ans3, ans4, mPosition);
-
                     mQuizzRef = mDatabase.getReference("Quizz").child(idQuizz).child("qcmList");
+
                     // Read from the database
                     mQuizzRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override

@@ -74,7 +74,8 @@
         <activity android:name=".ProfileActivity"> </activity>
 
         <activity android:name=".CreateQcmActivity"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
+            android:windowSoftInputMode="stateHidden|adjustPan"
+            android:noHistory="true"/>
 
         <activity android:name=".CreateQuizzActivity"
             android:noHistory="true"/>

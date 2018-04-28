@@ -30,6 +30,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -78,7 +79,6 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         tvIdQuizz.setText(mIdQuizz);
         // TODO V2 : vérifier que l'id unique n'existe pas déjà, si c'est le cas, le regénérer
 
-
         FloatingActionButton addQcm = findViewById(R.id.floating_add_qcm);
         addQcm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,6 +100,19 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         final ListView lvListRoom = findViewById(R.id.list_qcm);
         lvListRoom.setAdapter(mQcmAdapter);
 
+        Button validate = findViewById(R.id.button_check);
+        validate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mQcmAdapter.isEmpty()) {
+                    Toast.makeText(CreateQuizzActivity.this, "Pour créer un quizz, vous devez renseigner au moins un Qcm s'il vous plaît", Toast.LENGTH_SHORT).show();
+                } else{
+                    Intent intent1 = new Intent(CreateQuizzActivity.this, MenuActivity.class);
+                    startActivity(intent1);
+
+                }
+            }
+        });
 
         mDatabase = FirebaseDatabase.getInstance();
         mQuizzRef = mDatabase.getReference("Quizz").child(mIdQuizz).child("qcmList");
