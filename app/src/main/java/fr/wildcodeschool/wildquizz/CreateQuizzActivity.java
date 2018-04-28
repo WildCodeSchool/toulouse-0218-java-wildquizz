@@ -42,21 +42,6 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
     String mIdQuizz;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
-    private TextView mTvQcmNameValue;
-    private EditText mEditQcmNameValue;
-    private TextView mTvQuestionValue;
-    private EditText mEditQuestionValue;
-    private TextView mTvAnswer1Value;
-    private EditText mEditAnswer1Value;
-    private TextView mTvAnswer2Value;
-    private EditText mEditAnswer2Value;
-    private TextView mTvAnswer3Value;
-    private EditText mEditAnswer3Value;
-    private TextView mTvAnswer4Value;
-    private EditText mEditAnswer4Value;
-    private Button mButtonUpdate;
-    private Button mButtonDelete;
-    private ListView mListqcmValue;
     private FirebaseAuth mAuth;
     private ImageView mAvatar;
     private String mUid;
@@ -74,7 +59,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
 
         mDatabase = FirebaseDatabase.getInstance();
         mQuizzRef = mDatabase.getReference("Quizz");
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
         Intent intent = getIntent();
         mIdQuizz = intent.getStringExtra("idQuizz");
@@ -84,7 +69,6 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
             String key1 = "123456789";
             String key2 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             mIdQuizz = String.format("%s%s%s", generateString(3, key1), generateString(2, key2), generateString(3, key1));
-
             // créer le quizz vide dans Firebase
             QuizzModel quizzModel = new QuizzModel(mIdQuizz, new Date().getTime(), new HashMap<String, QcmModel>(), false);
             database.getReference("Quizz").child(mIdQuizz).setValue(quizzModel);
@@ -93,6 +77,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         TextView tvIdQuizz = findViewById(R.id.tv_id_generate);
         tvIdQuizz.setText(mIdQuizz);
         // TODO V2 : vérifier que l'id unique n'existe pas déjà, si c'est le cas, le regénérer
+
 
         FloatingActionButton addQcm = findViewById(R.id.floating_add_qcm);
         addQcm.setOnClickListener(new View.OnClickListener() {
@@ -106,14 +91,15 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
                     goToCreateQcm.putExtra("idQuizz", mIdQuizz);
                     CreateQuizzActivity.this.startActivity(goToCreateQcm);
                 }
-
             }
         });
+
         // charger la liste des QCM du Quizz à partir de Firebase
         final ArrayList<QcmModel> qcmModels = new ArrayList<>();
         mQcmAdapter = new QcmAdapter(this, 0, qcmModels);
-        ListView lvListRoom = findViewById(R.id.list_qcm);
+        final ListView lvListRoom = findViewById(R.id.list_qcm);
         lvListRoom.setAdapter(mQcmAdapter);
+
 
         mDatabase = FirebaseDatabase.getInstance();
         mQuizzRef = mDatabase.getReference("Quizz").child(mIdQuizz).child("qcmList");
@@ -137,28 +123,13 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
 
             }
         });
-
         lvListRoom.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 QcmModel qcmModel = qcmModels.get(i);
-
-
                 showUpdateDialog(qcmModel);
-
             }
-
         });
-        /*lvListRoom.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                QcmModel qcmModel = qcmModels.get(i);
-                showUpdateDialog(qcmModel.getTheme(), qcmModel.getQuestion(), qcmModel.getAnswer1(), qcmModel.getAnswer2(), qcmModel.getAnswer3(), qcmModel.getAnswer4());
-
-                return false;
-            }
-        });*/
 
 
         //Navigation Drawer :
@@ -199,7 +170,6 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
                     mScoreValue.setText(score);
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
@@ -207,7 +177,6 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
 
 
     }
-
 
     //String 1 composé de 3 chiffres
     private String generateString(int length, String key) {
@@ -263,17 +232,11 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         return super.onOptionsItemSelected(item);
     }
 
-
     private void showUpdateDialog(final QcmModel qcmModel) {
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-
         LayoutInflater inflater = getLayoutInflater();
-
         final View dialogView = inflater.inflate(R.layout.update_dialog, null);
-
         dialogBuilder.setView(dialogView);
-
-
         final EditText mEditQcmNameValue = dialogView.findViewById(R.id.edit_qcm);
         mEditQcmNameValue.setText(qcmModel.getTheme());
         final EditText mEditQuestionValue = dialogView.findViewById(R.id.edit_question);
@@ -289,20 +252,15 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         Button mButtonUpdate = dialogView.findViewById(R.id.button_update);
         final Button mButtonDelete = dialogView.findViewById(R.id.button_delete);
         final RadioGroup radioGroup = dialogView.findViewById(R.id.radiogroup);
-
-
         switch (qcmModel.getCorrectAnswer()) {
-
             case 1:
                 RadioButton button1 = dialogView.findViewById(R.id.radiobtn_1);
                 button1.setChecked(true);
                 break;
-
             case 2:
                 RadioButton button2 = dialogView.findViewById(R.id.radiobtn_2);
                 button2.setChecked(true);
                 break;
-
             case 3:
                 RadioButton button3 = dialogView.findViewById(R.id.radiobtn_3);
                 button3.setChecked(true);
@@ -311,21 +269,13 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
                 RadioButton button4 = dialogView.findViewById(R.id.radiobtn_4);
                 button4.setChecked(true);
                 break;
-
         }
-
         dialogBuilder.setTitle(R.string.edit_qcm);
         final AlertDialog alertDialog = dialogBuilder.create();
-
-
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Quizz").child(mIdQuizz).child("qcmList").child(qcmModel.getQcmId());
-
         mButtonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO mettre à jour dans Firebase
-
-
                 String theme = mEditQcmNameValue.getText().toString();
                 String question = mEditQuestionValue.getText().toString();
                 String ans1 = mEditAnswer1Value.getText().toString();
@@ -333,7 +283,6 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
                 String ans3 = mEditAnswer3Value.getText().toString();
                 String ans4 = mEditAnswer4Value.getText().toString();
                 int correctAnswer = 1;//TODO récupérer le numéro de la réponse correcte
-
                 int i = radioGroup.getCheckedRadioButtonId();
                 switch (i) {
                     case R.id.radiobtn_1:
@@ -349,12 +298,9 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
                         correctAnswer = 4;
                         break;
                 }
-
-
                 if (theme.isEmpty() || question.isEmpty() || ans1.isEmpty() ||
                         ans2.isEmpty() || ans3.isEmpty() ||
                         ans4.isEmpty()) {
-
                     Toast.makeText(CreateQuizzActivity.this, R.string.fill_all, Toast.LENGTH_SHORT).show();
                 } else {
                     qcmModel.setTheme(theme);
@@ -365,7 +311,6 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
                     qcmModel.setAnswer4(ans4);
                     qcmModel.setCorrectAnswer(correctAnswer);
                     databaseReference.setValue(qcmModel);
-
                     Toast.makeText(CreateQuizzActivity.this, R.string.updated_qcm, Toast.LENGTH_SHORT).show();
                     alertDialog.dismiss();
                     mQcmAdapter.notifyDataSetChanged();
@@ -380,32 +325,20 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
                 databaseReference.removeValue();
                 alertDialog.dismiss();
                 mQcmAdapter.notifyDataSetChanged();
-
                 Toast.makeText(CreateQuizzActivity.this, R.string.suppression_qcm, Toast.LENGTH_SHORT).show();
-
-
             }
         });
-
-
         alertDialog.show();
-
-
     }
 
     private void addQcmToDB(String s) {
     }
 
     private boolean updateQcm() {
-
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Quizz");
-
         QcmModel qcmModel = new QcmModel();
-
         databaseReference.setValue(qcmModel);
-
         Toast.makeText(this, R.string.qcm_update_success, Toast.LENGTH_LONG).show();
-
         return true;
     }
 
