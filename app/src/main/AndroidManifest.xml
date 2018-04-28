@@ -76,11 +76,13 @@
         <activity android:name=".CreateQcmActivity"
             android:windowSoftInputMode="stateHidden|adjustPan" />
 
-        <activity android:name=".CreateQuizzActivity" />
+        <activity android:name=".CreateQuizzActivity"
+            android:noHistory="true"/>
 
         <activity android:name=".TestUuidActivity" />
 
-        <activity android:name=".SplashSecondActivity"/>
+        <activity android:name=".SplashSecondActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity android:name=".ForgotPassActivity"
             android:windowSoftInputMode="stateHidden|adjustPan" />

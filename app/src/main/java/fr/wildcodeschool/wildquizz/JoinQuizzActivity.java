@@ -112,8 +112,8 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
                     String url = dataSnapshot.child("avatar").getValue(String.class);
                     Glide.with(JoinQuizzActivity.this).load(url).apply(RequestOptions.circleCropTransform()).into(mAvatar);
                 }
-                if ((dataSnapshot.child("Name").getValue() != null)) {
-                    String username = dataSnapshot.child("Name").getValue(String.class);
+                if ((dataSnapshot.child("username").getValue() != null)) {
+                    String username = dataSnapshot.child("username").getValue(String.class);
                     mUsername.setText(username);
                 }
 
@@ -147,10 +147,10 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
         } else if (id == R.id.profile) {
             Intent goToProfile = new Intent(this, ProfileActivity.class);
             this.startActivity(goToProfile);
-        } else if (id == R.id.displayquizz) {
+        } /*else if (id == R.id.displayquizz) {
             Intent goToDisplayQuizz = new Intent(this, DisplayQuizzActivity.class);
             this.startActivity(goToDisplayQuizz);
-        } else if (id == R.id.listquizz) {
+        }*/ else if (id == R.id.listquizz) {
                 Intent goToListQuizz = new Intent(this, ListQuizzActivity.class);
                 this.startActivity(goToListQuizz);
         } else if (id == R.id.logout) {

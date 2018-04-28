@@ -119,6 +119,7 @@
     <string name="fill_all">Remplissez tous les champs s\'il vous plaît!!</string>
     <string name="score">Score</string>
     <string name="scoretext">Score : %s</string>
+    <string name="title_quizz_results">Résultats du quizz</string>
 
 
 </resources>

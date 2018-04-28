@@ -32,13 +32,6 @@
     </item>
 
     <item
-        android:id="@+id/displayquizz"
-        android:icon="@drawable/loog_display"
-        android:title="@string/display_quiz">
-
-    </item>
-
-    <item
         android:id="@+id/listquizz"
         android:icon="@drawable/schoolsupplies"
         android:title="@string/mes_quizz"></item>

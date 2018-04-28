@@ -38,12 +38,15 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
     private String mUid;
     private TextView mScoreValue;
     private TextView mValueScore;
-
+    private TextView mUsername;
+    private TextView navBarScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
+
+        setTitle(getString(R.string.title_quizz_results));
 
         mDatabase = FirebaseDatabase.getInstance();
 
@@ -76,7 +79,6 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
                 userModel.setScore(scoreTotalQuizz + userModel.getScore());
                 userModel.setNbQcm(nbQcm + userModel.getNbQcm());
                 userRef.setValue(userModel);
-
             }
 
             @Override
@@ -118,7 +120,8 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
         View headerLayout = navigationView.getHeaderView(0);
         mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         mAvatar = headerLayout.findViewById(R.id.image_header);
-        //TODO : faire pareil pour le pseudo
+        mUsername = headerLayout.findViewById(R.id.text_username);
+        navBarScore = headerLayout.findViewById(R.id.text_score_value);
         DatabaseReference pathID = mDatabase.getReference("Users").child(mUid);
         pathID.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -126,6 +129,16 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
                 if ((dataSnapshot.child("avatar").getValue() != null)){
                     String url = dataSnapshot.child("avatar").getValue(String.class);
                     Glide.with(ResultsActivity.this).load(url).apply(RequestOptions.circleCropTransform()).into(mAvatar);
+                }
+                //For Username
+                if ((dataSnapshot.child("username").getValue() != null)){
+                    String username = dataSnapshot.child("username").getValue(String.class);
+                    mUsername.setText(username);
+                }
+                //For Score
+                if ((dataSnapshot.child("score").getValue() != null)){
+                    String score = String.valueOf(dataSnapshot.child("score").getValue(int.class));
+                    navBarScore.setText(score);
                 }
             }
             @Override
@@ -152,10 +165,10 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
         } else if (id == R.id.profile) {
             Intent goToProfile = new Intent(this, ProfileActivity.class);
             this.startActivity(goToProfile);
-        } else if (id == R.id.displayquizz) {
+        } /*else if (id == R.id.displayquizz) {
             Intent goToDisplayQuizz = new Intent(this, DisplayQuizzActivity.class);
             this.startActivity(goToDisplayQuizz);
-        } else if (id == R.id.quizz_list) {
+        }*/ else if (id == R.id.quizz_list) {
                 Intent goToListQuizzActivity = new Intent(this, DisplayQuizzActivity.class);
                 this.startActivity(goToListQuizzActivity);
         } else if (id == R.id.logout) {
