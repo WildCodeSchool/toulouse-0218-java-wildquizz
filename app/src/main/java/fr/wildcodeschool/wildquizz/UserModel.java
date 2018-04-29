@@ -1,5 +1,7 @@
 package fr.wildcodeschool.wildquizz;
 
+import java.util.HashMap;
+
 /**
  * Created by wilder on 24/04/18.
  */
@@ -53,4 +55,6 @@ public class UserModel {
     public void setScore(int score) {
         this.score = score;
     }
+
+
 }

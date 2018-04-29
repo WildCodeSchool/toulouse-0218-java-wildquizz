@@ -88,7 +88,8 @@
         <activity android:name=".ForgotPassActivity"
             android:windowSoftInputMode="stateHidden|adjustPan" />
 
-        <activity android:name=".ListQuizzActivity">
+        <activity android:name=".ListQuizzActivity"
+            android:noHistory="true">
 
         </activity>
     </application>

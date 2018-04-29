@@ -71,6 +71,7 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
         final int scoreTotalQuizz = ScoreClass.foundQuizzScore(scores);
         mScoreValue.setText(String.valueOf(scoreTotalQuizz));
         mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        final String idQuizz = getIntent().getStringExtra("idQuizz");
         final DatabaseReference userRef = mDatabase.getReference("Users").child(mUid);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -95,7 +96,6 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
         listView.setAdapter(adapter);
 
         mDatabase = FirebaseDatabase.getInstance();
-        String idQuizz = getIntent().getStringExtra("idQuizz");
         DatabaseReference listResultsRef = mDatabase.getReference("Quizz").child(idQuizz).child("qcmList");
         listResultsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

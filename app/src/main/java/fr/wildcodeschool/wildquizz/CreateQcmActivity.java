@@ -10,6 +10,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,9 +20,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.Serializable;
 
 public class CreateQcmActivity extends AppCompatActivity {
+
     FirebaseDatabase mDatabase;
     DatabaseReference mQuizzRef;
     int mPosition = 1;
+    private String mUid;
+    private FirebaseAuth mAuth;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +71,8 @@ public class CreateQcmActivity extends AppCompatActivity {
                     ans3 = answer3.getText().toString();
                     ans4 = answer4.getText().toString();
                     final QcmModel qcmModel = new QcmModel(qcm, ask, ans1, ans2, ans3, ans4, mPosition);
+                    mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    final DatabaseReference userRef = mDatabase.getReference("Users").child(mUid).child(idQuizz).child("qcmList");
                     mQuizzRef = mDatabase.getReference("Quizz").child(idQuizz).child("qcmList");
 
                     // Read from the database
@@ -73,6 +81,7 @@ public class CreateQcmActivity extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             // enregistrer le qcm dans Firebase
                             mQuizzRef.push().setValue(qcmModel);
+                            userRef.push().setValue(qcmModel);
 
                             Intent goToCreateQuizz = new Intent(CreateQcmActivity.this, CreateQuizzActivity.class);
                             goToCreateQuizz.putExtra("idQuizz", idQuizz);

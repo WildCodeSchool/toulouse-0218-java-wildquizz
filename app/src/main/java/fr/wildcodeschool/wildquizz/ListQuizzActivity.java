@@ -34,11 +34,51 @@ public class ListQuizzActivity extends AppCompatActivity implements NavigationVi
     private TextView mScoreValue;
     FirebaseDatabase mDatabase;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_quizz);
+
+        setTitle(R.string.mes_quizz);
+
+        final ListView listView = findViewById(R.id.quizz_list);
+        final ArrayList<QuizzModel> listQuizz = new ArrayList<>();
+        final ListQuizzAdapter quizzAdapter = new ListQuizzAdapter(ListQuizzActivity.this, listQuizz);
+        listView.setAdapter(quizzAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> listView, View view, int position, long id) {
+                QuizzModel quizzmod = (QuizzModel) listView.getAdapter().getItem(position);
+                Intent intent = new Intent(listView.getContext(),CreateQuizzActivity.class);
+                intent.putExtra("idQuizz",quizzmod.getId());
+                listView.getContext().startActivity(intent);
+            }
+        });
+
+        // Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Query myRef = database.getReference("Users").child(mUid).child("quizzCreated");
+
+        // Read from the database
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                listQuizz.clear();
+                for (DataSnapshot quizzIdSnap : dataSnapshot.getChildren()) {
+                    QuizzModel quizzModel = quizzIdSnap.getValue(QuizzModel.class);
+                    listQuizz.add(quizzModel);
+                }
+                quizzAdapter.notifyDataSetChanged();
+
+            }
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+            }
+        });
 
 
         //Navigation Drawer :
@@ -59,8 +99,6 @@ public class ListQuizzActivity extends AppCompatActivity implements NavigationVi
         mAvatar = headerLayout.findViewById(R.id.image_header);
         mUsername = headerLayout.findViewById(R.id.text_username);
         mScoreValue = headerLayout.findViewById(R.id.text_score_value);
-        //TODO : faire pareil pour le score
-
         DatabaseReference pathID = mDatabase.getReference("Users").child(mUid);
         pathID.addValueEventListener(new ValueEventListener() {
             @Override
@@ -86,54 +124,9 @@ public class ListQuizzActivity extends AppCompatActivity implements NavigationVi
             }
         });
 
-
-
-        final ListView listView = findViewById(R.id.quizz_list);
-
-
-        final ArrayList<QuizzModel> listQuizz = new ArrayList<>();
-        final ListQuizzAdapter quizzAdapter = new ListQuizzAdapter(ListQuizzActivity.this, listQuizz);
-        listView.setAdapter(quizzAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> listView, View view, int position, long id) {
-                QuizzModel quizzmod = (QuizzModel) listView.getAdapter().getItem(position);
-                Intent intent = new Intent(listView.getContext(),CreateQuizzActivity.class);
-                intent.putExtra("idQuizz",quizzmod.getId());
-                listView.getContext().startActivity(intent);
-            }
-        });
-
-
-
-
-        // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        Query myRef = database.getReference("Quizz");
-
-        // Read from the database
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                listQuizz.clear();
-                for (DataSnapshot quizzIdSnap : dataSnapshot.getChildren()) {
-                    QuizzModel quizzModel = quizzIdSnap.getValue(QuizzModel.class);
-                    listQuizz.add(quizzModel);
-                }
-                quizzAdapter.notifyDataSetChanged();
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-
-            }
-        });
-
     }
+
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {

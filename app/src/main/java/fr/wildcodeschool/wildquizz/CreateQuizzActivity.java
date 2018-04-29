@@ -73,6 +73,12 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
             // créer le quizz vide dans Firebase
             QuizzModel quizzModel = new QuizzModel(mIdQuizz, new Date().getTime(), new HashMap<String, QcmModel>(), false);
             database.getReference("Quizz").child(mIdQuizz).setValue(quizzModel);
+            mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+
+
+            database.getReference("Users").child(mUid).child(mIdQuizz).setValue(quizzModel);
+
         }
 
         TextView tvIdQuizz = findViewById(R.id.tv_id_generate);
@@ -83,7 +89,6 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         addQcm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO : vérifier le nombre d'item dans l'adapter
                 if (mQcmAdapter.getCount() >= 5) {
                     Toast.makeText(CreateQuizzActivity.this, R.string.limit_create_quizz, Toast.LENGTH_SHORT).show();
                 } else {
@@ -114,7 +119,6 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
             }
         });
 
-        mDatabase = FirebaseDatabase.getInstance();
         mQuizzRef = mDatabase.getReference("Quizz").child(mIdQuizz).child("qcmList");
         // Read from the database
         mQuizzRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -136,6 +140,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
 
             }
         });
+
         lvListRoom.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
