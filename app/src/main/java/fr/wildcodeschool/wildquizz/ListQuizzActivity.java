@@ -58,7 +58,7 @@ public class ListQuizzActivity extends AppCompatActivity implements NavigationVi
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        Query myRef = database.getReference("Users").child(mUid).child("quizzCreated");
+        Query myRef = database.getReference("Users").child(mUid).child("quizzcreated");
 
         // Read from the database
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {

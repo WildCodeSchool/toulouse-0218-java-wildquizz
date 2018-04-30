@@ -124,7 +124,7 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
         mUsername = headerLayout.findViewById(R.id.text_username);
         navBarScore = headerLayout.findViewById(R.id.text_score_value);
         DatabaseReference pathID = mDatabase.getReference("Users").child(mUid);
-        pathID.addListenerForSingleValueEvent(new ValueEventListener() {
+        pathID.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if ((dataSnapshot.child("avatar").getValue() != null)){
