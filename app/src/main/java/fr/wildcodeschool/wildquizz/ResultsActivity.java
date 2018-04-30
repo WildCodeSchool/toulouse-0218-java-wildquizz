@@ -77,9 +77,10 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 UserModel userModel = dataSnapshot.getValue(UserModel.class);
-                userModel.setScore(scoreTotalQuizz + userModel.getScore());
-                userModel.setNbQcm(nbQcm + userModel.getNbQcm());
-                userRef.setValue(userModel);
+                int score = userModel.setScore(scoreTotalQuizz + userModel.getScore());
+                int nbQcmValue = userModel.setNbQcm(nbQcm + userModel.getNbQcm());
+                userRef.child("score").setValue(score);
+                userRef.child("nbQcm").setValue(nbQcmValue);
             }
 
             @Override

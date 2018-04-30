@@ -43,16 +43,16 @@ public class UserModel {
         return nbQcm;
     }
 
-    public void setNbQcm(int nbQcm) {
-        this.nbQcm = nbQcm;
+    public int setNbQcm(int nbQcm) {
+        return nbQcm;
     }
 
     public int getScore() {
         return score;
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public int setScore(int score) {
+        return score;
     }
 
 }
