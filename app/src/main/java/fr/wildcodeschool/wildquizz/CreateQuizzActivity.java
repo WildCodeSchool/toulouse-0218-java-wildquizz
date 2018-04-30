@@ -51,6 +51,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
     private QcmAdapter mQcmAdapter;
     private int mCount = 0;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +103,9 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         final ListView lvListRoom = findViewById(R.id.list_qcm);
         lvListRoom.setAdapter(mQcmAdapter);
 
+
+
+
         Button validate = findViewById(R.id.button_check);
         validate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,8 +134,8 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
 
                 }
                 mQcmAdapter.notifyDataSetChanged(); // met au courant l'adapter que la liste a changé
-            }
 
+            }
             @Override
             public void onCancelled(DatabaseError error) {
 
@@ -146,7 +150,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
             }
         });
 
-
+        /*
         //Navigation Drawer :
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_create);
         mToggle = new ActionBarDrawerToggle(CreateQuizzActivity.this, mDrawerLayout, R.string.open, R.string.close);
@@ -165,8 +169,6 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         mAvatar = headerLayout.findViewById(R.id.image_header);
         mUsername = headerLayout.findViewById(R.id.text_username);
         mScoreValue = headerLayout.findViewById(R.id.text_score_value);
-        //TODO : faire pareil pour le score
-
         DatabaseReference pathID = mDatabase.getReference("Users").child(mUid);
         pathID.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -189,7 +191,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-
+        */
 
     }
 
