@@ -74,10 +74,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
             QuizzModel quizzModel = new QuizzModel(mIdQuizz, new Date().getTime(), new HashMap<String, QcmModel>(), false);
             database.getReference("Quizz").child(mIdQuizz).setValue(quizzModel);
             mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-
-
-            database.getReference("Users").child(mUid).child(mIdQuizz).setValue(quizzModel);
+            database.getReference("Users").child(mUid).child("quizzcreated").child(mIdQuizz).setValue(quizzModel);
 
         }
 

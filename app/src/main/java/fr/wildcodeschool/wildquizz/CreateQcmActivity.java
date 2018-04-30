@@ -72,7 +72,7 @@ public class CreateQcmActivity extends AppCompatActivity {
                     ans4 = answer4.getText().toString();
                     final QcmModel qcmModel = new QcmModel(qcm, ask, ans1, ans2, ans3, ans4, mPosition);
                     mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                    final DatabaseReference userRef = mDatabase.getReference("Users").child(mUid).child(idQuizz).child("qcmList");
+                    final DatabaseReference userRef = mDatabase.getReference("Users").child(mUid).child("quizzcreated").child(idQuizz).child("qcmList");
                     mQuizzRef = mDatabase.getReference("Quizz").child(idQuizz).child("qcmList");
 
                     // Read from the database
