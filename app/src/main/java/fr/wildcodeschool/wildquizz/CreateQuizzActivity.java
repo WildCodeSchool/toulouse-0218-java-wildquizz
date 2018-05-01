@@ -65,6 +65,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
 
         mDatabase = FirebaseDatabase.getInstance();
         mQuizzRef = mDatabase.getReference("Quizz");
+      
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
         Intent intent = getIntent();
@@ -76,11 +77,11 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
             String key2 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             mIdQuizz = String.format("%s%s%s", generateString(3, key1), generateString(2, key2), generateString(3, key1));
             // créer le quizz vide dans Firebase
+            mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
             QuizzModel quizzModel = new QuizzModel(mIdQuizz, new Date().getTime(), new HashMap<String, QcmModel>(), false);
             database.getReference("Quizz").child(mIdQuizz).setValue(quizzModel);
             mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
             database.getReference("Users").child(mUid).child("quizzcreated").child(mIdQuizz).setValue(quizzModel);
-
         }
 
         TextView tvIdQuizz = findViewById(R.id.tv_id_generate);
@@ -151,8 +152,8 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
                 showUpdateDialog(qcmModel);
             }
         });
-
     }
+  
 
     //Génération de code unique personnalisé :
     private String generateString(int length, String key) {
@@ -192,6 +193,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
             Intent goToListQuizz = new Intent(this, ListQuizzActivity.class);
             this.startActivity(goToListQuizz);
         }else if (id == R.id.logout) {
+
             //Déconnexion
             mAuth = FirebaseAuth.getInstance();
             mAuth.signOut();

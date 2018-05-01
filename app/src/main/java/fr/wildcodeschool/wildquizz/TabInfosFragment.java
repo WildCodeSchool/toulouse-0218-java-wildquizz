@@ -301,11 +301,12 @@ public class TabInfosFragment extends Fragment {
                 int scoreUser = userModel.getScore();
                 mScoreValueProfile.setText(String.format(getString(R.string.scoretext), String.valueOf(scoreUser)));
                 int nbQcm = userModel.getNbQcm();
-
-                float scoreUserFloat = scoreUser / nbQcm;
-                RatingBar ratingBar = getView().findViewById(R.id.rating_bar);
-                ratingBar.setFocusable(false);
-                ratingBar.setRating(scoreUserFloat);
+                if (nbQcm > 0) {
+                    float scoreUserFloat = scoreUser / nbQcm;
+                    RatingBar ratingBar = getView().findViewById(R.id.rating_bar);
+                    ratingBar.setFocusable(false);
+                    ratingBar.setRating(scoreUserFloat);
+                }
 
                 switch (ScoreClass.getMedal(scoreUser)) {
                     case 1:
