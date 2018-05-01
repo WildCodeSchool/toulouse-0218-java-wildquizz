@@ -23,7 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class ProfileActivity extends AppCompatActivity implements TabInfosFragment.OnFragmentInteractionListener, TabFriendFragment.OnFragmentInteractionListener, TabNotificationFragment.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener {
+public class ProfileActivity extends AppCompatActivity implements TabInfosFragment.OnFragmentInteractionListener,  NavigationView.OnNavigationItemSelectedListener {
 
     FirebaseAuth mAuth;
     FirebaseDatabase mDatabase;
@@ -46,8 +46,8 @@ public class ProfileActivity extends AppCompatActivity implements TabInfosFragme
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText(R.string.name_tab1));
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.name_tab2));
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.name_tab3));
+        //tabLayout.addTab(tabLayout.newTab().setText(R.string.name_tab2));
+        //tabLayout.addTab(tabLayout.newTab().setText(R.string.name_tab3));
         tabLayout.setTabGravity(tabLayout.GRAVITY_FILL);
 
 
