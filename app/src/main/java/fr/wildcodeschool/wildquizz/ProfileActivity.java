@@ -52,8 +52,6 @@ public class ProfileActivity extends AppCompatActivity implements TabInfosFragme
     private ImageView mMedalSilver;
     private ImageView mMedalGold;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
