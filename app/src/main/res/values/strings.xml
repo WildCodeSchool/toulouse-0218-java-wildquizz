@@ -20,8 +20,8 @@
     <string name="score_value">...</string>
     <string name="title_join_quizz">Participer à un quizz</string>
     <string name="accueil">Accueil</string>
-    <string name="join_quiz">Participer à un Quizz</string>
-    <string name="create_quiz">Créer un Quizz</string>
+    <string name="join_quiz">Participer à un quizz</string>
+    <string name="create_quiz">Créer un quizz</string>
     <string name="my_profile">Mon profil</string>
     <string name="display_quiz">Afficher les Quizzs joués</string>
     <string name="logout">Se déconnecter</string>
@@ -119,6 +119,7 @@
     <string name="score">Score</string>
     <string name="scoretext">Score : %s</string>
     <string name="title_quizz_results">Résultats du quizz</string>
+    <string name="advertissement_not_connected">L\'application WilQuizz doit être connectée à internet pour vous authentifier.</string>
 
 
 </resources>

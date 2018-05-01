@@ -37,8 +37,8 @@
         android:gravity="center_vertical|center"
         android:hint="@string/login"
         android:inputType="textEmailAddress"
-        android:textColor="@android:color/white"
-        android:textColorHint="@android:color/white"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,9 +55,9 @@
         android:ems="10"
         android:gravity="center"
         android:hint="@string/password"
-        android:inputType="textPersonName|textPassword"
-        android:textColor="@android:color/white"
-        android:textColorHint="@android:color/white"
+        android:inputType="textPassword"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_email" />
@@ -95,11 +95,24 @@
         android:layout_marginTop="32dp"
         android:background="@android:color/transparent"
         android:text="@string/forgotten_password"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:textSize="14dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_connexion" />
+
+    <ImageView
+        android:id="@+id/iv_password"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="26dp"
+        android:alpha="0.8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toEndOf="@+id/edit_password"
+        app:layout_constraintTop_toBottomOf="@+id/edit_email"
+        app:srcCompat="@drawable/logo_password" />
 
 </android.support.constraint.ConstraintLayout>

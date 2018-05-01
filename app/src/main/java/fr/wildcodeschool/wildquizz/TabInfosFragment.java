@@ -2,6 +2,7 @@ package fr.wildcodeschool.wildquizz;
 
 import android.*;
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
@@ -19,6 +21,8 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -26,6 +30,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.DrawableImageViewTarget;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -42,7 +47,9 @@ import org.w3c.dom.Text;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 import static fr.wildcodeschool.wildquizz.RegistrationActivity.checkAndRequestPermissions;
@@ -136,17 +143,43 @@ public class TabInfosFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+    public static boolean checkAndRequestPermissions(final Activity context) {
+        int extstorePermission = ContextCompat.checkSelfPermission(context,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int cameraPermission = ContextCompat.checkSelfPermission(context,
+                Manifest.permission.CAMERA);
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        if (cameraPermission != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.CAMERA);
+        }
+        if (extstorePermission != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded
+                    .add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(context, listPermissionsNeeded
+                            .toArray(new String[listPermissionsNeeded.size()]),
+                    REQUEST_ID_MULTIPLE_PERMISSIONS);
+            return false;
+        }
+        return true;
+    }
+
     private String mGetImageUrl = "";
     private String mCurrentPhotoPath;
     private Uri mFileUri = null;
     public final static int GALLERY = 123;
     public final static int APP_PHOTO = 456;
     private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 101;
+    private TextView mTextUsername;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         mImageProfile = getView().findViewById(R.id.iv_profile);
         mScoreValueProfile = getView().findViewById(R.id.tv_score_profile);
+        mTextUsername = getView().findViewById(R.id.tv_username_fragment);
+
 
         //Modification de la photo de l'utilisateur :
         mImageProfile = getView().findViewById(R.id.iv_profile);
@@ -171,25 +204,81 @@ public class TabInfosFragment extends Fragment {
                             }
                         })
                         .show();
-
-
             }
         });
 
-        //Affichage du profil dans la nav bar :
+        //Affichage de l'avatar et du nom de l'user :
         mDatabase = FirebaseDatabase.getInstance();
         mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DatabaseReference pathID = mDatabase.getReference("Users").child(mUid);
-        pathID.addListenerForSingleValueEvent(new ValueEventListener() {
+        pathID.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if ((dataSnapshot.child("avatar").getValue() != null)) {
                     String url = dataSnapshot.child("avatar").getValue(String.class);
-                    Glide.with(TabInfosFragment.this).load(url).apply(RequestOptions.circleCropTransform()).into(mImageProfile);
+                    Glide.with(getActivity()).load(url).apply(RequestOptions.circleCropTransform()).into(mImageProfile);
+                }
+                if ((dataSnapshot.child("username").getValue() != null)) {
+                    String nameUser = dataSnapshot.child("username").getValue(String.class);
+                    mTextUsername.setText(nameUser);
                 }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+        //Modification de l'username :
+        Button btnUpdateUsername = getView().findViewById(R.id.button_test);
+        btnUpdateUsername.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                LayoutInflater inflater = getLayoutInflater();
+                View dialogView = inflater.inflate(R.layout.update_dialog_username, null);
+                builder.setView(dialogView);
+                builder.setTitle("Editer le nom d'utilisateur");
+                final AlertDialog alertDialog = builder.create();
+                final EditText newUsername = (EditText) dialogView.findViewById(R.id.et_user_update_dialog);
+                DatabaseReference nameRef = mDatabase.getReference("Users").child(mUid);
+                nameRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if ((dataSnapshot.child("username").getValue() != null)) {
+                            String nameUser = dataSnapshot.child("username").getValue(String.class);
+                            newUsername.setHint(nameUser);
+                        }
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+
+
+
+                Button btnUpdateName = (Button) dialogView.findViewById(R.id.button_update);
+                btnUpdateName.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final String user = (String) newUsername.getText().toString();
+                        final DatabaseReference usernameUpdateRef = mDatabase.getReference("Users").child(mUid);
+                        usernameUpdateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                UserModel userModel1 = dataSnapshot.getValue(UserModel.class);
+                                usernameUpdateRef.child("username").setValue(user);
+                                alertDialog.cancel();
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+
+                });
+                alertDialog.show();
             }
         });
 
@@ -257,8 +346,8 @@ public class TabInfosFragment extends Fragment {
                         rang2.setAlpha(1.0f);
                         rang3.setTextColor(Color.parseColor("#ff4081"));
                         rang3.setAlpha(1.0f);
-                        rang3.setTextColor(Color.parseColor("#ff4081"));
-                        rang3.setAlpha(1.0f);
+                        rang4.setTextColor(Color.parseColor("#ff4081"));
+                        rang4.setAlpha(1.0f);
                         break;
                 }
             }

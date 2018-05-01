@@ -3,6 +3,7 @@
     package="fr.wildcodeschool.wildquizz">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission  android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <uses-permission android:name="android.permission.CAMERA" />
 
@@ -49,11 +50,13 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustPan" >
+            android:windowSoftInputMode="stateHidden|adjustPan"
+            >
         </activity>
 
 
-        <activity android:name=".MenuActivity" > </activity>
+        <activity android:name=".MenuActivity"
+            android:noHistory="true"/>
 
         <activity
             android:name=".RegistrationActivity"
@@ -78,7 +81,7 @@
             android:noHistory="true"/>
 
         <activity android:name=".CreateQuizzActivity"
-            android:noHistory="true"/>
+            />
 
         <activity android:name=".TestUuidActivity" />
 

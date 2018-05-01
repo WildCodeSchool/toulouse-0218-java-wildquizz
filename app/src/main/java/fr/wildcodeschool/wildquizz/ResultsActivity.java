@@ -61,8 +61,6 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_results);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-
         mScoreValue = findViewById(R.id.value_score);
         mValueScore = findViewById(R.id.score_value);
 
@@ -115,7 +113,6 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
 
             }
         });
-
 
         //Affichage du profil dans la nav bar :
         View headerLayout = navigationView.getHeaderView(0);

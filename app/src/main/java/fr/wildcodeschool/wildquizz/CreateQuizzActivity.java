@@ -51,6 +51,10 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
     private QcmAdapter mQcmAdapter;
     private int mCount = 0;
 
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(this, "Vous devez créer au moins 1 Qcm et le valider avant de revenir à l'écran précédent.", Toast.LENGTH_LONG).show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,8 +108,6 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         lvListRoom.setAdapter(mQcmAdapter);
 
 
-
-
         Button validate = findViewById(R.id.button_check);
         validate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,52 +152,9 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
             }
         });
 
-        /*
-        //Navigation Drawer :
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_create);
-        mToggle = new ActionBarDrawerToggle(CreateQuizzActivity.this, mDrawerLayout, R.string.open, R.string.close);
-        mDrawerLayout.addDrawerListener(mToggle);
-        mToggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        //Navigation View :
-        NavigationView navigationView = findViewById(R.id.nav_view_create);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        //Affichage du profil dans la nav bar :
-        View headerLayout = navigationView.getHeaderView(0);
-        mDatabase = FirebaseDatabase.getInstance();
-        mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        mAvatar = headerLayout.findViewById(R.id.image_header);
-        mUsername = headerLayout.findViewById(R.id.text_username);
-        mScoreValue = headerLayout.findViewById(R.id.text_score_value);
-        DatabaseReference pathID = mDatabase.getReference("Users").child(mUid);
-        pathID.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if ((dataSnapshot.child("avatar").getValue() != null)) {
-                    String url = dataSnapshot.child("avatar").getValue(String.class);
-                    Glide.with(CreateQuizzActivity.this).load(url).apply(RequestOptions.circleCropTransform()).into(mAvatar);
-                }
-                if ((dataSnapshot.child("username").getValue() != null)) {
-                    String username = dataSnapshot.child("username").getValue(String.class);
-                    mUsername.setText(username);
-                }
-                //For Score
-                if ((dataSnapshot.child("score").getValue() != null)) {
-                    String score = String.valueOf(dataSnapshot.child("score").getValue(int.class));
-                    mScoreValue.setText(score);
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-        */
-
     }
 
-    //String 1 composé de 3 chiffres
+    //Génération de code unique personnalisé :
     private String generateString(int length, String key) {
         //char[] chars = "abcdefghijklmnopqrstuvwxyz123456789".toCharArray();
         char[] char1 = key.toCharArray();
@@ -346,9 +305,6 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
             }
         });
         alertDialog.show();
-    }
-
-    private void addQcmToDB(String s) {
     }
 
     private boolean updateQcm() {

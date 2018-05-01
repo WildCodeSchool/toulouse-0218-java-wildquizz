@@ -39,22 +39,31 @@
                 app:srcCompat="@drawable/logo_user2" />
 
             <TextView
-                android:id="@+id/et_user"
+                android:id="@+id/tv_username_fragment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/tv_pts2"
                 android:layout_alignStart="@+id/tv_pts2"
                 android:layout_alignTop="@+id/iv_profile"
-                android:layout_marginEnd="50dp"
-                android:layout_marginStart="68dp"
+                android:layout_marginStart="40dp"
                 android:layout_marginTop="44dp"
                 android:inputType="textPersonName"
-                android:text="@string/john_doe"
                 android:textColor="@android:color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_change_avatar"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/john_doe" />
+
+            <Button
+                android:id="@+id/button_test"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="45dp"
+                android:background="@drawable/manga_logo"
+                android:textSize="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -64,20 +73,20 @@
                 android:layout_alignLeft="@+id/tv_pts2"
                 android:layout_alignStart="@+id/tv_pts2"
                 android:layout_alignTop="@+id/iv_profile"
-                android:layout_marginEnd="50dp"
+                android:layout_marginStart="40dp"
                 android:layout_marginTop="16dp"
                 android:textColor="@android:color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/et_user"
+                app:layout_constraintStart_toEndOf="@+id/iv_change_avatar"
+                app:layout_constraintTop_toBottomOf="@+id/tv_username_fragment"
                 tools:text="Score : 0" />
 
             <TextView
                 android:id="@+id/tv_level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/et_user"
+                android:layout_below="@+id/tv_username_fragment"
                 android:layout_marginTop="18dp"
                 android:layout_toLeftOf="@+id/tv_pts2"
                 android:layout_toStartOf="@+id/tv_pts2"
