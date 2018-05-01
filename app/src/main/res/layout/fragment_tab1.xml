@@ -46,14 +46,14 @@
                 android:layout_alignStart="@+id/tv_pts2"
                 android:layout_alignTop="@+id/iv_profile"
                 android:layout_marginEnd="8dp"
-                android:layout_marginStart="88dp"
+                android:layout_marginStart="44dp"
                 android:layout_marginTop="44dp"
                 android:inputType="textPersonName"
                 android:text="@string/john_doe"
                 android:textColor="@android:color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/img_btn_user"
+                app:layout_constraintEnd_toStartOf="@+id/button_test"
                 app:layout_constraintStart_toEndOf="@+id/iv_profile"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -239,15 +239,13 @@
                 app:layout_constraintStart_toEndOf="@+id/iv_profile"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageButton
-                android:id="@+id/img_btn_user"
-                android:layout_width="37dp"
-                android:layout_height="45dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginTop="36dp"
-                android:background="@android:color/transparent"
-                android:scaleType="fitXY"
-                android:src="@drawable/manga_logo"
+            <Button
+                android:id="@+id/button_test"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="28dp"
+                android:text="Button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

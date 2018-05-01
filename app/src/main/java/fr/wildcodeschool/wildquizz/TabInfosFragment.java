@@ -10,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -93,19 +94,16 @@ public class TabInfosFragment extends Fragment {
 
         LayoutInflater inflater = getLayoutInflater();
 
-        final View dialogView = inflater.inflate(R.layout.update_dialog, null);
+        final View dialogView = inflater.inflate(R.layout.update_username, null);
 
         dialogBuilder.setView(dialogView);
-
-
-
 
         dialogBuilder.setTitle("Editer le nom d'utilisateur");
         final AlertDialog alertDialog = dialogBuilder.create();
 
         final EditText mUsername = (EditText) dialogView.findViewById(R.id.et_user);
         mUsername.setText(userModel.getUsername());
-        final ImageButton mImUserName = dialogView.findViewById(R.id.img_btn_user);
+        final Button mImUserName = dialogView.findViewById(R.id.button_test);
 
         mImUserName.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +112,10 @@ public class TabInfosFragment extends Fragment {
 
 
 
+
             }
+
+
         });
 
         alertDialog.show();
@@ -124,7 +125,7 @@ public class TabInfosFragment extends Fragment {
                 .getReference("Users").child(mIdUsers).child(userModel.getUsername());
 
     }
-    private boolean updateQcm() {
+    private boolean updateUsername() {
 
         mUserRef = FirebaseDatabase.getInstance().getReference("Users");
 
@@ -168,6 +169,13 @@ public class TabInfosFragment extends Fragment {
                     + " must implement OnFragmentInteractionListener");
         }
     }
+
+
+
+
+
+
+
 
     @Override
     public void onDetach() {
@@ -218,6 +226,9 @@ public class TabInfosFragment extends Fragment {
         ImageView mMedalRed = getView().findViewById(R.id.iv_medal1);
         ImageView mMedalSilver = getView().findViewById(R.id.iv_medal3);
         ImageView mMedalGold = getView().findViewById(R.id.iv_medal4);
+
+
+
 
         // TODO récupérer l'utilisateur à partir de Firebase et le score de l'utilisateur avec mAuth et une requête dans firebase storage
 
