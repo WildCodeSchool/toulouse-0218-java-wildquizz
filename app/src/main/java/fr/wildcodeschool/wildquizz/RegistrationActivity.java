@@ -127,7 +127,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         Toast.makeText(RegistrationActivity.this, R.string.password_differents, Toast.LENGTH_SHORT).show();
                     }
                     if (password.length() < 6 && confirmPassword.length() < 6) {
-                        Toast.makeText(RegistrationActivity.this, "Le mot de passe doit contenir au moins 6 caractères", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegistrationActivity.this, R.string.pass_numberletter, Toast.LENGTH_SHORT).show();
                     }
                     else {
                         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {

@@ -21,8 +21,6 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,7 +28,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -53,7 +50,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
 
     @Override
     public void onBackPressed() {
-        Toast.makeText(this, "Vous devez créer au moins 1 Qcm et le valider avant de revenir à l'écran précédent.", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, R.string.indic_listvide, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -113,7 +110,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
             @Override
             public void onClick(View v) {
                 if (mQcmAdapter.isEmpty()) {
-                    Toast.makeText(CreateQuizzActivity.this, "Pour créer un quizz, vous devez renseigner au moins un Qcm s'il vous plaît", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateQuizzActivity.this, R.string.empty_liste, Toast.LENGTH_SHORT).show();
                 } else{
                     Intent intent1 = new Intent(CreateQuizzActivity.this, MenuActivity.class);
                     startActivity(intent1);

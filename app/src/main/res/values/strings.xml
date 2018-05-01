@@ -120,6 +120,14 @@
     <string name="scoretext">Score : %s</string>
     <string name="title_quizz_results">Résultats du quizz</string>
     <string name="advertissement_not_connected">L\'application WilQuizz doit être connectée à internet pour vous authentifier.</string>
+    <string name="indic_listvide">Vous devez créer au moins 1 Qcm et le valider avant de revenir à l\'écran précédent.</string>
+    <string name="empty_liste">Pour créer un quizz, vous devez renseigner au moins 1 Qcm s\'il vous plaît.</string>
+    <string name="pass_numberletter">Le mot de passe doit contenir au moins 6 caractères</string>
+    <string name="change_avatar">Changer mon avatar</string>
+    <string name="text_change_avatar">Pour changer votre avatar, il vous faut choisir une autre photo depuis votre appareil :</string>
+    <string name="camera_photo">Prendre une photo depuis l\'appareil</string>
+    <string name="gallery_photo">Choisir une image depuis la gallerie d\'images</string>
+    <string name="edit_username">Editer le nom d\'utilisateur</string>
 
 
 </resources>

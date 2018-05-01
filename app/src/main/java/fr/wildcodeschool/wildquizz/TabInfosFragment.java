@@ -188,8 +188,8 @@ public class TabInfosFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle("Changer mon avatar").setMessage("Pour changer votre avatar, il vous faut choisir une autre photo depuis votre appareil :")
-                        .setPositiveButton("Prendre une photo depuis l'appareil", new DialogInterface.OnClickListener() {
+                builder.setTitle(R.string.change_avatar).setMessage(R.string.text_change_avatar)
+                        .setPositiveButton(R.string.camera_photo, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 if (checkAndRequestPermissions(getActivity())) {
@@ -197,7 +197,7 @@ public class TabInfosFragment extends Fragment {
                                 }
                             }
                         })
-                        .setNegativeButton("Choisir une image depuis la gallerie d'images", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.gallery_photo, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 startActivityForResult(new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI), GALLERY);
@@ -237,7 +237,7 @@ public class TabInfosFragment extends Fragment {
                 LayoutInflater inflater = getLayoutInflater();
                 View dialogView = inflater.inflate(R.layout.update_dialog_username, null);
                 builder.setView(dialogView);
-                builder.setTitle("Editer le nom d'utilisateur");
+                builder.setTitle(R.string.edit_username);
                 final AlertDialog alertDialog = builder.create();
                 final EditText newUsername = (EditText) dialogView.findViewById(R.id.et_user_update_dialog);
                 DatabaseReference nameRef = mDatabase.getReference("Users").child(mUid);
