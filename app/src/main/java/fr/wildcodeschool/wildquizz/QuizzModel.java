@@ -3,6 +3,7 @@ package fr.wildcodeschool.wildquizz;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -17,8 +18,9 @@ public class QuizzModel implements Parcelable{
     private HashMap<String, QcmModel> qcmList;
     private boolean isFinished;
 
+    public QuizzModel(){
 
-   public QuizzModel() {}
+    }
 
     public QuizzModel(String id, long datetime, HashMap<String, QcmModel> qcmList, boolean isFinished) {
         this.id = id;

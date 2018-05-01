@@ -22,21 +22,22 @@ public class ListQuizzAdapter extends ArrayAdapter<QuizzModel> {
 
     public ListQuizzAdapter(@NonNull Context context, @NonNull List<QuizzModel> objects) {
         super(context,0, objects);
-
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         if (convertView == null) {
-
             convertView = LayoutInflater.from(parent.getContext()).
                     inflate(R.layout.item_list_quizz, parent, false);
         }
+
         QuizzModel QuizzModel = getItem(position);
         TextView id = convertView.findViewById(R.id.txt_id);
         id.setText(QuizzModel.getId());
+
         return convertView;
     }
+
 
 }

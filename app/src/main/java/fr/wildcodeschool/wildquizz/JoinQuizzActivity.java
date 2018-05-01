@@ -110,10 +110,10 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if ((dataSnapshot.child("avatar").getValue() != null)) {
                     String url = dataSnapshot.child("avatar").getValue(String.class);
-                    Glide.with(JoinQuizzActivity.this).load(url).apply(RequestOptions.circleCropTransform()).into(mAvatar);
+                    Glide.with(getApplicationContext()).load(url).apply(RequestOptions.circleCropTransform()).into(mAvatar);
                 }
-                if ((dataSnapshot.child("Name").getValue() != null)) {
-                    String username = dataSnapshot.child("Name").getValue(String.class);
+                if ((dataSnapshot.child("username").getValue() != null)) {
+                    String username = dataSnapshot.child("username").getValue(String.class);
                     mUsername.setText(username);
                 }
 

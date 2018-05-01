@@ -6,7 +6,6 @@
     <string name="identifiant">Identifiant</string>
     <string name="mot_de_passe">Mot De Passe</string>
     <string name="confirmer_mot_de_passe">Confirmer Mot de Passe</string>
-    <string name="checkbox">CGU</string>
     <string name="cr_er_un_compte">Créer un compte</string>
     <string name="connexion">Connexion</string>
     <string name="inscription">Inscription</string>
@@ -21,8 +20,8 @@
     <string name="score_value">...</string>
     <string name="title_join_quizz">Participer à un quizz</string>
     <string name="accueil">Accueil</string>
-    <string name="join_quiz">Participer à un Quizz</string>
-    <string name="create_quiz">Créer un Quizz</string>
+    <string name="join_quiz">Participer à un quizz</string>
+    <string name="create_quiz">Créer un quizz</string>
     <string name="my_profile">Mon profil</string>
     <string name="display_quiz">Afficher les Quizzs joués</string>
     <string name="logout">Se déconnecter</string>
@@ -38,10 +37,10 @@
     <string name="average">Moyenne</string>
     <string name="note_quizz">Note Quizz</string>
     <string name="ex_fur2">Ex: #FUR2</string>
-    <string name="r_ponse_2">Réponse#2</string>
-    <string name="r_ponse_3">Réponse#3</string>
-    <string name="r_ponse_1">Réponse#1</string>
-    <string name="r_ponse_4">Réponse#4</string>
+    <string name="answer_qcm_2">Réponse n°2</string>
+    <string name="answer_qcm_3">Réponse n°3</string>
+    <string name="answer_qcm_1">Réponse n°1</string>
+    <string name="answer_qcm_4">Réponse n°4</string>
     <string name="valider">Valider</string>
     <string name="nom_du_qcm">Nom du QCM :</string>
     <string name="cr_er_son_quizz">Créer son Quizz</string>
@@ -72,15 +71,15 @@
     <string name="question_1">Question</string>
     <string name="rep1">Ex: Quelle est la voiture la plus performante?</string>
     <string name="ex_porsche_turbo_s">Ex: Porsche Turbo S</string>
-    <string name="réponse_2">Réponse 2</string>
+    <string name="answer2_update_dialog">Réponse n°2</string>
     <string name="ex_bmw_m3">Ex: Bmw M3</string>
-    <string name="réponse_3">Réponse 3</string>
+    <string name="answer3_update_dialog">Réponse n°3</string>
     <string name="ex_audi_rs4">Ex: Audi RS4</string>
-    <string name="réponse_4">Réponse 4</string>
+    <string name="answer4_update_dialog">Réponse n°4</string>
     <string name="ex_mercedes_sl_55_amg">Ex: Mercedes SL 55 AMG</string>
-    <string name="réponse_1">Réponse 1</string>
-    <string name="update">Update</string>
-    <string name="delete">delete</string>
+    <string name="answer1_update_dialog">Réponse n°1</string>
+    <string name="update">Mettre à jour</string>
+    <string name="delete">Supprimer</string>
     <string name="identifiant_du_quizz">Identifiant du quizz</string>
     <string name="ex_aa123ee">Ex : aa123EE</string>
     <string name="politique">Ex : Politique</string>
@@ -104,7 +103,7 @@
     <string name="update_qcm">Updating Qcm</string>
     <string name="qcm_update_success">Qcm update successfully!!</string>
     <string name="updated_qcm">Votre QCM a été mis à jour</string>
-    <string name="mes_quizz">Mes quizzs crées</string>
+    <string name="mes_quizz">Mes quizzs créés</string>
     <string name="title_menu_activity">Accueil</string>
     <string name="title_create_quizz">Créer un quizz</string>
     <string name="title_profile">Mon profil</string>
@@ -119,6 +118,16 @@
     <string name="fill_all">Remplissez tous les champs s\'il vous plaît!!</string>
     <string name="score">Score</string>
     <string name="scoretext">Score : %s</string>
+    <string name="title_quizz_results">Résultats du quizz</string>
+    <string name="advertissement_not_connected">L\'application WilQuizz doit être connectée à internet pour vous authentifier.</string>
+    <string name="indic_listvide">Vous devez créer au moins 1 Qcm et le valider avant de revenir à l\'écran précédent.</string>
+    <string name="empty_liste">Pour créer un quizz, vous devez renseigner au moins 1 Qcm s\'il vous plaît.</string>
+    <string name="pass_numberletter">Le mot de passe doit contenir au moins 6 caractères</string>
+    <string name="change_avatar">Changer mon avatar</string>
+    <string name="text_change_avatar">Pour changer votre avatar, il vous faut choisir une autre photo depuis votre appareil :</string>
+    <string name="camera_photo">Prendre une photo depuis l\'appareil</string>
+    <string name="gallery_photo">Choisir une image depuis la gallerie d\'images</string>
+    <string name="edit_username">Editer le nom d\'utilisateur</string>
 
 
 </resources>

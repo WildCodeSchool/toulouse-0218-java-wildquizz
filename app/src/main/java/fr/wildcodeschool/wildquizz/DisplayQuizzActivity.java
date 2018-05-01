@@ -85,8 +85,8 @@ public class DisplayQuizzActivity extends AppCompatActivity implements Navigatio
                     String url = dataSnapshot.child("avatar").getValue(String.class);
                     Glide.with(DisplayQuizzActivity.this).load(url).apply(RequestOptions.circleCropTransform()).into(mAvatar);
                 }
-                if ((dataSnapshot.child("Name").getValue() != null)){
-                    String username = dataSnapshot.child("Name").getValue(String.class);
+                if ((dataSnapshot.child("username").getValue() != null)){
+                    String username = dataSnapshot.child("username").getValue(String.class);
                     mUsername.setText(username);
                 }
                 //For Score

@@ -1,5 +1,6 @@
 package fr.wildcodeschool.wildquizz;
 
+
 /**
  * Created by wilder on 04/04/18.
  */
@@ -94,6 +95,8 @@ public class QcmModel {
     public void setQcmId(String qcmId) {
         this.qcmId = qcmId;
     }
+
+
 }
 
 

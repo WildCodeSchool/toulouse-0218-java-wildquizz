@@ -3,14 +3,13 @@
     package="fr.wildcodeschool.wildquizz">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission  android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
-
 
     <application
         android:allowBackup="true"
@@ -51,11 +50,13 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden|adjustPan" >
+            android:windowSoftInputMode="stateHidden|adjustPan"
+            >
         </activity>
 
 
-        <activity android:name=".MenuActivity" > </activity>
+        <activity android:name=".MenuActivity"
+            android:noHistory="true"/>
 
         <activity
             android:name=".RegistrationActivity"
@@ -71,22 +72,28 @@
         <activity android:name=".ResultsActivity"
             android:noHistory="true"> </activity>
 
-        <activity android:name=".ProfileActivity"> </activity>
+        <activity android:name=".ProfileActivity">
+
+        </activity>
 
         <activity android:name=".CreateQcmActivity"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
+            android:windowSoftInputMode="stateHidden|adjustPan"
+            android:noHistory="true"/>
 
         <activity android:name=".CreateQuizzActivity"
-            android:noHistory="true"/>
+            />
+
 
         <activity android:name=".TestUuidActivity" />
 
-        <activity android:name=".SplashSecondActivity"/>
+        <activity android:name=".SplashSecondActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity android:name=".ForgotPassActivity"
             android:windowSoftInputMode="stateHidden|adjustPan" />
 
-        <activity android:name=".ListQuizzActivity">
+        <activity android:name=".ListQuizzActivity"
+            android:noHistory="true">
 
         </activity>
     </application>

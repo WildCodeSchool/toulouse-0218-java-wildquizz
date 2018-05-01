@@ -16,7 +16,7 @@ import java.util.List;
  * Created by wilder on 04/04/18.
  */
 
-public class QcmAdapter extends ArrayAdapter {
+public class QcmAdapter extends ArrayAdapter<QcmModel> {
 
     public QcmAdapter(@NonNull Context context, int resource, @NonNull ArrayList<QcmModel> objects) {
         super(context, resource, objects);

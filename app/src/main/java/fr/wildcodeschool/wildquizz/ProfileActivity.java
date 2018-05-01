@@ -1,13 +1,18 @@
 package fr.wildcodeschool.wildquizz;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.FileProvider;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,12 +21,21 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ProfileActivity extends AppCompatActivity implements TabInfosFragment.OnFragmentInteractionListener, TabFriendFragment.OnFragmentInteractionListener, TabNotificationFragment.OnFragmentInteractionListener, NavigationView.OnNavigationItemSelectedListener {
 
@@ -49,8 +63,6 @@ public class ProfileActivity extends AppCompatActivity implements TabInfosFragme
         tabLayout.addTab(tabLayout.newTab().setText(R.string.name_tab2));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.name_tab3));
         tabLayout.setTabGravity(tabLayout.GRAVITY_FILL);
-
-
 
         mIcon = findViewById(R.id.icon_change_tab);
 
@@ -117,15 +129,15 @@ public class ProfileActivity extends AppCompatActivity implements TabInfosFragme
         mScoreValue = headerLayout.findViewById(R.id.text_score_value);
         //TODO : faire pareil pour le score
         DatabaseReference pathID = mDatabase.getReference("Users").child(mUid);
-        pathID.addListenerForSingleValueEvent(new ValueEventListener() {
+        pathID.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if ((dataSnapshot.child("avatar").getValue() != null)) {
                     String url = dataSnapshot.child("avatar").getValue(String.class);
-                    Glide.with(ProfileActivity.this).load(url).apply(RequestOptions.circleCropTransform()).into(mAvatar);
+                    Glide.with(getApplicationContext()).load(url).apply(RequestOptions.circleCropTransform()).into(mAvatar);
                 }
-                if ((dataSnapshot.child("Name").getValue() != null)) {
-                    String username = dataSnapshot.child("Name").getValue(String.class);
+                if ((dataSnapshot.child("username").getValue() != null)) {
+                    String username = dataSnapshot.child("username").getValue(String.class);
                     mUsername.setText(username);
                 }
                 //For Score
@@ -140,7 +152,11 @@ public class ProfileActivity extends AppCompatActivity implements TabInfosFragme
             }
         });
 
+
+
     }
+
+
 
     @Override
     public void onFragmentInteraction(Uri uri) {
@@ -166,7 +182,7 @@ public class ProfileActivity extends AppCompatActivity implements TabInfosFragme
         } /*else if (id == R.id.displayquizz) {
             Intent goToDisplayQuizz = new Intent(this, DisplayQuizzActivity.class);
             this.startActivity(goToDisplayQuizz);
-        }*/ else if (id == R.id.listquizz) {
+        }*/   else if (id == R.id.listquizz) {
                 Intent goToListQuizz = new Intent(this, ListQuizzActivity.class);
                 this.startActivity(goToListQuizz);
         } else if (id == R.id.logout) {

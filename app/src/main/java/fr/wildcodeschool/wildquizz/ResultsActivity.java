@@ -38,12 +38,15 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
     private String mUid;
     private TextView mScoreValue;
     private TextView mValueScore;
-
+    private TextView mUsername;
+    private TextView navBarScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
+
+        setTitle(getString(R.string.title_quizz_results));
 
         mDatabase = FirebaseDatabase.getInstance();
 
@@ -58,8 +61,6 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_results);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-
         mScoreValue = findViewById(R.id.value_score);
         mValueScore = findViewById(R.id.score_value);
         final int[] scores = getIntent().getIntArrayExtra("scores");
@@ -67,15 +68,16 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
         final int scoreTotalQuizz = ScoreClass.foundQuizzScore(scores);
         mScoreValue.setText(String.valueOf(scoreTotalQuizz));
         mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        final String idQuizz = getIntent().getStringExtra("idQuizz");
         final DatabaseReference userRef = mDatabase.getReference("Users").child(mUid);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 UserModel userModel = dataSnapshot.getValue(UserModel.class);
-                userModel.setScore(scoreTotalQuizz + userModel.getScore());
-                userModel.setNbQcm(nbQcm + userModel.getNbQcm());
-                userRef.setValue(userModel);
-
+                int score = userModel.setScore(scoreTotalQuizz + userModel.getScore());
+                int nbQcmValue = userModel.setNbQcm(nbQcm + userModel.getNbQcm());
+                userRef.child("score").setValue(score);
+                userRef.child("nbQcm").setValue(nbQcmValue);
             }
 
             @Override
@@ -92,7 +94,6 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
         listView.setAdapter(adapter);
 
         mDatabase = FirebaseDatabase.getInstance();
-        String idQuizz = getIntent().getStringExtra("idQuizz");
         DatabaseReference listResultsRef = mDatabase.getReference("Quizz").child(idQuizz).child("qcmList");
         listResultsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -112,19 +113,29 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
             }
         });
 
-
         //Affichage du profil dans la nav bar :
         View headerLayout = navigationView.getHeaderView(0);
         mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         mAvatar = headerLayout.findViewById(R.id.image_header);
-        //TODO : faire pareil pour le pseudo
+        mUsername = headerLayout.findViewById(R.id.text_username);
+        navBarScore = headerLayout.findViewById(R.id.text_score_value);
         DatabaseReference pathID = mDatabase.getReference("Users").child(mUid);
-        pathID.addListenerForSingleValueEvent(new ValueEventListener() {
+        pathID.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if ((dataSnapshot.child("avatar").getValue() != null)){
                     String url = dataSnapshot.child("avatar").getValue(String.class);
-                    Glide.with(ResultsActivity.this).load(url).apply(RequestOptions.circleCropTransform()).into(mAvatar);
+                    Glide.with(getApplicationContext()).load(url).apply(RequestOptions.circleCropTransform()).into(mAvatar);
+                }
+                //For Username
+                if ((dataSnapshot.child("username").getValue() != null)){
+                    String username = dataSnapshot.child("username").getValue(String.class);
+                    mUsername.setText(username);
+                }
+                //For Score
+                if ((dataSnapshot.child("score").getValue() != null)){
+                    String score = String.valueOf(dataSnapshot.child("score").getValue(int.class));
+                    navBarScore.setText(score);
                 }
             }
             @Override
@@ -154,8 +165,8 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
         } /*else if (id == R.id.displayquizz) {
             Intent goToDisplayQuizz = new Intent(this, DisplayQuizzActivity.class);
             this.startActivity(goToDisplayQuizz);
-        }*/ else if (id == R.id.quizz_list) {
-                Intent goToListQuizzActivity = new Intent(this, DisplayQuizzActivity.class);
+        }*/ else if (id == R.id.listquizz) {
+                Intent goToListQuizzActivity = new Intent(this, ListQuizzActivity.class);
                 this.startActivity(goToListQuizzActivity);
         } else if (id == R.id.logout) {
             //Déconnexion
