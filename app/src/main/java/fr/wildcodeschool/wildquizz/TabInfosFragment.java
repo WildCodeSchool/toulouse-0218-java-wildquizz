@@ -1,25 +1,48 @@
 package fr.wildcodeschool.wildquizz;
 
+import android.*;
+import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import static android.app.Activity.RESULT_OK;
+import static fr.wildcodeschool.wildquizz.RegistrationActivity.checkAndRequestPermissions;
 
 
 /**
@@ -35,15 +58,20 @@ public class TabInfosFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    FirebaseAuth mAuth;
-    FirebaseDatabase mDatabase;
-    // TODO: Rename and change types of parameters
+
     private String mParam1;
     private String mParam2;
+
+    FirebaseAuth mAuth;
+    FirebaseDatabase mDatabase;
+
     private OnFragmentInteractionListener mListener;
-    private ImageView mImageProfile;
+
     private TextView mScoreValueProfile;
     private String mUid;
+    private ImageView mImageProfile;
+
+
     public TabInfosFragment() {
         // Required empty public constructor
     }
@@ -73,7 +101,6 @@ public class TabInfosFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
     }
 
     @Override
@@ -106,27 +133,58 @@ public class TabInfosFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+    private String mGetImageUrl = "";
+    private String mCurrentPhotoPath;
+    private Uri mFileUri = null;
+    public final static int GALLERY = 123;
+    public final static int APP_PHOTO = 456;
+    private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 101;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         mImageProfile = getView().findViewById(R.id.iv_profile);
         mScoreValueProfile = getView().findViewById(R.id.tv_score_profile);
+
+        //Modification de la photo de l'utilisateur :
+        mImageProfile = getView().findViewById(R.id.iv_profile);
+        ImageView changeAvatar = getView().findViewById(R.id.iv_change_avatar);
+        changeAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Changer l'image du profil").setMessage("Sélectionner une image dans mon téléphone")
+                        .setPositiveButton("Choisir une image depuis la caméra", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (checkAndRequestPermissions(getActivity())) {
+                                    dispatchTakePictureIntent();
+                                }
+                            }
+                        })
+                        .setNegativeButton("Choisir une image depuis la gallery", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                startActivityForResult(new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI), GALLERY);
+                            }
+                        })
+                        .show();
+
+
+            }
+        });
+
         //Affichage du profil dans la nav bar :
         mDatabase = FirebaseDatabase.getInstance();
         mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        //TODO : faire pareil pour le pseudo
         DatabaseReference pathID = mDatabase.getReference("Users").child(mUid);
-
         pathID.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 if ((dataSnapshot.child("avatar").getValue() != null)) {
                     String url = dataSnapshot.child("avatar").getValue(String.class);
                     Glide.with(TabInfosFragment.this).load(url).apply(RequestOptions.circleCropTransform()).into(mImageProfile);
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
@@ -136,7 +194,6 @@ public class TabInfosFragment extends Fragment {
         final ImageView mMedalRed = getView().findViewById(R.id.iv_medal1);
         final ImageView mMedalSilver = getView().findViewById(R.id.iv_medal3);
         final ImageView mMedalGold = getView().findViewById(R.id.iv_medal4);
-
 
         //Affichage du score dans la ratingBar et médailles :
         DatabaseReference scoreId = mDatabase.getReference("Users").child(mUid);
@@ -176,18 +233,118 @@ public class TabInfosFragment extends Fragment {
                         mMedalSilver.setAlpha(1.0f);
                         mMedalGold.setAlpha(1.0f);
                         break;
-
-
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-
-
     }
+
+    private File createImageFile() throws IOException {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
+    private void dispatchTakePictureIntent() {
+        Intent takePicture = new  Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePicture.resolveActivity(getActivity().getPackageManager()) != null) {
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                mFileUri = FileProvider.getUriForFile(getContext(),
+                        "fr.wildcodeschool.wildquizz.fileprovider",
+                        photoFile);
+                takePicture.putExtra(MediaStore.EXTRA_OUTPUT, mFileUri);
+                startActivityForResult(takePicture, APP_PHOTO);
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_ID_MULTIPLE_PERMISSIONS:
+                if (ContextCompat.checkSelfPermission(getContext(),
+                        android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(getContext(),
+                            R.string.need_camera, Toast.LENGTH_SHORT)
+                            .show();
+                } else if (ContextCompat.checkSelfPermission(getContext(),
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(getContext(),
+                            R.string.need_storage,
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+
+            case APP_PHOTO:
+                try {
+                    if (resultCode == RESULT_OK) {
+                        mGetImageUrl = mFileUri.getPath();
+                        saveCaptureImage();
+                        Glide.with(getContext()).load(mFileUri).apply(RequestOptions.circleCropTransform()).into(mImageProfile);
+                    } else {
+                        //nothing
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+
+            case GALLERY:
+                try {
+                    if (resultCode == RESULT_OK) {
+                        mFileUri = data.getData();
+                        mGetImageUrl = mFileUri.getPath();
+                    }
+                    saveCaptureImage();
+                    Glide.with(getContext()).load(mFileUri).apply(RequestOptions.circleCropTransform()).into(mImageProfile);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+        }
+    }
+
+    private void saveCaptureImage() {
+        if (!mGetImageUrl.equals("") && mGetImageUrl != null) {
+            StorageReference avatarRef = FirebaseStorage.getInstance().getReference("Users").child(mUid).child("avatar.jpg");
+            avatarRef.putFile(mFileUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Uri downloadUri = taskSnapshot.getDownloadUrl();
+                    String avatarUrl = downloadUri.toString();
+                    FirebaseDatabase.getInstance().getReference("Users")
+                            .child(mUid).child("avatar").setValue(avatarUrl);
+                }
+            });
+        }
+    }
+
+
 
 
     /**
