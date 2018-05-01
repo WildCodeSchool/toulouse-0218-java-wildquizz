@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -35,6 +36,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
@@ -152,8 +155,8 @@ public class TabInfosFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle("Changer l'image du profil").setMessage("Sélectionner une image dans mon téléphone")
-                        .setPositiveButton("Choisir une image depuis la caméra", new DialogInterface.OnClickListener() {
+                builder.setTitle("Changer mon avatar").setMessage("Pour changer votre avatar, il vous faut choisir une autre photo depuis votre appareil :")
+                        .setPositiveButton("Prendre une photo depuis l'appareil", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 if (checkAndRequestPermissions(getActivity())) {
@@ -161,7 +164,7 @@ public class TabInfosFragment extends Fragment {
                                 }
                             }
                         })
-                        .setNegativeButton("Choisir une image depuis la gallery", new DialogInterface.OnClickListener() {
+                        .setNegativeButton("Choisir une image depuis la gallerie d'images", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 startActivityForResult(new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI), GALLERY);
@@ -194,6 +197,10 @@ public class TabInfosFragment extends Fragment {
         final ImageView mMedalRed = getView().findViewById(R.id.iv_medal1);
         final ImageView mMedalSilver = getView().findViewById(R.id.iv_medal3);
         final ImageView mMedalGold = getView().findViewById(R.id.iv_medal4);
+        final TextView rang1 = getView().findViewById(R.id.tv_pts1);
+        final TextView rang2 = getView().findViewById(R.id.tv_pts2);
+        final TextView rang3 = getView().findViewById(R.id.tv_pts3);
+        final TextView rang4 = getView().findViewById(R.id.tv_pts4);
 
         //Affichage du score dans la ratingBar et médailles :
         DatabaseReference scoreId = mDatabase.getReference("Users").child(mUid);
@@ -214,17 +221,29 @@ public class TabInfosFragment extends Fragment {
                 switch (ScoreClass.getMedal(scoreUser)) {
                     case 1:
                         mMedalRed.setAlpha(1.0f);
+                        rang1.setTextColor(Color.parseColor("#ff4081"));
+                        rang1.setAlpha(1.0f);
                         break;
 
                     case 2:
                         mMedalRed.setAlpha(1.0f);
                         mMedalBronze.setAlpha(1.0f);
+                        rang1.setTextColor(Color.parseColor("#ff4081"));
+                        rang1.setAlpha(1.0f);
+                        rang2.setTextColor(Color.parseColor("#ff4081"));
+                        rang2.setAlpha(1.0f);
                         break;
 
                     case 3:
                         mMedalRed.setAlpha(1.0f);
                         mMedalBronze.setAlpha(1.0f);
                         mMedalSilver.setAlpha(1.0f);
+                        rang1.setTextColor(Color.parseColor("#ff4081"));
+                        rang1.setAlpha(1.0f);
+                        rang2.setTextColor(Color.parseColor("#ff4081"));
+                        rang2.setAlpha(1.0f);
+                        rang3.setTextColor(Color.parseColor("#ff4081"));
+                        rang3.setAlpha(1.0f);
                         break;
 
                     case 4:
@@ -232,6 +251,14 @@ public class TabInfosFragment extends Fragment {
                         mMedalBronze.setAlpha(1.0f);
                         mMedalSilver.setAlpha(1.0f);
                         mMedalGold.setAlpha(1.0f);
+                        rang1.setTextColor(Color.parseColor("#ff4081"));
+                        rang1.setAlpha(1.0f);
+                        rang2.setTextColor(Color.parseColor("#ff4081"));
+                        rang2.setAlpha(1.0f);
+                        rang3.setTextColor(Color.parseColor("#ff4081"));
+                        rang3.setAlpha(1.0f);
+                        rang3.setTextColor(Color.parseColor("#ff4081"));
+                        rang3.setAlpha(1.0f);
                         break;
                 }
             }

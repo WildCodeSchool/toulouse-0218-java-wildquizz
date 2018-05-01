@@ -129,7 +129,7 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if ((dataSnapshot.child("avatar").getValue() != null)){
                     String url = dataSnapshot.child("avatar").getValue(String.class);
-                    Glide.with(ResultsActivity.this).load(url).apply(RequestOptions.circleCropTransform()).into(mAvatar);
+                    Glide.with(getApplicationContext()).load(url).apply(RequestOptions.circleCropTransform()).into(mAvatar);
                 }
                 //For Username
                 if ((dataSnapshot.child("username").getValue() != null)){

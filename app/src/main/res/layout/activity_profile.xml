@@ -20,15 +20,15 @@
                 android:id="@+id/header_profile"
                 android:layout_width="match_parent"
 
-                android:layout_height="100dp"
+                android:layout_height="70dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/walp_profile_header2" />
 
             <ImageView
                 android:id="@+id/icon_change_tab"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:layout_marginBottom="24dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginBottom="16dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:adjustViewBounds="false"

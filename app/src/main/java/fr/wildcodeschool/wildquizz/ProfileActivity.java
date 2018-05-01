@@ -131,12 +131,12 @@ public class ProfileActivity extends AppCompatActivity implements TabInfosFragme
         mScoreValue = headerLayout.findViewById(R.id.text_score_value);
         //TODO : faire pareil pour le score
         DatabaseReference pathID = mDatabase.getReference("Users").child(mUid);
-        pathID.addListenerForSingleValueEvent(new ValueEventListener() {
+        pathID.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if ((dataSnapshot.child("avatar").getValue() != null)) {
                     String url = dataSnapshot.child("avatar").getValue(String.class);
-                    Glide.with(ProfileActivity.this).load(url).apply(RequestOptions.circleCropTransform()).into(mAvatar);
+                    Glide.with(getApplicationContext()).load(url).apply(RequestOptions.circleCropTransform()).into(mAvatar);
                 }
                 if ((dataSnapshot.child("username").getValue() != null)) {
                     String username = dataSnapshot.child("username").getValue(String.class);

@@ -106,7 +106,7 @@ public class ListQuizzActivity extends AppCompatActivity implements NavigationVi
                 //For avatar
                 if ((dataSnapshot.child("avatar").getValue() != null)){
                     String url = dataSnapshot.child("avatar").getValue(String.class);
-                    Glide.with(ListQuizzActivity.this).load(url).apply(RequestOptions.circleCropTransform()).into(mAvatar);
+                    Glide.with(getApplicationContext()).load(url).apply(RequestOptions.circleCropTransform()).into(mAvatar);
                 }
                 //For Username
                 if ((dataSnapshot.child("username").getValue() != null)){

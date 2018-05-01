@@ -35,6 +35,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="65dp"
         android:fontFamily="sans-serif-black"
+        android:textColor="@android:color/black"
         android:textSize="35sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,11 +48,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="24dp"
         android:gravity="center_horizontal"
-        android:text="@string/question"
-        android:maxLines="3"
         android:lines="3"
+        android:maxLines="3"
+        android:text="@string/question"
         android:textColor="@android:color/white"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -63,8 +64,8 @@
     <ProgressBar
         android:id="@+id/circ_progress"
         style="?android:attr/progressBarStyle"
-        android:layout_width="229dp"
-        android:layout_height="154dp"
+        android:layout_width="210dp"
+        android:layout_height="140dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
@@ -79,12 +80,12 @@
         android:layout_height="30dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="28dp"
-        android:text="@string/answer1"
         android:textColor="?attr/colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_question" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_question"
+        tools:text="@string/answer1" />
 
     <TextView
         android:id="@+id/tv_answer2"
@@ -92,12 +93,12 @@
         android:layout_height="30dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:text="@string/answer2"
         android:textColor="?attr/colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_answer1" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_answer1"
+        tools:text="@string/answer2" />
 
     <TextView
         android:id="@+id/tv_answer3"
@@ -105,12 +106,12 @@
         android:layout_height="35dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="28dp"
-        android:text="@string/answer3"
         android:textColor="?attr/colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_answer2" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_answer2"
+        tools:text="@string/answer3" />
 
     <TextView
         android:id="@+id/tv_answer4"
@@ -118,20 +119,21 @@
         android:layout_height="35dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
-        android:text="@string/answer4"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_answer3" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_answer3"
+        tools:text="@string/answer4" />
 
     <RadioGroup
         android:id="@+id/radiogroup"
-        android:layout_width="64dp"
+        android:layout_width="50dp"
         android:layout_height="233dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginStart="80dp"
+        android:layout_marginStart="85dp"
         android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_answer1"
         app:layout_constraintTop_toBottomOf="@+id/tv_question">
@@ -199,7 +201,7 @@
         android:layout_width="47dp"
         android:layout_height="49dp"
         android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="28dp"
         android:background="@android:color/transparent"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"

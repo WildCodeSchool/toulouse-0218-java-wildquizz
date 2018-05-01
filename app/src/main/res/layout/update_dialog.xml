@@ -43,7 +43,7 @@
             android:id="@+id/text_points"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/réponse_1"
+            android:text="@string/answer1_update_dialog"
             android:textAlignment="center" />
 
         <EditText
@@ -58,7 +58,7 @@
             android:id="@+id/text_answer_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/réponse_2"
+            android:text="@string/answer2_update_dialog"
             android:textAlignment="center" />
 
         <EditText
@@ -73,7 +73,7 @@
             android:id="@+id/text_answer_3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/réponse_3"
+            android:text="@string/answer3_update_dialog"
             android:textAlignment="center" />
 
         <EditText
@@ -88,7 +88,7 @@
             android:id="@+id/text_answer4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/réponse_4"
+            android:text="@string/answer4_update_dialog"
             android:textAlignment="center" />
 
         <EditText

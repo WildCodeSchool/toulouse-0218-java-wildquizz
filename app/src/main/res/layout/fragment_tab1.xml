@@ -26,13 +26,13 @@
 
             <ImageView
                 android:id="@+id/iv_profile"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
                 android:layout_alignLeft="@+id/iv_medal1"
                 android:layout_alignParentTop="true"
                 android:layout_alignStart="@+id/iv_medal1"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:scaleType="fitXY"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -46,6 +46,7 @@
                 android:layout_alignStart="@+id/tv_pts2"
                 android:layout_alignTop="@+id/iv_profile"
                 android:layout_marginEnd="50dp"
+                android:layout_marginStart="68dp"
                 android:layout_marginTop="44dp"
                 android:inputType="textPersonName"
                 android:text="@string/john_doe"
@@ -53,6 +54,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/iv_change_avatar"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -69,146 +71,165 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/et_user"
-                tools:text="0" />
+                tools:text="Score : 0" />
 
             <TextView
                 android:id="@+id/tv_level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/et_user"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="18dp"
                 android:layout_toLeftOf="@+id/tv_pts2"
                 android:layout_toStartOf="@+id/tv_pts2"
                 android:text="@string/level"
                 android:textColor="@android:color/black"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/iv_profile" />
 
-            <ImageView
-                android:id="@+id/iv_medal1"
-                android:layout_width="42dp"
-                android:layout_height="39dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="24dp"
-                android:alpha="0.5"
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_level"
-                app:srcCompat="@drawable/badge_medal" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_level">
 
-            <ImageView
-                android:id="@+id/iv_medal2"
-                android:layout_width="42dp"
-                android:layout_height="39dp"
-                android:layout_alignTop="@+id/iv_medal1"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="24dp"
-                android:layout_toLeftOf="@+id/iv_medal3"
-                android:layout_toStartOf="@+id/iv_medal3"
-                android:alpha="0.5"
-                app:layout_constraintStart_toEndOf="@+id/iv_medal1"
-                app:layout_constraintTop_toBottomOf="@+id/tv_level"
-                app:srcCompat="@drawable/bronze_icon_medal" />
+                <ImageView
+                    android:id="@+id/iv_medal1"
+                    android:layout_width="42dp"
+                    android:layout_height="39dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_weight="1"
+                    android:alpha="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_level"
+                    app:srcCompat="@drawable/badge_medal" />
 
-            <ImageView
-                android:id="@+id/iv_medal3"
-                android:layout_width="42dp"
-                android:layout_height="39dp"
-                android:layout_above="@+id/tv_pts2"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="24dp"
-                android:layout_toEndOf="@+id/tv_average"
-                android:layout_toRightOf="@+id/tv_average"
-                android:alpha="0.5"
-                app:layout_constraintStart_toEndOf="@+id/iv_medal2"
-                app:layout_constraintTop_toBottomOf="@+id/tv_level"
-                app:srcCompat="@drawable/silver_icon_medal" />
+                <ImageView
+                    android:id="@+id/iv_medal2"
+                    android:layout_width="42dp"
+                    android:layout_height="39dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_weight="1"
+                    android:alpha="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/iv_medal1"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_level"
+                    app:srcCompat="@drawable/bronze_icon_medal" />
 
-            <TextView
-                android:id="@+id/tv_pts3"
-                android:layout_width="55dp"
+                <ImageView
+                    android:id="@+id/iv_medal3"
+                    android:layout_width="42dp"
+                    android:layout_height="39dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_weight="1"
+                    android:alpha="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/iv_medal2"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_level"
+                    app:srcCompat="@drawable/silver_icon_medal" />
+
+                <ImageView
+                    android:id="@+id/iv_medal4"
+                    android:layout_width="42dp"
+                    android:layout_height="39dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_weight="1"
+                    android:alpha="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/iv_medal3"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_level"
+                    app:srcCompat="@drawable/gold_medal_icon" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/tv_pts2"
-                android:layout_alignBottom="@+id/tv_pts2"
-                android:layout_marginStart="36dp"
-                android:layout_marginTop="24dp"
-                android:layout_toLeftOf="@+id/iv_medal4"
-                android:layout_toStartOf="@+id/iv_medal4"
-                android:gravity="center_horizontal"
-                android:text="@string/nb_points_150"
-                android:textColor="?attr/colorAccent"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/tv_pts2"
-                app:layout_constraintTop_toBottomOf="@+id/iv_medal3" />
-
-            <ImageView
-                android:id="@+id/iv_medal4"
-                android:layout_width="42dp"
-                android:layout_height="39dp"
-                android:layout_alignTop="@+id/iv_medal3"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="24dp"
-                android:layout_toEndOf="@+id/ratingBar"
-                android:layout_toRightOf="@+id/ratingBar"
-                android:alpha="0.5"
-                app:layout_constraintStart_toEndOf="@+id/iv_medal3"
-                app:layout_constraintTop_toBottomOf="@+id/tv_level"
-                app:srcCompat="@drawable/gold_medal_icon" />
-
-            <TextView
-                android:id="@+id/tv_pts1"
-                android:layout_width="55dp"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/tv_pts2"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="24dp"
-                android:gravity="center_horizontal"
-                android:text="@string/nb_points_50"
-                android:textColor="?attr/colorAccent"
-                android:textStyle="bold"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="65dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_medal1" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_level">
 
-            <TextView
-                android:id="@+id/tv_pts2"
-                android:layout_width="55dp"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/iv_medal2"
-                android:layout_alignStart="@+id/iv_medal2"
-                android:layout_below="@+id/iv_medal2"
-                android:layout_marginStart="36dp"
-                android:layout_marginTop="24dp"
-                android:gravity="center_horizontal"
-                android:text="@string/nb_points_100"
-                android:textColor="?attr/colorAccent"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/tv_pts1"
-                app:layout_constraintTop_toBottomOf="@+id/iv_medal2" />
+                <TextView
+                    android:id="@+id/tv_pts1"
+                    android:layout_width="55dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_weight="1"
+                    android:alpha="0.6"
+                    android:gravity="center_horizontal"
+                    android:text="@string/nb_points_50"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_medal1" />
 
-            <TextView
-                android:id="@+id/tv_pts4"
-                android:layout_width="55dp"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/tv_pts3"
-                android:layout_alignBottom="@+id/tv_pts3"
-                android:layout_alignLeft="@+id/iv_medal4"
-                android:layout_alignStart="@+id/iv_medal4"
-                android:layout_marginStart="36dp"
-                android:layout_marginTop="24dp"
-                android:gravity="center_horizontal"
-                android:text="@string/nb_points_200"
-                android:textColor="?attr/colorAccent"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/tv_pts3"
-                app:layout_constraintTop_toBottomOf="@+id/iv_medal4" />
+                <TextView
+                    android:id="@+id/tv_pts2"
+                    android:layout_width="55dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_weight="1"
+                    android:alpha="0.6"
+                    android:gravity="center_horizontal"
+                    android:text="@string/nb_points_100"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/tv_pts1"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_medal2" />
+
+                <TextView
+                    android:id="@+id/tv_pts3"
+                    android:layout_width="55dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_weight="1"
+                    android:alpha="0.6"
+                    android:gravity="center_horizontal"
+                    android:text="@string/nb_points_150"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/tv_pts2"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_medal3" />
+
+                <TextView
+                    android:id="@+id/tv_pts4"
+                    android:layout_width="55dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_weight="1"
+                    android:alpha="0.6"
+                    android:gravity="center_horizontal"
+                    android:text="@string/nb_points_200"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/tv_pts3"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_medal4" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_average"
@@ -216,42 +237,43 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_pts3"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="24dp"
                 android:text="@string/average"
                 android:textColor="@android:color/black"
-                android:textSize="20dp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.501"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_pts1" />
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
             <RatingBar
                 android:id="@+id/rating_bar"
+                style="@style/Widget.AppCompat.RatingBar.Indicator"
                 android:layout_width="wrap_content"
-                android:layout_height="42dp"
+                android:layout_height="37dp"
                 android:layout_below="@+id/tv_average"
                 android:layout_marginBottom="16dp"
                 android:layout_marginTop="16dp"
-                android:layout_toEndOf="@+id/tv_pts1"
-                android:layout_toRightOf="@+id/tv_pts1"
                 android:background="@android:color/transparent"
                 android:clickable="false"
+                android:isIndicator="true"
+                android:numStars="5"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_average"
-                android:isIndicator="true"
                 app:layout_constraintVertical_bias="1.0" />
 
             <ImageView
                 android:id="@+id/iv_change_avatar"
-                android:layout_width="23dp"
-                android:layout_height="28dp"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:src="@drawable/logo_appareil_photo"
                 app:layout_constraintStart_toEndOf="@+id/iv_profile"
                 app:layout_constraintTop_toTopOf="parent" />
