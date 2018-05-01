@@ -21,6 +21,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,6 +42,21 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
     String mIdQuizz;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
+    private TextView mTvQcmNameValue;
+    private EditText mEditQcmNameValue;
+    private TextView mTvQuestionValue;
+    private EditText mEditQuestionValue;
+    private TextView mTvAnswer1Value;
+    private EditText mEditAnswer1Value;
+    private TextView mTvAnswer2Value;
+    private EditText mEditAnswer2Value;
+    private TextView mTvAnswer3Value;
+    private EditText mEditAnswer3Value;
+    private TextView mTvAnswer4Value;
+    private EditText mEditAnswer4Value;
+    private Button mButtonUpdate;
+    private Button mButtonDelete;
+    private ListView mListqcmValue;
     private FirebaseAuth mAuth;
     private ImageView mAvatar;
     private String mUid;
@@ -73,6 +90,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
             String key2 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             mIdQuizz = String.format("%s%s%s", generateString(3, key1), generateString(2, key2), generateString(3, key1));
             // créer le quizz vide dans Firebase
+            mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
             QuizzModel quizzModel = new QuizzModel(mIdQuizz, new Date().getTime(), new HashMap<String, QcmModel>(), false);
             database.getReference("Quizz").child(mIdQuizz).setValue(quizzModel);
             mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -88,6 +106,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         addQcm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // TODO : vérifier le nombre d'item dans l'adapter
                 if (mQcmAdapter.getCount() >= 5) {
                     Toast.makeText(CreateQuizzActivity.this, R.string.limit_create_quizz, Toast.LENGTH_SHORT).show();
                 } else {
