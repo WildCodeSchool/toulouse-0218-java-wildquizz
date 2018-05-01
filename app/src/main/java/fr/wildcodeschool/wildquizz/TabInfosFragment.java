@@ -216,7 +216,7 @@ public class TabInfosFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if ((dataSnapshot.child("avatar").getValue() != null)) {
                     String url = dataSnapshot.child("avatar").getValue(String.class);
-                    Glide.with(getActivity()).load(url).apply(RequestOptions.circleCropTransform()).into(mImageProfile);
+                    Glide.with(getContext()).load(url).apply(RequestOptions.circleCropTransform()).into(mImageProfile);
                 }
                 if ((dataSnapshot.child("username").getValue() != null)) {
                     String nameUser = dataSnapshot.child("username").getValue(String.class);
