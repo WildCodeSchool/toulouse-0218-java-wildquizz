@@ -35,6 +35,12 @@
   </item>
 
     <item
+        android:id="@+id/displayquizz"
+        android:icon="@drawable/loog_display"
+        android:title="@string/title_display_quizz_played">
+    </item>
+
+    <item
         android:id="@+id/logout"
         android:icon="@android:drawable/ic_lock_power_off"
         android:title="@string/logout">

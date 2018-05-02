@@ -109,7 +109,7 @@ public class DisplayQuizzActivity extends AppCompatActivity implements Navigatio
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if ((dataSnapshot.child("avatar").getValue() != null)){
                     String url = dataSnapshot.child("avatar").getValue(String.class);
-                    Glide.with(DisplayQuizzActivity.this).load(url).apply(RequestOptions.circleCropTransform()).into(mAvatar);
+                    Glide.with(getApplicationContext()).load(url).apply(RequestOptions.circleCropTransform()).into(mAvatar);
                 }
                 if ((dataSnapshot.child("username").getValue() != null)){
                     String username = dataSnapshot.child("username").getValue(String.class);
@@ -145,10 +145,10 @@ public class DisplayQuizzActivity extends AppCompatActivity implements Navigatio
         } else if (id == R.id.profile) {
             Intent goToProfile = new Intent(this, ProfileActivity.class);
             this.startActivity(goToProfile);
-        } /*else if (id == R.id.displayquizz) {
+        } else if (id == R.id.displayquizz) {
             Intent goToDisplayQuizz = new Intent(this, DisplayQuizzActivity.class);
             this.startActivity(goToDisplayQuizz);
-        }*/ else if (id == R.id.listquizz) {
+        } else if (id == R.id.listquizz) {
                 Intent goToListQuizz = new Intent(this, ListQuizzActivity.class);
                 this.startActivity(goToListQuizz);
         } else if (id == R.id.logout) {

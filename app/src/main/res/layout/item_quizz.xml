@@ -13,25 +13,27 @@
         android:layout_marginTop="16dp"
         android:hint="@string/id_quizz"
         android:inputType="number"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:textColor="@android:color/black" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/text_score_quizz"
-        android:layout_width="43dp"
-        android:layout_height="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="44dp"
         android:hint="@string/score"
         android:inputType="number"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/id_quiz"
-        tools:textColor="@android:color/black" />
+        app:layout_constraintTop_toBottomOf="@+id/id_quiz" />
 
     <TextView
         android:id="@+id/text_note_quizz"
@@ -41,12 +43,11 @@
         android:layout_marginTop="16dp"
         android:hint="@string/note_quizz"
         android:inputType="numberDecimal"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:textColor="@android:color/black" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <RatingBar
         android:id="@+id/rating_bar"
