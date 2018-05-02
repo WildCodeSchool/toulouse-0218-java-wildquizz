@@ -260,7 +260,7 @@ public class TabInfosFragment extends Fragment {
                     public void onClick(View v) {
                         final String user = (String) newUsername.getText().toString();
                         if (user.isEmpty()){
-                            Toast.makeText(getContext(), "Vous ne pouvez pas avoir un nom d'utilisateur vide", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), R.string.empty_username, Toast.LENGTH_SHORT).show();
                             alertDialog.show();
                         }
                         else {
