@@ -2,7 +2,9 @@ package fr.wildcodeschool.wildquizz;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.Image;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -69,6 +71,9 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
         mScoreValue.setText(String.valueOf(scoreTotalQuizz));
         mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         final String idQuizz = getIntent().getStringExtra("idQuizz");
+
+        final DatabaseReference quizzRef = mDatabase.getReference("Users").child(mUid).child("quizzPlayed").child(idQuizz);
+
         final DatabaseReference userRef = mDatabase.getReference("Users").child(mUid);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -78,6 +83,9 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
                 int nbQcmValue = userModel.setNbQcm(nbQcm + userModel.getNbQcm());
                 userRef.child("score").setValue(score);
                 userRef.child("nbQcm").setValue(nbQcmValue);
+
+                float note = Math.round((float) scoreTotalQuizz/nbQcm * 2f)/2f;
+                quizzRef.setValue(new DisplayQuizzModel(idQuizz, scoreTotalQuizz, note));
             }
 
             @Override
@@ -87,6 +95,7 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
         });
 
 
+
         final ListView listView = findViewById(R.id.list_results);
 
         final ArrayList<ResultsModel> resultsList = new ArrayList<>();
@@ -94,7 +103,7 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
         listView.setAdapter(adapter);
 
         mDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference listResultsRef = mDatabase.getReference("Quizz").child(idQuizz).child("qcmList");
+        final DatabaseReference listResultsRef = mDatabase.getReference("Quizz").child(idQuizz).child("qcmList");
         listResultsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -102,7 +111,6 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
                 for (DataSnapshot qcmSnapshot : dataSnapshot.getChildren()) {
                     ResultsModel resultsModel = qcmSnapshot.getValue(ResultsModel.class);
                     resultsList.add(new ResultsModel(resultsModel.getQuestion(),1, scores[i]));
-
                    i++;
                 }
                 adapter.notifyDataSetChanged();

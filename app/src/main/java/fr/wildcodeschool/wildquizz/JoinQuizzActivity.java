@@ -54,11 +54,18 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
                 final String idQuizzEnter = mIdentifiantQuizz.getText().toString();
 
                 mDatabase = FirebaseDatabase.getInstance();
+                final FirebaseDatabase database = FirebaseDatabase.getInstance();
+                database.getReference("Users").child(mUid).child("quizzPlayed").child(idQuizzEnter).setValue(new DisplayQuizzModel());
                 mQuizzRef = mDatabase.getReference("Quizz");
                 mQuizzRef.orderByChild("id").equalTo(idQuizzEnter).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
+                            // TODO: Vérifier si l'utilisateur ne l'a pas dans les quizzs joués :
+                            //if avec firebase idquizz order by key
+                            //toast
+
+
                             //This means the value exist, you could also dataSnaphot.exist()
                             for (DataSnapshot children : dataSnapshot.getChildren()) {
                                 QuizzModel quizzModel = children.getValue(QuizzModel.class);

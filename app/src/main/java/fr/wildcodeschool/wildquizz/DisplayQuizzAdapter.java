@@ -31,15 +31,15 @@ public class DisplayQuizzAdapter extends ArrayAdapter<DisplayQuizzModel> {
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_quizz, parent, false);
         }
-        TextView tvId = convertView.findViewById(R.id.id_quiz);
+        TextView tvIdQuizz = convertView.findViewById(R.id.id_quiz);
         TextView tvScore = convertView.findViewById(R.id.text_score_quizz);
         TextView tvNote = convertView.findViewById(R.id.text_note_quizz);
         RatingBar ratingBar = convertView.findViewById(R.id.rating_bar);
 
-        tvId.setText(String.valueOf(String.format(getContext().getString(R.string.quizz), display.getIdQuizz())));
+        tvIdQuizz.setText(display.getIdQuizz());
         tvScore.setText(String.valueOf(display.getScore()));
         tvNote.setText(String.valueOf(display.getNote()));
-        ratingBar.setRating(Float.parseFloat(String.valueOf(display.getRatingStar())));
+        ratingBar.setRating(display.getNote());
 
         return convertView;
 

@@ -6,19 +6,30 @@ package fr.wildcodeschool.wildquizz;
 
 public class DisplayQuizzModel {
 
-    private int idQuizz;
+    private String idQuizz;
     private int score;
-    private double note;
-    private Object ratingStar;
+    private float note;
 
-    public DisplayQuizzModel(int idQuizz,int score, double note, Object ratingStar ) {
+
+    public DisplayQuizzModel() {
+
+    }
+
+    public DisplayQuizzModel(String idQuizz,int score, float note) {
         this.idQuizz = idQuizz;
         this.score = score;
         this.note = note;
-        this.ratingStar = ratingStar;
     }
 
-    public int getIdQuizz() {
+    public float getNote() {
+        return note;
+    }
+
+    public void setNote(float note) {
+        this.note = note;
+    }
+
+    public String getIdQuizz() {
         return idQuizz;
     }
 
@@ -26,11 +37,8 @@ public class DisplayQuizzModel {
         return score;
     }
 
-    public double getNote() {
-        return note;
-    }
 
-    public void setIdQuizz(int idQuizz) {
+    public void setIdQuizz(String idQuizz) {
         this.idQuizz = idQuizz;
     }
 
@@ -38,15 +46,4 @@ public class DisplayQuizzModel {
         this.score = score;
     }
 
-    public void setNote(double note) {
-        this.note = note;
-    }
-
-    public void setRatingStar(Object ratingStar) {
-        this.ratingStar = ratingStar;
-    }
-
-    public Object getRatingStar() {
-        return ratingStar;
-    }
 }
