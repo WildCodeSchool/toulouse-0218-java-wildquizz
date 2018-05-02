@@ -19,9 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText mEmail;
     private EditText mPassword;
-
     private FirebaseDatabase mDatabase;
-
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
 

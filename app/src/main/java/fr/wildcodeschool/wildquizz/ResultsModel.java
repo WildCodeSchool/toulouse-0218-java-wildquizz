@@ -10,7 +10,6 @@ public class ResultsModel {
     private String answer;
     private int validateLogo;
     private boolean isSuccess = true;
-
     public ResultsModel(){
 
     }

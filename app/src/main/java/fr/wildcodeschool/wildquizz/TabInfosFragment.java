@@ -130,7 +130,6 @@ public class TabInfosFragment extends Fragment {
         //Affichage du profil dans la nav bar :
         mDatabase = FirebaseDatabase.getInstance();
         mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        //TODO : faire pareil pour le pseudo
         DatabaseReference pathID = mDatabase.getReference("Users").child(mUid);
 
         pathID.addValueEventListener(new ValueEventListener() {
@@ -151,8 +150,6 @@ public class TabInfosFragment extends Fragment {
         ImageView mMedalRed = getView().findViewById(R.id.iv_medal1);
         ImageView mMedalSilver = getView().findViewById(R.id.iv_medal3);
         ImageView mMedalGold = getView().findViewById(R.id.iv_medal4);
-
-        // TODO récupérer l'utilisateur à partir de Firebase et le score de l'utilisateur avec mAuth et une requête dans firebase storage
 
         int score = 110;
 

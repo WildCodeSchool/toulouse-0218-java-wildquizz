@@ -32,7 +32,6 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     private static final String TAG = "ok";
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
-
     FirebaseAuth mAuth;
     FirebaseDatabase mDatabase;
     private ImageView mAvatar;
@@ -111,7 +110,6 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         });
 
     }
-
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override

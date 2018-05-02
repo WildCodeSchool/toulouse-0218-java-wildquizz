@@ -86,9 +86,6 @@ public class CreateQcmActivity extends AppCompatActivity {
 
                 }
 
-
-
-
             }
         });
 

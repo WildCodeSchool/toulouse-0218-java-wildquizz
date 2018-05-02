@@ -27,7 +27,6 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
-
     private FirebaseAuth mAuth;
     FirebaseDatabase mDatabase;
     DatabaseReference mQuizzRef;

@@ -33,7 +33,6 @@ public class SplashActivity extends AppCompatActivity {
         videoView = (VideoView) findViewById(R.id.video_view_splash);
         Uri video = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.splash);
         videoView.setVideoURI(video);
-
         videoView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

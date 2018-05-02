@@ -27,10 +27,8 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
-
     private FirebaseAuth mAuth;
     FirebaseDatabase mDatabase;
-
     private ImageView mAvatar;
     private String mUid;
     private TextView mScoreValue;
@@ -62,7 +60,6 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
         int scoreTotalQuizz = ScoreClass.foundQuizzScore(scores);
         mScoreValue.setText(String.valueOf(scoreTotalQuizz));
         final int scoreQuizz = Integer.parseInt(mScoreValue.getText().toString());
-        //TODO : mettre  jour le scoreUser avec le scoreQuizz
         mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         final DatabaseReference userRef = mDatabase.getReference("Users").child(mUid).child("score");
         userRef.setValue(scoreQuizz);
@@ -114,7 +111,6 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
         View headerLayout = navigationView.getHeaderView(0);
         mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         mAvatar = headerLayout.findViewById(R.id.image_header);
-        //TODO : faire pareil pour le pseudo
         DatabaseReference pathID = mDatabase.getReference("Users").child(mUid);
         pathID.addValueEventListener(new ValueEventListener() {
             @Override

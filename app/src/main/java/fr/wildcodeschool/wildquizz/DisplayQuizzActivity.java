@@ -28,7 +28,6 @@ public class DisplayQuizzActivity extends AppCompatActivity implements Navigatio
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
-
     private FirebaseAuth mAuth;
     FirebaseDatabase mDatabase;
     private ImageView mAvatar;
@@ -75,7 +74,7 @@ public class DisplayQuizzActivity extends AppCompatActivity implements Navigatio
         mAvatar = headerLayout.findViewById(R.id.image_header);
         mUsername = headerLayout.findViewById(R.id.text_username);
         mScoreValue = headerLayout.findViewById(R.id.text_score_value);
-        //TODO : faire pareil pour le score
+
 
         DatabaseReference pathID = mDatabase.getReference("Users").child(mUid);
         pathID.addValueEventListener(new ValueEventListener() {
