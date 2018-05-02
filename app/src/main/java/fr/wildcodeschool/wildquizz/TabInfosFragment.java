@@ -216,7 +216,7 @@ public class TabInfosFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if ((dataSnapshot.child("avatar").getValue() != null)) {
                     String url = dataSnapshot.child("avatar").getValue(String.class);
-                    Glide.with(getContext()).load(url).apply(RequestOptions.circleCropTransform()).into(mImageProfile);
+                    Glide.with(getActivity()).load(url).apply(RequestOptions.circleCropTransform()).into(mImageProfile);
                 }
                 if ((dataSnapshot.child("username").getValue() != null)) {
                     String nameUser = dataSnapshot.child("username").getValue(String.class);
@@ -261,20 +261,27 @@ public class TabInfosFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         final String user = (String) newUsername.getText().toString();
-                        final DatabaseReference usernameUpdateRef = mDatabase.getReference("Users").child(mUid);
-                        usernameUpdateRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                UserModel userModel1 = dataSnapshot.getValue(UserModel.class);
-                                usernameUpdateRef.child("username").setValue(user);
-                                alertDialog.cancel();
-                            }
+                        if (user.isEmpty()){
+                            Toast.makeText(getContext(), "Vous ne pouvez pas avoir un nom d'utilisateur vide", Toast.LENGTH_SHORT).show();
+                            alertDialog.show();
+                        }
+                        else {
+                            final DatabaseReference usernameUpdateRef = mDatabase.getReference("Users").child(mUid);
+                            usernameUpdateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    UserModel userModel1 = dataSnapshot.getValue(UserModel.class);
+                                    usernameUpdateRef.child("username").setValue(user);
+                                    alertDialog.cancel();
+                                }
 
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
 
-                            }
-                        });
+                                }
+                            });
+                        }
+
                     }
 
                 });
