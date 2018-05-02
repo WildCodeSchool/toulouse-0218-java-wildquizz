@@ -17,8 +17,6 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         this.mNoOfTabs = NumberOfTabs;
     }
     public final static int TAB_INFOS = 0;
-    public final static int TAB_FRIENDS = 1;
-    public final static int TAB_NOTIFICATIONS = 2;
 
 
     @Override
@@ -28,12 +26,6 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
             case TAB_INFOS :
                 TabInfosFragment tab1 = new TabInfosFragment();
                 return tab1;
-            case TAB_FRIENDS  :
-                TabFriendFragment tab2 = new TabFriendFragment();
-                return tab2;
-            case TAB_NOTIFICATIONS :
-                TabNotificationFragment tab3 = new TabNotificationFragment();
-                return tab3;
 
             default :
                 return null;

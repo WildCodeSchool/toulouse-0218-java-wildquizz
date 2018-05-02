@@ -34,10 +34,9 @@ public class SplashActivity extends AppCompatActivity {
         Uri video = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.splash);
         videoView.setVideoURI(video);
 
-        videoView.setOnClickListener(new View.OnClickListener() {
+        videoView.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View view) {
-
+            public boolean onTouch(View view, MotionEvent motionEvent) {
                 mAuth = FirebaseAuth.getInstance();
                 FirebaseUser currentUser = mAuth.getCurrentUser();
                 if (currentUser != null) {
@@ -47,8 +46,10 @@ public class SplashActivity extends AppCompatActivity {
                     Intent intent = new Intent(SplashActivity.this,MainActivity.class);
                     startActivity(intent);
                 }
+                return false;
             }
         });
+
 
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
