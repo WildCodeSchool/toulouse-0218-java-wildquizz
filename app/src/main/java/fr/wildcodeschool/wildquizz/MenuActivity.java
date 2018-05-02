@@ -83,7 +83,6 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         mAvatar = headerLayout.findViewById(R.id.image_header);
         mUsername = headerLayout.findViewById(R.id.text_username);
         mScoreValue = headerLayout.findViewById(R.id.text_score_value);
-        //TODO : faire pareil pour le score
 
         DatabaseReference pathID = mDatabase.getReference("Users").child(mUid);
         pathID.addListenerForSingleValueEvent(new ValueEventListener() {

@@ -51,7 +51,6 @@
     <string name="text_points">Points :</string>
     <string name="text_good_answer">Réponse 2</string>
     <string name="text_score_results">Score</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tab1">Mes informations</string>
     <string name="tab2">Rechercher des amis</string>
