@@ -306,7 +306,7 @@ public class TabInfosFragment extends Fragment {
                 UserModel userModel = dataSnapshot.getValue(UserModel.class);
 
                 int scoreUser = userModel.getScore();
-                mScoreValueProfile.setText(String.format(getString(R.string.scoretext), String.valueOf(scoreUser)));
+                mScoreValueProfile.setText(String.format("%s pts", String.format(getString(R.string.scoretext), String.valueOf(scoreUser))));
                 int nbQcm = userModel.getNbQcm();
                 if (nbQcm > 0) {
                     float scoreUserFloat = scoreUser / nbQcm;
