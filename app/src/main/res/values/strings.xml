@@ -9,7 +9,7 @@
     <string name="cr_er_un_compte">Créer un compte</string>
     <string name="connexion">Connexion</string>
     <string name="inscription">Inscription</string>
-    <string name="name_text_join_quiz">Veuillez entrer l\'identifiant d\'un Quizz</string>
+    <string name="name_text_join_quiz">Veuillez entrer l\'identifiant d\'un quizz</string>
     <string name="text_button_join">Participer à un Quizz</string>
     <string name="text_button_create">Créer un Quizz</string>
     <string name="open">Open</string>
@@ -129,6 +129,7 @@
     <string name="edit_username">Editer le nom d\'utilisateur</string>
     <string name="empty_username">Vous ne pouvez pas avoir un nom d\'utilisateur vide</string>
     <string name="points">points</string>
+    <string name="id_incorrect">Identifiant de quizz incorrect</string>
 
 
 </resources>

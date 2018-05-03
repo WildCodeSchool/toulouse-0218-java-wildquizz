@@ -38,12 +38,15 @@ public class CreateQcmActivity extends AppCompatActivity {
         Intent intent = getIntent();
         final String idQuizz = intent.getStringExtra("idQuizz");
 
+        final EditText nameQcm = findViewById(R.id.edit_name_qcm);
+        nameQcm.requestFocus();
+
         Button validateQcm = findViewById(R.id.button_val);
         validateQcm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                EditText nameQcm = findViewById(R.id.edit_name_qcm);
+
                 EditText question = findViewById(R.id.edit_question);
                 EditText answer1 = findViewById(R.id.edit_answer_1);
                 EditText answer2 = findViewById(R.id.edit_answer_2);

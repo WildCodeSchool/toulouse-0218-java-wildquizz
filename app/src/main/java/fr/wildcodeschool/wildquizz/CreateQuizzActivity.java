@@ -132,14 +132,14 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
                 } else{
                     Intent intent1 = new Intent(CreateQuizzActivity.this, MenuActivity.class);
                     startActivity(intent1);
-
                 }
             }
         });
 
+
         mQuizzRef = mDatabase.getReference("Quizz").child(mIdQuizz).child("qcmList");
         // Read from the database
-        mQuizzRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        mQuizzRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 qcmModels.clear(); // vide la liste par précaution

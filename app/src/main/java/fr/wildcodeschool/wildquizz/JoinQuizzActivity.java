@@ -56,29 +56,12 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
                 mDatabase = FirebaseDatabase.getInstance();
                 final FirebaseDatabase database = FirebaseDatabase.getInstance();
                 mQuizzRef = mDatabase.getReference("Quizz");
+                final DatabaseReference userRef = mDatabase.getReference("Users").child(mUid).child("quizzcreated");
                 mQuizzRef.orderByChild("id").equalTo(idQuizzEnter).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         //This means the value exist, you could also dataSnaphot.exist()
                         if (dataSnapshot.exists()) {
-
-                            // TODO: Vérifier si l'utilisateur ne l'a pas dans les quizzs joués :
-                            /*playRef.orderByValue().addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    if (idQuizzEnter.equals(dataSnapshot.exists())) {
-                                        Toast.makeText(JoinQuizzActivity.this, "Vous avez déja joué à ce quizz", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(JoinQuizzActivity.this, "ok", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-
-                                }
-                            });
-                            */
-
 
                             for (DataSnapshot children : dataSnapshot.getChildren()) {
                                 database.getReference("Users").child(mUid).child("quizzPlayed").child(idQuizzEnter).setValue(new DisplayQuizzModel());
@@ -90,11 +73,39 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
                                 finish();
                             }
 
-                        }
-                        else {
-                            Toast.makeText(JoinQuizzActivity.this, "id incorrect", Toast.LENGTH_SHORT).show();
-                        }
+                            // TODO V2: Vérifier si l'utilisateur ne l'a pas dans les quizzs joués :
 
+                            // TODO V2 : Vérifier si l'utilisateur n'a pas créé le quizz :
+                            /*userRef.orderByValue().addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                                        if (idQuizzEnter.equals(dataSnapshot1.child("id").getValue())) {
+                                            Toast.makeText(JoinQuizzActivity.this, "Vous avez déja joué à ce quizz", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(JoinQuizzActivity.this, "ok", Toast.LENGTH_SHORT).show();
+                                            for (DataSnapshot children : dataSnapshot.getChildren()) {
+                                                database.getReference("Users").child(mUid).child("quizzPlayed").child(idQuizzEnter).setValue(new DisplayQuizzModel());
+                                                QuizzModel quizzModel = children.getValue(QuizzModel.class);
+                                                Intent goToSecondSplash = new Intent(JoinQuizzActivity.this, SplashSecondActivity.class);
+                                                goToSecondSplash.putExtra("id", idQuizzEnter);
+                                                int nbQcm = quizzModel.getQcmList().size();
+                                                goToSecondSplash.putExtra("nbQcm", nbQcm);
+                                                JoinQuizzActivity.this.startActivity(goToSecondSplash);
+                                                finish();
+                                            }
+                                        }
+                                    }
+                                }
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });*/
+
+                        } else {
+                            Toast.makeText(JoinQuizzActivity.this, R.string.id_incorrect, Toast.LENGTH_SHORT).show();
+                        }
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
