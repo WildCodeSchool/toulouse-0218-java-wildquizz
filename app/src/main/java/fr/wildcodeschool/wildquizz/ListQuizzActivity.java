@@ -61,7 +61,7 @@ public class ListQuizzActivity extends AppCompatActivity implements NavigationVi
         Query myRef = database.getReference("Users").child(mUid).child("quizzcreated");
 
         // Read from the database
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again

@@ -63,13 +63,15 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_results);
         navigationView.setNavigationItemSelectedListener(this);
 
+        mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
         mScoreValue = findViewById(R.id.value_score);
         mValueScore = findViewById(R.id.score_value);
         final int[] scores = getIntent().getIntArrayExtra("scores");
         final int nbQcm = getIntent().getIntExtra("nbQcm", 0);
         final int scoreTotalQuizz = ScoreClass.foundQuizzScore(scores);
         mScoreValue.setText(String.format("%s %s", String.valueOf(scoreTotalQuizz), getString(R.string.points)));
-        mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
         final String idQuizz = getIntent().getStringExtra("idQuizz");
 
         final DatabaseReference quizzRef = mDatabase.getReference("Users").child(mUid).child("quizzPlayed").child(idQuizz);
@@ -104,13 +106,13 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
 
         mDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference listResultsRef = mDatabase.getReference("Quizz").child(idQuizz).child("qcmList");
-        listResultsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        listResultsRef.orderByValue().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int i = 0;
                 for (DataSnapshot qcmSnapshot : dataSnapshot.getChildren()) {
                     ResultsModel resultsModel = qcmSnapshot.getValue(ResultsModel.class);
-                    resultsList.add(new ResultsModel(resultsModel.getQuestion(),1, scores[i]));
+                    resultsList.add(new ResultsModel(resultsModel.getQuestion(),0, scores[i]));
                    i++;
                 }
                 adapter.notifyDataSetChanged();

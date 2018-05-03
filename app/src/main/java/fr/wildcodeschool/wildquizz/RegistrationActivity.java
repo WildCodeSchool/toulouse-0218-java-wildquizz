@@ -158,6 +158,7 @@ public class RegistrationActivity extends AppCompatActivity {
                                     }
 
 
+
                                 } else {
                                     Toast.makeText(RegistrationActivity.this, R.string.registration_impossible, Toast.LENGTH_SHORT).show();
                                 }
@@ -242,7 +243,7 @@ public class RegistrationActivity extends AppCompatActivity {
             case REQUEST_TAKE_PHOTO:
                 try {
                     if (resultCode == RESULT_OK) {
-                        Glide.with(this).load(mFileUri).apply(RequestOptions.circleCropTransform()).into(mAvatar);
+                        Glide.with(getApplicationContext()).load(mFileUri).apply(RequestOptions.circleCropTransform()).into(mAvatar);
                     }
 
                 } catch (Exception e) {

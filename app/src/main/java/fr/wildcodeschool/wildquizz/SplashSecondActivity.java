@@ -21,7 +21,6 @@ public class SplashSecondActivity extends AppCompatActivity {
         final String idQuizz = getIntent().getStringExtra("id");
         final int nbQcm = getIntent().getIntExtra("nbQcm",0);
 
-
         mZoom = (ImageView) findViewById(R.id.img_content);
         Animation zoomAnimation = AnimationUtils.loadAnimation(SplashSecondActivity.this, R.anim.zooming);
         mZoom.startAnimation(zoomAnimation);

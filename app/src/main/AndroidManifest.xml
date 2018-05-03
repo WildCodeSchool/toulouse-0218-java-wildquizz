@@ -31,7 +31,7 @@
         </provider>
 
 
-        <activity android:name=".SplashActivity" android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait" >
+        <activity android:name=".SplashActivity" android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait" android:noHistory="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -68,7 +68,6 @@
             android:name=".RegistrationActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustPan"
-            android:noHistory="true"
             android:screenOrientation="portrait"/>
 
 
