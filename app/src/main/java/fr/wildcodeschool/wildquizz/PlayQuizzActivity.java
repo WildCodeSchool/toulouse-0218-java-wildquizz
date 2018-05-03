@@ -191,6 +191,7 @@ public class PlayQuizzActivity extends AppCompatActivity {
             }
             @Override
             public void onFinish() {
+                mCountDownTimer.cancel();
                 if (mCurrentQcm == mNbQcm - 1) {
                     Intent goToResults = new Intent(PlayQuizzActivity.this, ResultsActivity.class);
                     goToResults.putExtra("idQuizz", mIdQuizz);
@@ -221,11 +222,16 @@ public class PlayQuizzActivity extends AppCompatActivity {
         leaveQuizz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mCountDownTimer.cancel();
                 Intent returnMenu = new Intent(PlayQuizzActivity.this, MenuActivity.class);
                 startActivity(returnMenu);
             }
         });
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        mCountDownTimer.cancel();
+    }
 }
