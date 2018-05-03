@@ -35,6 +35,7 @@ public class PlayQuizzActivity extends AppCompatActivity {
     private int mNbQcm;
     private int mCurrentQcm;
     private int[] mScores;
+
     private View.OnClickListener btnClickOnListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -42,7 +43,6 @@ public class PlayQuizzActivity extends AppCompatActivity {
                 case R.id.btn_start:
                     initTimer();
                     break;
-
             }
         }
     };
@@ -59,7 +59,6 @@ public class PlayQuizzActivity extends AppCompatActivity {
         mTime = findViewById(R.id.count);
         initTimer();
         final ImageButton checkAnswer = findViewById(R.id.ib_next);
-
 
         final TextView tvQuestion = findViewById(R.id.tv_question);
         final TextView tvAnswer1 = findViewById(R.id.tv_answer1);
@@ -127,7 +126,6 @@ public class PlayQuizzActivity extends AppCompatActivity {
                         final int correctAnswer = qcmModel.getCorrectAnswer();
 
                         //Button check
-
                         checkAnswer.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -182,21 +180,23 @@ public class PlayQuizzActivity extends AppCompatActivity {
     }
 
     private void initTimer() {
-        mCountDownTimer = new CountDownTimer(60 * 1000, 1000) {
+        mCountDownTimer = new CountDownTimer(30 * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-
                 mTime.setText(""+String.format(FORMAT,
                         TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(
                                 TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
                         TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(
                                 TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
             }
-
             @Override
             public void onFinish() {
                 if (mCurrentQcm == mNbQcm - 1) {
                     Intent goToResults = new Intent(PlayQuizzActivity.this, ResultsActivity.class);
+                    goToResults.putExtra("idQuizz", mIdQuizz);
+                    goToResults.putExtra("nbQcm", mNbQcm);
+                    goToResults.putExtra("scores", mScores);
+                    goToResults.putExtra("currentQcm", mCurrentQcm + 1);
                     startActivity(goToResults);
                     finish();
                 } else {
@@ -223,7 +223,6 @@ public class PlayQuizzActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent returnMenu = new Intent(PlayQuizzActivity.this, MenuActivity.class);
                 startActivity(returnMenu);
-
             }
         });
     }

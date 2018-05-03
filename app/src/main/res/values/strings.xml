@@ -128,6 +128,7 @@
     <string name="gallery_photo">Choisir une image depuis la gallerie d\'images</string>
     <string name="edit_username">Editer le nom d\'utilisateur</string>
     <string name="empty_username">Vous ne pouvez pas avoir un nom d\'utilisateur vide</string>
+    <string name="points">points</string>
 
 
 </resources>

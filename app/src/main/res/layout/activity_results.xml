@@ -19,50 +19,36 @@
             app:srcCompat="@drawable/backwild" />
 
         <TextView
-            android:id="@+id/tv_results"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="@string/title_resultats"
-            android:textColor="@android:color/white"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
             android:id="@+id/tv_average"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="130dp"
-            android:layout_marginTop="52dp"
+            android:layout_marginTop="32dp"
             android:text="@string/text_score_results"
             android:textColor="@android:color/white"
             android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_results" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/value_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
-            android:layout_marginTop="52dp"
+            android:layout_marginTop="32dp"
             android:inputType="number"
             android:text="000"
             android:textColor="@android:color/white"
             android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/tv_average"
-            app:layout_constraintTop_toBottomOf="@+id/tv_results" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ListView
             android:id="@+id/list_results"
             android:layout_width="wrap_content"
-            android:layout_height="300dp"
+            android:layout_height="410dp"
             android:layout_marginBottom="16dp"
             android:layout_marginTop="24dp"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -68,7 +68,7 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
         final int[] scores = getIntent().getIntArrayExtra("scores");
         final int nbQcm = getIntent().getIntExtra("nbQcm", 0);
         final int scoreTotalQuizz = ScoreClass.foundQuizzScore(scores);
-        mScoreValue.setText(String.valueOf(scoreTotalQuizz));
+        mScoreValue.setText(String.format("%s %s", String.valueOf(scoreTotalQuizz), getString(R.string.points)));
         mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         final String idQuizz = getIntent().getStringExtra("idQuizz");
 

@@ -81,9 +81,6 @@ public class DisplayQuizzActivity extends AppCompatActivity implements Navigatio
             }
         });
 
-
-
-
         //Navigation Drawer :
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_display_quizz);
         mToggle = new ActionBarDrawerToggle(DisplayQuizzActivity.this, mDrawerLayout, R.string.open, R.string.close);

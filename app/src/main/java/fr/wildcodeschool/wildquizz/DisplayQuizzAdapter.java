@@ -37,8 +37,8 @@ public class DisplayQuizzAdapter extends ArrayAdapter<DisplayQuizzModel> {
         RatingBar ratingBar = convertView.findViewById(R.id.rating_bar);
 
         tvIdQuizz.setText(display.getIdQuizz());
-        tvScore.setText(String.valueOf(display.getScore()));
-        tvNote.setText(String.valueOf(display.getNote()));
+        tvScore.setText(String.format("%s points", String.valueOf(display.getScore())));
+        tvNote.setText(String.format("%s / 5", String.valueOf(display.getNote())));
         ratingBar.setRating(display.getNote());
 
         return convertView;
