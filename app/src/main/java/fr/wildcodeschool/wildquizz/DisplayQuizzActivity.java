@@ -1,6 +1,7 @@
 package fr.wildcodeschool.wildquizz;
 
 import android.content.Intent;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,10 +17,12 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -30,11 +33,15 @@ public class DisplayQuizzActivity extends AppCompatActivity implements Navigatio
     private ActionBarDrawerToggle mToggle;
 
     private FirebaseAuth mAuth;
+
     FirebaseDatabase mDatabase;
+    DatabaseReference mDatabaseReference;
+
     private ImageView mAvatar;
     private String mUid;
     private TextView mUsername;
     private TextView mScoreValue;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,19 +49,39 @@ public class DisplayQuizzActivity extends AppCompatActivity implements Navigatio
         setContentView(R.layout.activity_display_quizz);
         setTitle(getString(R.string.title_display_quizz_played));
 
+        mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         ListView lvDisplay = findViewById(R.id.list_quizz);
-        ArrayList<DisplayQuizzModel> results = new ArrayList<>();
-        try{
-            results.add(new DisplayQuizzModel(0,100,4.0, 4));
-            results.add(new DisplayQuizzModel(1,200,5.0,5));
-            results.add(new DisplayQuizzModel(3,600,2.0, 2.0));
-            results.add(new DisplayQuizzModel(4,600,2.0, 2.0));
-        } catch (Exception e) {
-
-        }
-        DisplayQuizzAdapter adapter = new DisplayQuizzAdapter(this, results);
+        final ArrayList<DisplayQuizzModel> displayList = new ArrayList<>();
+        final DisplayQuizzAdapter adapter = new DisplayQuizzAdapter(DisplayQuizzActivity.this, displayList);
         lvDisplay.setAdapter(adapter);
+
+        // Write a message to the database
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        mUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Query myRef = database.getReference("Users").child(mUid).child("quizzPlayed");
+
+        // Read from the database
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                displayList.clear();
+                for (DataSnapshot dispSnapshot : dataSnapshot.getChildren()) {
+                    DisplayQuizzModel displayQuizzModel =  dispSnapshot.getValue(DisplayQuizzModel.class);
+                    displayList.add(displayQuizzModel);
+                }
+                adapter.notifyDataSetChanged();
+
+            }
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+            }
+        });
+
+
 
 
         //Navigation Drawer :
@@ -82,7 +109,7 @@ public class DisplayQuizzActivity extends AppCompatActivity implements Navigatio
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if ((dataSnapshot.child("avatar").getValue() != null)){
                     String url = dataSnapshot.child("avatar").getValue(String.class);
-                    Glide.with(DisplayQuizzActivity.this).load(url).apply(RequestOptions.circleCropTransform()).into(mAvatar);
+                    Glide.with(getApplicationContext()).load(url).apply(RequestOptions.circleCropTransform()).into(mAvatar);
                 }
                 if ((dataSnapshot.child("username").getValue() != null)){
                     String username = dataSnapshot.child("username").getValue(String.class);
@@ -118,10 +145,10 @@ public class DisplayQuizzActivity extends AppCompatActivity implements Navigatio
         } else if (id == R.id.profile) {
             Intent goToProfile = new Intent(this, ProfileActivity.class);
             this.startActivity(goToProfile);
-        } /*else if (id == R.id.displayquizz) {
+        } else if (id == R.id.displayquizz) {
             Intent goToDisplayQuizz = new Intent(this, DisplayQuizzActivity.class);
             this.startActivity(goToDisplayQuizz);
-        }*/ else if (id == R.id.listquizz) {
+        } else if (id == R.id.listquizz) {
                 Intent goToListQuizz = new Intent(this, ListQuizzActivity.class);
                 this.startActivity(goToListQuizz);
         } else if (id == R.id.logout) {
