@@ -64,7 +64,6 @@ import static fr.wildcodeschool.wildquizz.RegistrationActivity.checkAndRequestPe
  * create an instance of this fragment.
  */
 public class TabInfosFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -94,7 +93,7 @@ public class TabInfosFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment TabInfosFragment.
      */
-    // TODO: Rename and change types and number of parameters
+
     public static TabInfosFragment newInstance(String param1, String param2) {
         TabInfosFragment fragment = new TabInfosFragment();
         Bundle args = new Bundle();
@@ -120,7 +119,6 @@ public class TabInfosFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_tab1, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -216,7 +214,7 @@ public class TabInfosFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if ((dataSnapshot.child("avatar").getValue() != null)) {
                     String url = dataSnapshot.child("avatar").getValue(String.class);
-                    Glide.with(getContext()).load(url).apply(RequestOptions.circleCropTransform()).into(mImageProfile);
+                    Glide.with(mImageProfile.getContext()).load(url).apply(RequestOptions.circleCropTransform()).into(mImageProfile);
                 }
                 if ((dataSnapshot.child("username").getValue() != null)) {
                     String nameUser = dataSnapshot.child("username").getValue(String.class);
@@ -261,20 +259,27 @@ public class TabInfosFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         final String user = (String) newUsername.getText().toString();
-                        final DatabaseReference usernameUpdateRef = mDatabase.getReference("Users").child(mUid);
-                        usernameUpdateRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                UserModel userModel1 = dataSnapshot.getValue(UserModel.class);
-                                usernameUpdateRef.child("username").setValue(user);
-                                alertDialog.cancel();
-                            }
+                        if (user.isEmpty()){
+                            Toast.makeText(getContext(), R.string.empty_username, Toast.LENGTH_SHORT).show();
+                            alertDialog.show();
+                        }
+                        else {
+                            final DatabaseReference usernameUpdateRef = mDatabase.getReference("Users").child(mUid);
+                            usernameUpdateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    UserModel userModel1 = dataSnapshot.getValue(UserModel.class);
+                                    usernameUpdateRef.child("username").setValue(user);
+                                    alertDialog.cancel();
+                                }
 
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
 
-                            }
-                        });
+                                }
+                            });
+                        }
+
                     }
 
                 });
@@ -299,7 +304,7 @@ public class TabInfosFragment extends Fragment {
                 UserModel userModel = dataSnapshot.getValue(UserModel.class);
 
                 int scoreUser = userModel.getScore();
-                mScoreValueProfile.setText(String.format(getString(R.string.scoretext), String.valueOf(scoreUser)));
+                mScoreValueProfile.setText(String.format("%s pts", String.format(getString(R.string.scoretext), String.valueOf(scoreUser))));
                 int nbQcm = userModel.getNbQcm();
                 if (nbQcm > 0) {
                     float scoreUserFloat = scoreUser / nbQcm;
@@ -436,9 +441,10 @@ public class TabInfosFragment extends Fragment {
                     if (resultCode == RESULT_OK) {
                         mFileUri = data.getData();
                         mGetImageUrl = mFileUri.getPath();
+                        saveCaptureImage();
+                        Glide.with(getContext()).load(mFileUri).apply(RequestOptions.circleCropTransform()).into(mImageProfile);
                     }
-                    saveCaptureImage();
-                    Glide.with(getContext()).load(mFileUri).apply(RequestOptions.circleCropTransform()).into(mImageProfile);
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -475,7 +481,6 @@ public class TabInfosFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }

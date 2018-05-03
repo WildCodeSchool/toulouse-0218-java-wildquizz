@@ -137,7 +137,6 @@ public class RegistrationActivity extends AppCompatActivity {
                                     final String id = mAuth.getCurrentUser().getUid();
                                     //DATABASE :
                                     mDatabaseReference = mDatabase.getReference("Users").child(id);
-                                    //TODO: faire un model USER :
                                     final UserModel userModel = new UserModel(userName, null, 0, 0);
 
                                     if (mFileUri != null && !mFileUri.equals("")) {

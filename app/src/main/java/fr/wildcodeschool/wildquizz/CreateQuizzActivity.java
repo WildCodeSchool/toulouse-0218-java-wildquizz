@@ -106,7 +106,6 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         addQcm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO : vérifier le nombre d'item dans l'adapter
                 if (mQcmAdapter.getCount() >= 5) {
                     Toast.makeText(CreateQuizzActivity.this, R.string.limit_create_quizz, Toast.LENGTH_SHORT).show();
                 } else {
@@ -274,7 +273,7 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
                 String ans2 = mEditAnswer2Value.getText().toString();
                 String ans3 = mEditAnswer3Value.getText().toString();
                 String ans4 = mEditAnswer4Value.getText().toString();
-                int correctAnswer = 1;//TODO récupérer le numéro de la réponse correcte
+                int correctAnswer = 1;
                 int i = radioGroup.getCheckedRadioButtonId();
                 switch (i) {
                     case R.id.radiobtn_1:
@@ -313,7 +312,6 @@ public class CreateQuizzActivity extends AppCompatActivity implements Navigation
         mButtonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO Supprimer dans Firebase
                 databaseReference.removeValue();
                 alertDialog.dismiss();
                 mQcmAdapter.notifyDataSetChanged();

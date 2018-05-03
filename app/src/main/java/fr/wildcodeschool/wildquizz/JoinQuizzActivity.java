@@ -50,8 +50,6 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
         buttonGoToQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO :  récupérer l'id d'un quizz, puis le qcmList, et l'id d'un qcm :
-
                 //Récupération de l'identifiant rentré par l'utilisateur :
                 final String idQuizzEnter = mIdentifiantQuizz.getText().toString();
 
@@ -64,7 +62,6 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
                             //This means the value exist, you could also dataSnaphot.exist()
                             for (DataSnapshot children : dataSnapshot.getChildren()) {
                                 QuizzModel quizzModel = children.getValue(QuizzModel.class);
-                                //TODO : si key existe alors envoyé le model dans le PlayQuizzActivity
                                 Intent goToSecondSplash = new Intent(JoinQuizzActivity.this, SplashSecondActivity.class);
                                 goToSecondSplash.putExtra("id", idQuizzEnter);
                                 goToSecondSplash.putExtra("nbQcm",quizzModel.getQcmList().size());
@@ -102,7 +99,6 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
         mAvatar = headerLayout.findViewById(R.id.image_header);
         mUsername = headerLayout.findViewById(R.id.text_username);
         mScoreValue = headerLayout.findViewById(R.id.text_score_value);
-        //TODO : faire pareil pour le score
 
         DatabaseReference pathID = mDatabase.getReference("Users").child(mUid);
         pathID.addListenerForSingleValueEvent(new ValueEventListener() {
