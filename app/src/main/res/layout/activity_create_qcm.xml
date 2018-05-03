@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="fr.wildcodeschool.wildquizz.CreateQcmActivity">
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/iv_background"
@@ -96,21 +93,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_question" />
 
-        <EditText
-            android:id="@+id/edit_answer_4"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="21dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="32dp"
-            android:ems="10"
-            android:hint="@string/answer_qcm_4"
-            android:inputType="text"
-            android:textColorHint="@android:color/black"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/button_val"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_answer_3" />
+    <EditText
+        android:id="@+id/edit_answer_4"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="@string/answer_qcm_4"
+        android:inputType="text"
+        android:textColorHint="@android:color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_answer_3" />
 
         <RadioGroup
             android:id="@+id/radiogroup"
@@ -158,20 +153,18 @@
 
         </RadioGroup>
 
-        <Button
-            android:id="@+id/button_val"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="465dp"
-            android:background="@drawable/papyru11"
-            android:text="@string/valider"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <Button
+        android:id="@+id/button_val"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="@drawable/papyru11"
+        android:text="@string/valider"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
-    </android.support.constraint.ConstraintLayout>
 
 
-</ScrollView>
+</android.support.constraint.ConstraintLayout>
