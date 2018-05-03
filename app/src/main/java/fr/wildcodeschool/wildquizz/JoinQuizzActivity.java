@@ -64,16 +64,18 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
                         if (dataSnapshot.exists()) {
 
                             for (DataSnapshot children : dataSnapshot.getChildren()) {
+                                database.getReference("Users").child(mUid).child("quizzPlayed").child(idQuizzEnter).setValue(new DisplayQuizzModel());
                                 QuizzModel quizzModel = children.getValue(QuizzModel.class);
-                                //TODO : si key existe alors envoyé le model dans le PlayQuizzActivity
                                 Intent goToSecondSplash = new Intent(JoinQuizzActivity.this, SplashSecondActivity.class);
                                 goToSecondSplash.putExtra("id", idQuizzEnter);
-                                goToSecondSplash.putExtra("nbQcm",quizzModel.getQcmList().size());
+                                goToSecondSplash.putExtra("nbQcm", quizzModel.getQcmList().size());
                                 JoinQuizzActivity.this.startActivity(goToSecondSplash);
                                 finish();
-
                             }
+
                             // TODO V2: Vérifier si l'utilisateur ne l'a pas dans les quizzs joués :
+
+                            // TODO V2 : Vérifier si l'utilisateur n'a pas créé le quizz :
                             /*userRef.orderByValue().addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -95,14 +97,11 @@ public class JoinQuizzActivity extends AppCompatActivity implements NavigationVi
                                         }
                                     }
                                 }
-
                                 @Override
                                 public void onCancelled(DatabaseError databaseError) {
 
                                 }
                             });*/
-
-
 
                         } else {
                             Toast.makeText(JoinQuizzActivity.this, R.string.id_incorrect, Toast.LENGTH_SHORT).show();
