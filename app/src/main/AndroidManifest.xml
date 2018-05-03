@@ -17,7 +17,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_foregroun"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        >
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -30,7 +31,7 @@
         </provider>
 
 
-        <activity android:name=".SplashActivity" android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".SplashActivity" android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -41,10 +42,11 @@
         <activity
             android:name=".PlayQuizzActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:noHistory="true"/>
+            android:noHistory="true"
+            android:screenOrientation="portrait"/>
 
 
-        <activity android:name=".DisplayQuizzActivity">
+        <activity android:name=".DisplayQuizzActivity" android:screenOrientation="portrait">
 
         </activity>
 
@@ -53,18 +55,21 @@
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustPan"
+            android:screenOrientation="portrait"
             >
         </activity>
 
 
         <activity android:name=".MenuActivity"
-            android:noHistory="true"/>
+            android:noHistory="true"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".RegistrationActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustPan"
-            android:noHistory="true"/>
+            android:noHistory="true"
+            android:screenOrientation="portrait"/>
 
 
         <activity android:name=".JoinQuizzActivity"
@@ -72,30 +77,38 @@
 
 
         <activity android:name=".ResultsActivity"
-            android:noHistory="true"> </activity>
+            android:noHistory="true"
+            android:screenOrientation="portrait"> </activity>
 
-        <activity android:name=".ProfileActivity">
+        <activity android:name=".ProfileActivity"
+            android:screenOrientation="portrait" >
 
         </activity>
 
         <activity android:name=".CreateQcmActivity"
             android:windowSoftInputMode="stateHidden|adjustPan"
-            android:noHistory="true"/>
+            android:noHistory="true"
+            android:screenOrientation="portrait"/>
 
         <activity android:name=".CreateQuizzActivity"
+            android:screenOrientation="portrait"
             />
 
 
-        <activity android:name=".TestUuidActivity" />
+        <activity android:name=".TestUuidActivity"
+            android:screenOrientation="portrait"/>
 
         <activity android:name=".SplashSecondActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
 
         <activity android:name=".ForgotPassActivity"
-            android:windowSoftInputMode="stateHidden|adjustPan" />
+            android:windowSoftInputMode="stateHidden|adjustPan"
+            android:screenOrientation="portrait"/>
 
         <activity android:name=".ListQuizzActivity"
-            android:noHistory="true">
+            android:noHistory="true"
+            android:screenOrientation="portrait">
 
         </activity>
     </application>
